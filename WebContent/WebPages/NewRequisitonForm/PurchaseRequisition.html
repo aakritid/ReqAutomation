@@ -49,12 +49,12 @@ $("#datepicker").datepicker();
       
       <form action="#" method="POST" role="form">
       <div class="container">
-      <div class="container" id="initial" style="padding-below: 3px;">
+      <div class="container" id="initial" style="padding: 10px;">
       <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName"">Aakriti Dubey</label></div>
-      <div class="form-group">
-        <label class="col-sm-2 control-label" align="right">Job Code</label>
-        <div class="col-sm-5 selectContainer">
-            <select class="form-control" name="size">
+      <div class="col-sm-6 form-inline form-group pull-right">
+        <label class="col-sm-3 control-label" for="ddown">Job Code:</label>
+        <div class="form-inline selectContainer">
+            <select class="form-control" name="size" id="ddown">
                 <option value="">Job Code</option>
                 <option value="US13003">US13003 - Tigershark Rework</option>
                 <option value="US13004">US13004 - Tigershark MECR's</option>
