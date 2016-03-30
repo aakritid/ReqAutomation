@@ -32,7 +32,54 @@
   </head>
  
 <body>
+<?php
+session_start();
 
+$_SESSION["suggvendor"]=$_POST["suggvendor"];
+$_SESSION["JobCode"]=$_POST["JobCode"];
+$_SESSION["shipAddr"]=$_POST["shipAddr"];
+$_SESSION["bcs"]=$_POST["bcs"];
+$_SESSION["vendAddr"]=$_POST["vendAddr"];
+$_SESSION["attn"]=$_POST["attn"];
+$_SESSION["explain"]=$_POST["explain"];
+$_SESSION["phoneNum"]=$_POST["phoneNum"];
+$_SESSION["faxNum"]=$_POST["faxNum"];
+$_SESSION["daten"]=$_POST["daten"];
+$_SESSION["email"]=$_POST["email"];
+$_SESSION["shipMethod"]=$_POST["shipMethod"];
+
+if(isset($_POST["bugd"])){
+	$_SESSION["bugd"]=true;
+}
+else
+	$_SESSION["bugd"]=false;
+
+if(isset($_POST["nbug"])){
+	$_SESSION["nbug"]=true;
+}
+else
+	$_SESSION["nbug"]=false;
+
+if(isset($_POST["pind"])){
+	$_SESSION["pind"]=true;
+	$_SESSION["pinc"]=false;
+	$_SESSION["other"]=false;
+}
+else if(isset($_POST["pinc"])){
+	$_SESSION["pinc"]=true;
+	$_SESSION["pind"]=false;
+	$_SESSION["other"]=false;
+}	
+else if(isset($_POST["other"])){
+	$_SESSION["other"]=true;
+	$_SESSION["otherval"]=$_POST["otherval"];
+	$_SESSION["pind"]=false;
+	$_SESSION["pinc"]=false;
+
+}
+
+
+?>
   <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -59,6 +106,7 @@
       <div class="container" id="initial" style="padding-below: 3px;">
       <div class="col-sm-4"><label for="jobCode1">Job Code:</label><label id="jobCode1"">US13004 - Tigershark MECR's</label></div>
       <div class=" pull-right"><label for="remBudget">Remaining Budget:</label><label id="remBudget">$3,000</label></div>
+	  <form action="ReviewSubmit.php" method="post" role="form">
       <table class="table table-bordered" style="padding:10px" >
 		 <tbody>
 		 <thead>
@@ -107,11 +155,10 @@
 		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:</label><input class="form-control" type="text" placeholder="Reference Quote" id="refQuote"/></div>
 			 <div class="col-sm-3 pull-right"><label for="totalCost">Total Cost: $</label><label id="totalCost"></label></div>
 			 </div>
-		<div class="container">
-			  <ul class="pager">
-			    <li class="previous"><a href="PurchaseRequisition.php">Back</a></li>
-			    <li class="next"><a href="ReviewSubmit.html">Next</a></li>
-			  </ul>
+		<div>
+		<button class="btn btn-default pull-right" type="Submit">Next</button>
+			  </div>
+			</form>
 			  </div>
 			  </div>
 			  

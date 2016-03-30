@@ -54,7 +54,7 @@ $("#datepicker").datepicker();
       <div class="col-sm-6 form-inline form-group pull-right">
         <label class="col-sm-3 control-label" for="ddown">Job Code:</label>
         <div class="form-inline selectContainer">
-            <select class="form-control" name="size" id="ddown">
+            <select class="form-control" name="JobCode" id="ddown">
                 <option value="">Job Code</option>
                 <option value="US13003">US13003 - Tigershark Rework</option>
                 <option value="US13004">US13004 - Tigershark MECR's</option>
@@ -71,41 +71,44 @@ $("#datepicker").datepicker();
 			        <td colspan="2" class="col-sm-4"><label for="svendor">Suggested Vendor:</label> 
 			        <input type="text" class="form-control" id="svendor" name="suggvendor"/></td>
 			        <td class="col-sm-4"><label for="shipAddress">Shipping Address:</label> 
-			        <textarea class="form-control" rows="4" id="shipAddress"></textarea> </td>
-			        <td class="col-sm-4"> <div class="checkbox"><label class="checkbox-inline"><input type="checkbox" value="">Budgeted</label>
+			        <textarea class="form-control" rows="4" id="shipAddress" name="shipAddr"></textarea> </td>
+			        <td class="col-sm-4"> <div class="checkbox"><label class="checkbox-inline"><input type="checkbox" value="" name="bugd">Budgeted</label>
 						</div> 
-						<label for="bcs">BCS#:</label><input type="text" class="form-control" id="bcs"/></td>
+						<label for="bcs">BCS#:</label><input type="text" class="form-control" id="bcs" name="bcs"/></td>
 			      </tr>
 			      <tr>
 			        <td colspan="2" class="col-sm-4"><label for="vendorAddress">Address of Vendor:</label> 
-			        <textarea class="form-control" rows="4" id="vendorAddress"></textarea> </td>
+			        <textarea class="form-control" rows="4" id="vendorAddress" name="vendAddr"></textarea> </td>
 			        <td class="col-sm-4"><label for="attn">Attention:</label> 
-			        <input type="text" class="form-control" id="attn"/></td>
-			        <td class="col-sm-4"> <div class="checkbox"><label class="checkbox-inline"><input type="checkbox" value="">Non-Budgeted</label>
+			        <input type="text" class="form-control" id="attn" name="attn"/></td>
+			        <td class="col-sm-4"> <div class="checkbox"><label class="checkbox-inline"><input type="checkbox" value="" name="nbug">Non-Budgeted</label>
 						</div> 
-						<label for="explain">Explanation:</label><input type="text" class="form-control" id="explain"/></td>
+						<label for="explain">Explanation:</label><input type="text" class="form-control" id="explain" name="explain"/></td>
 			      </tr>
 			      <tr>
 			         <td class="col-sm-2"><label for="phoneNum">Phone Number:</label> 
-			        <input type="text" class="form-control" id="phoneNum"/></td>
+			        <input type="text" class="form-control" id="phoneNum" name="phoneNum"/></td>
 			        <td class="col-sm-2"><label for="faxNum">Fax Number:</label> 
-			        <input type="text" class="form-control" id="faxNum"/></td>
+			        <input type="text" class="form-control" id="faxNum" name="faxNum"/></td>
 			        <td class="col-sm-4 form-control" >
                 <label for="datepicker">Date Needed:</label>
                     <div class="input-group date" data-provide="datepicker">
-    <input type="text" class="form-control" id="datepicker"></div></td>
-			         <td rowspan ="2" class="col-sm-4"> <div class="row-sm-2 checkbox"><label><input type="checkbox" value="">PARI India Scope</label>
+    <input type="text" class="form-control" id="datepicker" name="daten"></div></td>
+			         <td rowspan ="2" class="col-sm-4"> 
+					  <div class="row-sm-2 radio">
+			         <label><input type="radio" name="scope" value="" name="pind">PARI India Scope</label>
 						</div> 
-						<div class="row-sm-2 checkbox"><label><input type="checkbox" value="">PARI Inc Scope</label>
+						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="" name="pinc">PARI Inc Scope</label>
 						</div>
-						<div class="row-sm-2 checkbox"><label><input type="checkbox" value="">Other</label><input type="text" class="form-control"/>
-						</div>  </td>
-			      </tr>
+						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="" name="other">Other</label><input type="text" class="form-control" name="otherval"/>
+						</div>
+					 </td>
+				</tr>
 			      <tr>
 			        <td colspan="2" class="col-sm-4"><label for="email">Email:</label> 
-			        <input type="email" class="form-control" id="email"/></td>
-			        <td class="col-sm-4"><label for="shipMethod">Shipping Method:</label> 
-			       <input type="text" class="form-control" id="shipMethod"/></td>
+			        <input type="email" class="form-control" id="email" name="email"/></td>
+			        <td class="col-sm-4"><label for="shipMethod" >Shipping Method:</label> 
+			       <input type="text" class="form-control" id="shipMethod" name="shipMethod"/></td>
 			        
 			      </tr>
 			    </tbody>
