@@ -59,24 +59,25 @@ if(isset($_POST["nbug"])){
 else
 	$_SESSION["nbug"]=false;
 
-if(isset($_POST["pind"])){
-	$_SESSION["pind"]=true;
-	$_SESSION["pinc"]=false;
-	$_SESSION["other"]=false;
+if(isset($_POST["scope"])){
+	 $selection= $_POST["scope"];
+	if($selection=="pind"){	 
+		$_SESSION["pind"]=true;
+		$_SESSION["pinc"]=false;
+		$_SESSION["other"]=false;
+	}
+	else if($selection=="pinc"){
+		$_SESSION["pinc"]=true;
+		$_SESSION["pind"]=false;
+		$_SESSION["other"]=false;
+		}	
+	else {
+		$_SESSION["other"]=true;
+		$_SESSION["otherval"]=$_POST["otherval"];
+		$_SESSION["pind"]=false;
+		$_SESSION["pinc"]=false;
+	}
 }
-else if(isset($_POST["pinc"])){
-	$_SESSION["pinc"]=true;
-	$_SESSION["pind"]=false;
-	$_SESSION["other"]=false;
-}	
-else if(isset($_POST["other"])){
-	$_SESSION["other"]=true;
-	$_SESSION["otherval"]=$_POST["otherval"];
-	$_SESSION["pind"]=false;
-	$_SESSION["pinc"]=false;
-
-}
-
 
 ?>
   <nav class="navbar navbar-default">

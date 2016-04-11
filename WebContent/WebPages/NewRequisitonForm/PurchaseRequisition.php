@@ -78,6 +78,7 @@ $("#datepicker").datepicker();
 							<option value="US14006">US14006 - Tigershark Spares </option>
 						</select>
 					</div>
+					</td>
 			        <td class="col-sm-4"><label for="shipAddress">Shipping Address:</label> 
 			        <textarea class="form-control" rows="4" id="shipAddress" name="shipAddr"></textarea> </td>
 			        <td class="col-sm-4"> <div class="checkbox"><label class="checkbox-inline"><input type="checkbox" value="" name="bugd">Budgeted</label>
@@ -104,11 +105,11 @@ $("#datepicker").datepicker();
     <input type="text" class="form-control" id="datepicker" name="daten"></div></td>
 			         <td rowspan ="2" class="col-sm-4"> 
 					  <div class="row-sm-2 radio">
-			         <label><input type="radio" name="scope" value="" name="pind">PARI India Scope</label>
+			         <label><input type="radio" name="scope" value="pind" >PARI India Scope</label>
 						</div> 
-						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="" name="pinc">PARI Inc Scope</label>
+						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="pinc">PARI Inc Scope</label>
 						</div>
-						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="" name="other">Other</label><input type="text" class="form-control" name="otherval"/>
+						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="other">Other</label><input type="text" class="form-control" name="otherval"/>
 						</div>
 					 </td>
 				</tr>
