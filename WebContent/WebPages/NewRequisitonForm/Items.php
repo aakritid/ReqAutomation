@@ -13,20 +13,23 @@
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script>
   $(document).ready(function(){
-      var i=1;
+      var i=0;
      $("#addItem").click(function(){
+		 i++; 
       $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"'  placeholder='Quantity' class='form-control'/></td>" +
     		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"'  placeholder='Unit Price' class='form-control'/></td>" +
-    		  "<td><label id='total"+i+"' class='form-control'>$</label></td> <td><p id='del"+i+"' class='delete' > <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
+    		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$' /></td> <td><p id='del"+i+"' class='delete' > <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
 
       $('#itemTable').append("<tr id='itemDesc"+(i+1)+"'></tr>");
-      i++; 
+      document.getElementById("vals").value=i;
+	  
   });
      
      $(".delete").click(function(){
     	var id=$(this).attr('id').charAt(3);
     	$('#itemDesc'+id).html('');
 	 });
+	 
   });
   </script>
   </head>
@@ -140,7 +143,7 @@ if(isset($_POST["scope"])){
 				<input type="text" name='unitPrice0'  placeholder='Price' class="form-control"/>
 			</td>
 			<td>
-				<label id="total0" class="form-control">$</label>
+				<input type="text" id="total0" name='total0' class="form-control" value="$" readonly />
 			</td>
 			<td>
 			<p id='del0'  class="delete"><span class="glyphicon glyphicon-remove" title="Delete Row" style='cursor:pointer' ></span></p>
@@ -152,15 +155,16 @@ if(isset($_POST["scope"])){
 		</table>
 		<div class="form-inline container"><a id="addItem" class="btn btn-default pull-left">Add Item</a>
 		</div>
-		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:</label><input class="form-control" type="text" placeholder="Reference Quote" id="refQuote"/></div>
+		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:</label><input class="form-control" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote"/></div>
 			 <div class="col-sm-3 pull-right"><label for="totalCost">Total Cost: $</label><label id="totalCost"></label></div>
 			 </div>
-		<div>
+		<div><input type="text" id="vals" name="vals" hidden value="0" />
 		<button class="btn btn-default pull-right" type="Submit">Next</button>
 			  </div>
 			</form>
 			  </div>
 			  </div>
+			
 			  
 		
 		
