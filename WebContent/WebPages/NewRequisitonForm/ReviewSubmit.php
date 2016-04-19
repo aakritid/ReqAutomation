@@ -9,21 +9,6 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <script>
-  
-  /*$(document).ready(function(){
-	  var trows= document.getElementById("vals");
-	  <?php 
-	    $cnt=1; ?>
-	  for(var i=1;i<=trows; i++){
-		   $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"' class='form-control' readonly value='<?php echo json_encode($_SESSION['row'.$cnt][0])?>' /> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"'  placeholder='Quantity' class='form-control'/></td>" +
-    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"'  placeholder='Unit Price' class='form-control'/></td>" +
-    		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$' /></td> <td><p id='del"+i+"' class='delete' > <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
-
-      $('#itemTable').append("<tr id='itemDesc"+(i+1)+"'></tr>");
-	  }
-  }*/
-  </script>
   
 </head>
 
@@ -178,37 +163,36 @@
 		 	</tr>
 		</thead>
 		<tbody id="itemTable">
-		
-			<tr id="itemDesc0">
-			
-			
+		  <?php
+		   $rs=$_POST["vals"];
+			for($rows=0; $rows<=$rs; $rows++){
+		  ?>
+			<tr id="<?php echo 'itemDesc'.$rows ?>">
+						
 			<td>
-				<input type="text" name='itemNo0'  placeholder='Item #' class="form-control" readonly value="<?php echo $_SESSION["row0"][0]?>"/>
+				<input type="text" placeholder='Item #' class="form-control" readonly value="<?php echo $_SESSION["row".$rows][0]?>"/>
 			</td>
 			<td>
-				<textarea name='item0'  rows="2" placeholder='Item Description' class="form-control" readonly><?php echo $_SESSION["row0"][1]?></textarea>
+				<textarea  rows="2" placeholder='Item Description' class="form-control" readonly><?php echo $_SESSION["row".$rows][1]?></textarea>
 			</td>
 			<td>
-				<input type="text" name='quant0'  placeholder='Quantity' class="form-control" readonly value="<?php echo $_SESSION["row0"][2]?>" />
+				<input type="text" name='quant0'  placeholder='Quantity' class="form-control" readonly value="<?php echo $_SESSION["row".$rows][2]?>" />
 			</td>
 			<td>
-				<input type="text" name='unit0'  placeholder='Unit' class="form-control" readonly value="<?php echo $_SESSION["row0"][3]?>" />
+				<input type="text" name='unit0'  placeholder='Unit' class="form-control" readonly value="<?php echo $_SESSION["row".$rows][3]?>" />
 			</td>
 			<td>
-				<input type="text" name='unitPrice0'  placeholder='Price' class="form-control" readonly value="<?php echo $_SESSION["row0"][4]?>" />
+				<input type="text" name='unitPrice0'  placeholder='Price' class="form-control" readonly value="<?php echo $_SESSION["row".$rows][4]?>" />
 			</td>
 			<td>
-				<input type="text" id="total0" name='total0' class="form-control" value="$" readonly value="<?php echo $_SESSION["row0"][5]?>" />
+				<input type="text" id="total0" name='total0' class="form-control" value="$" readonly value="<?php echo $_SESSION["row".$rows][5]?>" />
 			</td>
 					
 			</tr>
 			 
-			<tr id="itemDesc1"></tr>
+			
 			<?php
-				for($rows=1; $rows<=$rs; $rows++){
-					
-				}
-				
+			}				
 			?>
 			
 		</tbody>
