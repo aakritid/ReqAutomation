@@ -35,6 +35,7 @@
 		$_SESSION["row".$rows]=$tabRow;
 	}
 	$_SESSION["refQuote"]=$_POST{"refQuote"};
+	$_SESSION["totalCost"]= $_POST["totalCost1"];
 ?>
       <div class="container">
       <div class="container " >
@@ -183,7 +184,7 @@
 				<input type="text" name='unitPrice0'  placeholder='Price' class="form-control" readonly value="<?php echo $_SESSION["row".$rows][4]?>" />
 			</td>
 			<td>
-				<input type="text" id="total0" name='total0' class="form-control" value="$" readonly value="<?php echo $_SESSION["row".$rows][5]?>" />
+				<input type="text" id="total0" name='total0' class="form-control"  readonly value="<?php echo $_SESSION["row".$rows][5]?>" />
 			</td>
 					
 			</tr>
@@ -191,9 +192,13 @@
 			<?php
 			}				
 			?>
-			
-		</tbody>
-		</table>
+			</tbody>
+			</table>
+			<div class="container">
+			<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:</label><input class="form-control" name="refQuote" type="text" id="refQuote" readonly value="<?php echo $_SESSION["refQuote"]?>" /></div>
+			 <div class="col-sm-3 pull-right"><label id="totalCost">Total Cost:   $<?php echo $_SESSION["totalCost"]?></label></div>
+			</div>
+		
 			  <button class="btn btn-default pull-right" type="Submit">Submit</button> 
 		</div>
 		</form> 

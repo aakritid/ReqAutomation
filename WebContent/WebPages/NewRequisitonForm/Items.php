@@ -12,13 +12,14 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script>
+   var i=0;
   $(document).ready(function(){
-      var i=0;
+     
      $("#addItem").click(function(){
 		 i++; 
-      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"'  placeholder='Quantity' class='form-control'/></td>" +
-    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"'  placeholder='Unit Price' class='form-control'/></td>" +
-    		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$' /></td> <td><p id='del"+i+"' class='delete' > <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
+      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control' onchange='totalCalc()'/></td>" +
+    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Unit Price' class='form-control' onchange='totalCalc()'/></td>" +
+    		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$0' /></td> <td><p id='del"+i+"' class='delete' > <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
 
       $('#itemTable').append("<tr id='itemDesc"+(i+1)+"'></tr>");
       document.getElementById("vals").value=i;
@@ -29,8 +30,26 @@
     	var id=$(this).attr('id').charAt(3);
     	$('#itemDesc'+id).html('');
 	 });
-	 
+	 	 
   });
+  function totalCalc(){
+	  var x = document.getElementById("quant"+i).value;
+	var y = document.getElementById("unitPrice"+i).value;
+    document.getElementById("total"+i).value = "$" + x*y;
+	
+	if(x*y!=0){
+	var tot=0;
+	 for(var ct=0;ct<=i;ct++){
+		 var value=document.getElementById("total"+ct).value;
+		 value= value.substring(1,value.length);
+		 value=Number(value);
+		 tot=tot+value;
+	 }
+	 document.getElementById('totalCost').innerHTML=tot;
+	 document.getElementById('tc1').value=tot;
+	}
+}
+ 
   </script>
   </head>
  
@@ -118,7 +137,7 @@ if(isset($_POST["scope"])){
 		 	<th class="col-sm-5 text-center"> Item Description (include note & quote number)</th>
 		 	<th class="col-sm-1 text-center"> Quantity</th>
 		 	<th class="col-sm-1 text-center"> Unit</th>
-		 	<th class="col-sm-1 text-center">Unit Price</th>
+		 	<th class="col-sm-1 text-center">Unit Price ($)</th>
 		 	<th class="col-sm-2 text-center">Total</th>
 		 	<th class=" text-center"></th>
 		 </tr>
@@ -134,16 +153,16 @@ if(isset($_POST["scope"])){
 				<textarea name='item0'  rows="2" placeholder='Item Description' class="form-control"></textarea>
 			</td>
 			<td>
-				<input type="text" name='quant0'  placeholder='Quantity' class="form-control"/>
+				<input type="text" name='quant0'  placeholder='Quantity' id="quant0" class="form-control" onchange="totalCalc()"/>
 			</td>
 			<td>
 				<input type="text" name='unit0'  placeholder='Unit' class="form-control"/>
 			</td>
 			<td>
-				<input type="text" name='unitPrice0'  placeholder='Price' class="form-control"/>
+				<input type="text" name='unitPrice0'  placeholder='Price' id="unitPrice0" class="form-control" onchange="totalCalc()"/>
 			</td>
 			<td>
-				<input type="text" id="total0" name='total0' class="form-control" value="$" readonly />
+				<input type="text" id="total0" name='total0' class="form-control" value="$0" readonly onchange="sumTot()" />
 			</td>
 			<td>
 			<p id='del0'  class="delete"><span class="glyphicon glyphicon-remove" title="Delete Row" style='cursor:pointer' ></span></p>
@@ -156,7 +175,8 @@ if(isset($_POST["scope"])){
 		<div class="form-inline container"><a id="addItem" class="btn btn-default pull-left">Add Item</a>
 		</div>
 		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:</label><input class="form-control" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote"/></div>
-			 <div class="col-sm-3 pull-right"><label for="totalCost">Total Cost: $</label><label id="totalCost"></label></div>
+			 <div class="col-sm-3 pull-right"><label for="totalCost">Total Cost: $</label><label id="totalCost">0</label></div>
+			 <input type="text" name="totalCost1" id="tc1" hidden />
 			 </div>
 		<div><input type="text" id="vals" name="vals" hidden value="0" />
 		<button class="btn btn-default pull-right" type="Submit">Next</button>
