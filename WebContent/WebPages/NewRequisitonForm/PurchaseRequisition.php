@@ -189,7 +189,7 @@ function validate(){
 			        <td class="col-sm-4"><label for="shipMethod" >Shipping Method:<span class="reqd">*</span></label> 
 					<div id="smdiv" class="form-inline selectContainer">
 						<select class="form-control" name="shipMethod" id="shipMethod">
-							<option value="">Suggested Vendor</option>
+							<option value="">Shipping Method</option>
 							<option value="FedEx">FedEx</option>
 							<option value="Freight">Freight</option>
 							<option value="UPS">UPS</option>
