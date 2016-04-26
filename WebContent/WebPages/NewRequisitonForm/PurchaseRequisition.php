@@ -121,8 +121,8 @@ function validate(){
       <div class="container">
       <div class="container" id="initial" style="padding: 10px;">
       <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName">Aakriti Dubey</label></div>
-      <div  class="col-sm-6 form-inline form-group pull-right">
-        <label class="col-sm-3 control-label" for="ddown">Job Code:</label>
+      <div  class="col-sm-5 form-inline form-group pull-right">
+        <label class="col-sm-3 control-label" for="ddown">Job Code:<span class="reqd">*</span></label>
         <div id="jobCodeDiv" class="form-inline selectContainer">
             <select class="form-control" name="JobCode" id="ddown">
                 <option value="">Job Code</option>
@@ -186,9 +186,19 @@ function validate(){
 			      <tr>
 			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Email:<span class="reqd">*</span></label> 
 			        <input type="email" class="form-control" id="email" name="email"/></td>
-			        <td id="smdiv" class="col-sm-4"><label for="shipMethod" >Shipping Method:<span class="reqd">*</span></label> 
-			       <input type="text" class="form-control" id="shipMethod" name="shipMethod"/></td>
-			        
+			        <td class="col-sm-4"><label for="shipMethod" >Shipping Method:<span class="reqd">*</span></label> 
+					<div id="smdiv" class="form-inline selectContainer">
+						<select class="form-control" name="shipMethod" id="shipMethod">
+							<option value="">Suggested Vendor</option>
+							<option value="FedEx">FedEx</option>
+							<option value="Freight">Freight</option>
+							<option value="UPS">UPS</option>
+							<option value="USPS">USPS</option>
+							<option value="UTI">UTI</option>
+							<option value="Your Truck">Your Truck</option>
+						</select>
+					</div>
+			       			        
 			      </tr>
 			    </tbody>
 			  </table>
