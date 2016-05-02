@@ -24,6 +24,22 @@ $("#datepicker").datepicker();
 
 });
 
+function vendorAddr(str){
+	if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("vendorAddress").value = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","vendAdrr.php?q="+str,true);
+        xmlhttp.send();
+}
 function validate(){
 	var err=0;
 	var form = document.forms["pDetails"];
@@ -93,7 +109,18 @@ function validate(){
 </script>
 </head>
 <body>
+<?php
 
+$servername = "localhost";
+$username = "root";
+$password = "pari123#";
+
+$conn = new mysqli($servername, $username, $password,"purchasereq");
+if (!$conn) {
+    die('Could not connect: ' . mysqli_error($conn));
+}
+
+?>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -126,10 +153,14 @@ function validate(){
         <div id="jobCodeDiv" class="form-inline selectContainer">
             <select class="form-control" name="JobCode" id="ddown">
                 <option value="">Job Code</option>
-                <option value="US13003 - Tigershark Rework">US13003 - Tigershark Rework</option>
-                <option value="US13004 - Tigershark MECR's">US13004 - Tigershark MECR's</option>
-                <option value="US14005 - Tigershark Warranty - India">US14005 - Tigershark Warranty - India</option>
-                <option value="US14006 - Tigershark Spares">US14006 - Tigershark Spares </option>
+				<?php
+					$query="SELECT jobcode FROM jobcode";
+					$result = $conn->query($query);
+					while ($row = $result->fetch_assoc()) {
+						echo "<option value='" . $row['jobcode'] . "'>" . $row['jobcode'] . "</option>";
+					}
+				?>
+                
             </select>
         </div>
     </div>
@@ -140,12 +171,16 @@ function validate(){
 			      <tr>
 			        <td colspan="2" class="col-sm-4"><label for="svendor">Suggested Vendor:<span class="reqd">*</span></label> 
 					<div id="svendordiv" class="form-inline selectContainer">
-						<select class="form-control" name="suggvendor" id="svendor">
+						<select class="form-control" name="suggvendor" id="svendor" onchange="vendorAddr(this.value)">
 							<option value="">Suggested Vendor</option>
-							<option value="US13003">US13003 - Tigershark Rework</option>
-							<option value="US13004">US13004 - Tigershark MECR's</option>
-							<option value="US14005">US14005 - Tigershark Warranty - India</option>
-							<option value="US14006">US14006 - Tigershark Spares </option>
+							<option value="new">New Vendor</option>
+							<?php
+								$query="SELECT * FROM vendor";
+								$result = $conn->query($query);
+								while ($row = $result->fetch_assoc()) {
+									echo "<option value='" . $row['VendorName'] . "'>" . $row['VendorName'] . "</option>";
+								}
+							?>
 						</select>
 					</div>
 					</td>
@@ -208,7 +243,9 @@ function validate(){
 			  </div>
 			  </form>
 			</div>
-			
+			<?php
+				$conn->close();
+			?>
   
      </body>
 </html>
