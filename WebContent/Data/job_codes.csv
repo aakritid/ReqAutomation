@@ -1,0 +1,317 @@
+PIP150xxxxxxx,New Job Created for each new PO received
+US13003 - Tigershark Rework,INDIA Rework related to manufacturing issues (100/0)
+US13004 - Tigershark MECR's,"INC, all new changes should have own job code"
+US14005 - Tigershark Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US14006 - Tigershark Spares,INC
+US14044AA - TS OP97 India Procurement,INDIA  Additional Material or Personnel Support Required
+US14044AB - TS OP97 India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US14044AC - TS OP97 India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US14044BA - TS OP97 Sales Commission,INC  Code for Commissions
+US14044BB - TS OP97 Inc Project Mgmt,INC  Code for Project Mgmt Hours
+US14044BC - TS OP97 Inc Warranty,"INC  Warranty (support labor, application software help)"
+US14044BD - TS OP97 Inc Install,INC  Portion of LABOR at customer site (see budget)
+US14044BE - TS OP97 Inc Prod Support,INC  Portion of production support on CPO
+US14052 - Tigershark Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+US15006AA - TS PSU Retool India Procuremt,INDIA  Additional Material or Personnel Support required
+US15006AB - TS PSU India Rework,INDIA Rework related to manufacturing (Material & Labor)
+US15006AC - TS PSU India Warranty,"INDIA Warranty (material or design defects, software bugs)"
+US15006BA - TS PSU Sales Commission,INC Code for Commissions
+US15006BB - TS PSU Retool Project Mgmt,INC  Code for Project Mgmt Hours
+US15006BC - TS PSU Inc Warranty,"INC Warranty (support labor, application software help)"
+US15006BD - TS PSU Inc Install,INC Portion of LABOR at customer site (see budget)
+US15006BE - TS PSU Inc Prod Support,INC Portion of production support on CPO
+US15006BF - TS PSU Drip Pan RMC Transfer,INC  Cost of Drip Pan MATERIAL only; Budget very limited
+US15015AA - OP107/117 India Procurement,INDIA  Additional Material or Personnel Support required
+US15015AB - OP107/117 India Rework,INDIA Rework related to manufacturing (Material & Labor)
+US15015AC - OP107/117 India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15015BA - OP107/117 Sales Commissions,INC Code for Commissions
+US15015BB - OP107/117 INC Project Managmt,INC  Code for Project Mgmt Hours
+US15015BC - OP107/117 INC Warranty,"INC Warranty (support labor, application software help)"
+US15015BD - OP107/117 INC Integration,INC  Integration & Run Off at PARI US (INACTIVE / NA)
+US15015BE - OP107/117 Inc Install at Site,INC  Portion of LABOR at customer site (see budget)
+US15015BF - OP107/117 INC Production Supp,INC  Portion of production support on CPO
+US15015BG - OP107/117 RMC INC material,INC  Cost of scheduled MATERIAL only; Budget very limited
+SP14006 - Tipton Spare Parts,INC Tipton Spare Part Orders for INC (0/100)
+US13012 - Tipton India Procurement,Known purchases on behalf of India (100/0) w Purchase Req
+US13013 - Tipton Change Order MECR,"General Time Only, all CPO's will be assigned own new code"
+US13033 - Tipton Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US13035 - India Personnel Support Tipton,INDIA - Bill back for supporting their staff (100/0)
+US14030 - Tipton Install General (Inc),INC Costs ONLY for Install unable to split by system
+US14036A - S5-P3 Sales Commissions,INC code for Commissions
+US14036B - S5-P3 Inc Project Management,INC code for Project Mgmt Hours
+US14036E - S5-P3 Install at Tipton-Inc,"INC portion of labor only, at customer site (see budget)"
+US14036N - S5-P3 India Procurement,INDIA unplanned additional material required
+US14036P - S5-P3 Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14036Q - S5-P3 Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14036S - S5-P3 India Personnel-Tipton,INDIA costs related their personnel here for Install
+US14037A - S1-P3 Sales Commissions,INC code for Commissions
+US14037B - S1-P3 Inc Project Management,INC code for Project Mgmt Hours
+US14037E - S1-P3 Install at Tipton-Inc,"INC portion of labor only, at customer site (see budget)"
+US14037K - S1-P3 India Procure Unplanned,INDIA unplanned additional material required
+US14037L - S1-P3 Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14037M - S1-P3 Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14037P - S1-P3 India Personnel-Tipton,INDIA costs related their personnel here for Install
+US14038A - S3-P2 Sales Commissions,INC code for Commissions
+US14038B - S3-P2 Inc Project Management,INC code for Project Mgmt Hours
+US14038F - S3-P2 Install at Tipton-Inc,"INC portion of labor only, at customer site (see budget)"
+US14038G - S3-P2 Project Engineering RH,INC Project Engineering at Rochester Hills (*)
+US14038H - S3-P2 Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14038J - S3-P2 Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14038K - S3-P2 India Personnel-Tipton,INDIA costs related their personnel here for Install
+US14039A - S3-P3 Sales Commissions,INC code for Commissions
+US14039B - S3-P3 Inc Project Management,INC code for Project Mgmt Hours
+US14039F - S3-P3 Install at Tipton-Inc,"INC portion of labor only, at customer site (see budget)"
+US14039G - S3-P3 Project Engineering RH,INC Project Engineering at Rochester Hills (*)
+US14039H - S3-P3 Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14039J - S3-P3 Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14039K - S3-P3 India Personnel-Tipton,INDIA costs related their personnel here for Install
+US14053 - Tipton Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+SRV15004 - Trenton Flex Service 2015-16,INC Service Calls Billable to Customer
+US12009 - Flex Manufacturing Rework,INDIA Rework related to manufacturing (Material & Labor)
+US12010 - Trenton Flex Line MECR's,"General only, all CPO's will be assigned own new code"
+US13005 - Trenton Flex Install,"INC scope only - for setup at Customer site (0/100) Does not include material, material = India"
+US13009 - Trenton Flex Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US14019 - Trenton Production Support,*INC
+US14024 - Trenton Vacuum Station,"**INDIA scope Material, Rework, all / **INC only I & C"
+US14025 - Trenton GME India,"INDIA Scope: Engineering & Build, Shipping, Docs"
+US14026 - Trenton GME Inc,"INC Scope: Install & Comm, Project Mgmt"
+US14027 - Trenton GME Rework,"INDIA For damaged, missing or not fitting material"
+US14043 - Trenton Oil Hole Check Station,INC related to PO 80524003 Only
+US14055 - Trenton Flex Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+SP15001 - Crystal Sugar Spares 2015-16,INC Spare Parts
+SP14001 - Fanuc Spares 2014-15,INC Spare Parts (thru India)
+SP15002 - Fanuc Spares 2015-16,INC Spare Parts (thru India)
+US15007AA - Ferrari Block India Procuremt,INDIA  Additional Material or Personnel Support Required
+US15007AB - Ferrari India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15007AC - Ferrari India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15007BA - Ferrari Sales Commission,INC  Code for Commissions
+US15007BB - Ferrari Inc Project Mgmt,INC  Code for Project Mgmt Hours
+US15007BC - Ferrari Inc Warranty,"INC Warranty (support labor, application software help)"
+US15007BD - Ferrari Inc Install,INC  Portion of LABOR at customer site (see budget)
+US15007BE - Ferrari Inc Prod Support,INC  Portion of production support on CPO
+US15007BF - Ferrari Telesis RMC Transfer,INC  Cost of Telesis Order ONLY MATERIAL
+US15007BG - Ferrari ASI RMC Transfer,INC  Cost of ASI Order ONLY MATERIAL
+US15007BH - Ferrari Inc Integration Cost,INC  Portion of costs to Integrate prior to Customer Site
+US15008AA - GMET Head India Procurement,INDIA  Additional Material or Personnel Support Required
+US15008AB - GMET Head India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15008AC - GMET Head India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15008BA - GMET Head Sales Commission,INC  Code for Commissions
+US15008BB - GMET Head Inc Project Mgmt,INC  Code for Project Mgmt Hours
+US15008BC - GMET Head Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15008BD - GMET Head Inc Install,INC  Portion of LABOR at customer site (see budget)
+US15008BE - GMET Head Inc Prod Support,INC  Portion of production support on CPO
+US15008BF - GMET Head Telesis RMC Transfe,INC  Cost of Telesis Order ONLY MATERIAL
+US15008BG - GMET Head ASI RMC Transfe,INC  Cost of ASI Order ONLY MATERIAL
+US15008BH - GMET Head Inc Integration,INC  Portion of costs to Integrate prior to Customer Site
+US15009AA - GMET Block India Procurement,INDIA  Additional Material or Personnel Support Required
+US15009AB - GMET Block India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15009AC - GMET Block India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15009BA - GMET Block Sales Commission,INC  Code for Commissions
+US15009BB - GMET Block Inc Project Mgmt,INC  Code for Project Mgmt Hours
+US15009BC - GMET Block Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15009BD - GMET Block Inc Install,INC  Portion of LABOR at customer site (see budget)
+US15009BE - GMET Block Inc Prod Support,INC  Portion of production support on CPO
+US15009BF - GMET Block Telesis RMC Transf,INC  Cost of Telesis Order ONLY MATERIAL
+US15009BG - GMET Block ASI RMC Transfer,INC  Cost of ASI Order ONLY MATERIAL
+US15009BH - GMET Block Inc Integration,INC  Portion of costs to Integrate prior to Customer Site
+US15010AA - GMET Crank India Procurement,INDIA  Additional Material or Personnel Support Required
+US15010AB - GMET Crank India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15010AC - GMET Crank India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15010BA - GMET Crank Sales Commission,INC  Code for Commissions
+US15010BB - GMET Crank Inc Project Mgmt,INC  Code for Project Mgmt Hours
+US15010BC - GMET Crank Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15010BD - GMET Crank Inc Install,INC  Portion of LABOR at customer site (see budget)
+US15010BE - GMET Crank Inc Prod Support,INC  Portion of production support on CPO
+US15010BF - GMET Crank Telesis RMC Trans,INC  Cost of Telesis Order ONLY MATERIAL
+US15010BG - GMET Crank INC Integration,INC  Portion of costs to Integrate prior to Customer Site
+SRV15001 - Essex Service Calls 2015-16,INC Service Calls Billable to Customer
+US110028 - Warranty - Support Coyote,INDIA warranty related to original system
+US12005 - Spare Parts Ford Essex,INC Spare Parts
+US14050AA - Expansion India Procurement,INDIA additional material/labor required (US14050G) & their personnel (US14050K)
+US14050AB - Expansion Rework Material,INDIA Rework related to manufacturing Material / Labor (US14050H / US14050J)
+US14050AC - Expansion Warranty - India,"INDIA Warranty (Material or design defects, software bugs) (US14050W)"
+US14050BA - Expansion Sales Commissions,INC code for Commissions (US14050A)
+US14050BB - Expansion Inc Project Mgmt,INC code for Project Mgmt Hours (US14050B)
+US14050BC - Expansion Warranty - Inc,"INC Warranty (Support labor, Application software help) (US14050X)"
+US14050BD - Expansion Inc Install & Comis,"INC portion of labor, at customer site (see budget) (US14050C)"
+US14050BE - Expansion Inc Prod Support,INC  Portion of production support on CPO
+US14051AA - Essex Retool India Procuremnt,INDIA additional material/labor required (US14051G) & their personnel (US14051K)
+US14051AB - Essex Retool Rework Material,INDIA Rework related to manufacturing Material / Labor (US14051H / US14051J)
+US14051AC - Essex Retool Warranty - India,"INDIA Warranty (Material or design defects, software bugs) (US14051W)"
+US14051BA - Essex Retool Sales Commission,INC code for Commissions (US14051A)
+US14051BB - Essex Retool Inc Project Mgmt,INC code for Project Mgmt Hours (US14051B)
+US14051BC - Essex Retool Warranty - Inc,"INC Warranty (Support labor, Application software help) (US14051X)"
+US14051BD - Essex Retool Inc Install &Com,"INC portion of labor only, at customer site (see budget) (US14051C)"
+US14051BE - Essex Retool Inc Prod Support,INC  Portion of production support on CPO
+US14002 - FORD India - Dragon Crank,INDIA
+US14018 - Ford Dragon Key Press Machine,INDIA
+US14020 - FORD India - Dragon Crank - Inc,INC
+US14041 - Ford Dragon India Proj Support,INDIA
+SRV15002 - Ford Lima Service 2015-16,INC Service Calls Billable to Customer
+US12002 - Install Nano Crank,INC Install Billable to Customer.  Material goes to different code
+US12004 - Repair Manufacturing Quality,INDIA Rework related to manufacturing (Material & Labor)
+US12011 - Ford Lima Nano OCR's,"INC General Time Only, all CPO's will be assigned own new code"
+US13014 - Ford Lima Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US13034 - Ford Lima Spare Parts,INC Spare Parts
+US14056 - Ford Lima Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+US15014AA - OP130 Retool India Procuremnt,INDIA  Additional Material or Personnel Support required
+US15014AB - OP130 Retool India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15014AC - OP130 Retool India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15014BA - OP130 Retool Sales Commission,INC  Code for Commissions
+US15014BB - OP130 Retool Project Mgmt,INC  Code for Project Mgmt Hours
+US15014BC - OP130 Retool Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15014BD - OP130 Retool Inc Install,"INC  Portion of LABOR, at customer site (see budget)"
+US15014BE - OP130 Retool Inc Prod Support,INC  Portion of production support on CPO
+US14040AA - Dragon Crank India Procuremnt,INDIA additional material/labor required (US14040G) & their personnel (US14040K)
+US14040AB - Dragon Crank Rework Material,INDIA Rework related to manufacturing Material / Labor (US14040H / US14040J)
+US14040AC - Dragon Crank Warranty - India,"INDIA Warranty (Material or design defects, software bugs) (US14040W)"
+US14040BA - Dragon Crank Sales Commission,INC code for Commissions (US14040A)
+US14040BB - Dragon Crank Inc Project Mgmt,INC code for Project Mgmt Hours (US14040B)
+US14040BC - Dragon Crank Warranty - Inc,"INC Warranty (Support labor, Application software help) (US14040X)"
+US14040BD - Dragon Crank Inc Install &Com,"INC portion of labor only, at customer site (see budget) (US14040C)"
+US14049AA - Dragon KP1 India Procurement,INDIA additional material/labor required (US14049G) & their personnel (US14049K)
+US14049AB - Dragon KP1 Rework Material,INDIA Rework related to manufacturing Material / Labor (US14049H / US14049J)
+US14049AC - Dragon KP1 Warranty - India,"INDIA Warranty (Material or design defects, software bugs) (US14049W)"
+US14049BA - Dragon KP1 Sales Commission,INC code for Commissions (US14049A)
+US14049BB - Dragon KP1 Inc Project Mgmt,INC code for Project Mgmt Hours (US14049B)
+US14049BC - Dragon KP1 Warranty - Inc,"INC Warranty (Support labor, Application software help) (US14049X)"
+US14049BD - Dragon KP1 Inc Install & Comm,"INC portion of labor only, at customer site (see budget) (US14049C)"
+SP15008 - FMCSA Spares 2015-16,INC  Spare Parts Orders for Fiscal Year 2015-16
+US15005AA - Sterling P1 India Procurement,INDIA  Additional Material or Personnel Support required
+US15005AB - Sterling P1 India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15005AC - Sterling P1 India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15005BA - Sterling P1 Sales Commission,INC  Code for Commissions
+US15005BB - Sterling P1 Project Mgmt,INC  Code for Project Mgmt Hours
+US15005BC - Sterling P1 Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15005BD - Sterling P1 Inc Install,"INC  Portion of LABOR only, at customer site (see budget)"
+US15005BE - Sterling P1 Inc Prod Support,INC  Portion of production support on CPO
+US15005BF - Sterling P1 Integration @ RH,INC  Integration & Run Off at PARI Rochester Hills
+US15005CA - Sterling P1 Adder Camera OCR,INDIA   Adder for Camera Upgrade Material & Engineering
+US15005CB - Sterling P1 + INC Trial Parts,INC  Adder for Trial Parts Cleaning Shores & Ship to India Budget
+US15011AA - Sterling P2 India Procurement,INDIA  Additional Material or Personnel Support required
+US15011AB - Sterling P2 India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15011AC - Sterling P2 India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15011BA - Sterling P2 Sales Commission,INC  Code for Commissions
+US15011BB - Sterling P2 Project Mgmt,INC  Code for Project Mgmt Hours
+US15011BC - Sterling P2 Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15011BD - Sterling P2 Inc Install,"INC  Portion of LABOR only, at customer site (see budget)"
+US15011BE - Sterling P2 Inc Prod Support,INC  Portion of production support on CPO
+US15011BF - Sterling P2 Inc Integration,INC  Portion of costs to Integrate prior to Customer Site
+SP15003 - GKN Land Spares 2015-16,INC Spare Parts
+SP14005 - Ford GPM Spares 2014-15,INC Spare Parts for Ford (may be thru India)
+SP15004 - Ford GPM Spares 2015-16,INC Spare Parts for Ford (may be thru India)
+US14045A - Test Cell Sales Commissions,INC code for Commissions
+US14045B - Test Cell Inc Project Mgmt,INC code for Project Mgmt Hours
+US14045C - Test Cell Inc Install & Commis,"INC portion of labor only, at customer site (see budget)"
+US14045G - Test Cell India Procurement,INDIA additional material required
+US14045H - Test Cell Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14045J - Test Cell Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14045K - Test Cell India Personnel Supp,INDIA costs related their personnel here in US
+US14045L - Heller Test Cell Trial Parts,
+US14045W - Test Cell Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US14045X - Test Cell Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+US15012AA - MVB Cell India Procurement,INDIA  Additional Material or Personnel Support required
+US15012AB - MVB Cell India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15012AC - MVB Cell India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15012BA - MVB Cell Sales Commission,INC  Code for Commissions
+US15012BB - MVB Cell Project Mgmt,INC  Code for Project Mgmt Hours
+US15012BC - MVB Cell Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15012BD - MVB Cell Inc Install,"INC  Portion of LABOR, at customer site (see budget)"
+US15012BE - MVB Cell Inc Prod Support,INC  Portion of production support on CPO
+US15012CA - MVB Cell Shipping Robots,TBD
+US14046A - 6F Case Sales Commissions,INC code for Commissions
+US14046B - 6F Case Inc Project Mgmt,INC code for Project Mgmt Hours
+US14046C - 6F Case Inc Install & Commis,"INC portion of labor only, at customer site (see budget)"
+US14046G - 6F Case India Procurement,INDIA additional material required
+US14046H - 6F Case Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14046J - 6F Case Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14046K - 6F Case India Personnel Suppor,INDIA costs related their personnel here in US
+US14046W - 6F Case Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US14046X - 6F Case Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+US14047A - 6F Converter Sales Commissions,INC code for Commissions
+US14047B - 6F Converter Inc Project Mgmt,INC code for Project Mgmt Hours
+US14047C - 6F Converter Inc Install & Com,"INC portion of labor only, at customer site (see budget)"
+US14047G - 6F Converter India Procurement,INDIA additional material required
+US14047H - 6F Converter Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14047J - 6F Converter Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14047K - 6F Converter India Personnel S,INDIA costs related their personnel here in US
+US14047W - 6F Converter Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US14047X - 6F Converter Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+US14048A - 6F MVB Sales Commissions,INC code for Commissions
+US14048B - 6F MVB Inc Project Mgmt,INC code for Project Mgmt Hours
+US14048C - 6F MVB Inc Install & Commis,"INC portion of labor only, at customer site (see budget)"
+US14048G - 6F MVB India Procurement,INDIA additional material required
+US14048H - 6F MVB Rework Material,INDIA Rework MATERIAL ONLY related to manufacturing
+US14048J - 6F MVB Rework Labor,INDIA Rework LABOR ONLY related to manufacturing
+US14048K - 6F MVB India Personnel Support,INDIA costs related their personnel here in US
+US14048W - 6F MVB Warranty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US14048X - 6F MVB Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+SP15005 - IMS Spares 2015-16,INC Spare Parts
+US09054*INC*ABA Grinder Automation,INC scope of Caterpillar ABA Grinder Project
+US09054*INDIA*ABA Grinder,INDIA scope of Caterpillar ABA Grinder Project
+US15001 - IMS Caterpillar Warrty - India,"INDIA Warranty (Material or design defects, software bugs)"
+US15002 - IMS Caterpillar Warranty - Inc,"INC Warranty (Support labor, Application software help)"
+US11019 - Mag-Ford- IEP#2 Block Line,INDIA
+US11020 - Mag/Ford IEP#2 Cylinder Head,INDIA
+US13015 - MAG India - Dragon Head,INDIA
+US13016 - MAG India - Dragon Block,INDIA
+US14003 - MAG India - Dragon OCRs,INDIA
+US14021 - MAG India - Dragon Head - Inc,INC
+US14022 - MAG India - Dragon Block - Inc,INC
+US14042 - MAG Dragon India Proj Support,INDIA
+US15003AA - MAG Block India Procurement,INDIA  Additional Material or Personnel Support required
+US15003AB - MAG Block India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15003AC - MAG Block India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15003BA - MAG Block Sales Commission,INC  Code for Commissions
+US15003BB - MAG Block Project Mgmt,INC  Code for Project Mgmt Hours
+US15003BC - MAG Block Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15003BD - MAG Block Inc Install,"INC  Portion of LABOR only, at customer site (see budget)"
+US15003BE - MAG Block Inc Prod Support,INC  Portion of production support on CPO
+US15003BF - MAG Block Inc Training,INC  Portion of training on CPO
+US15004AA - MAG Head India Procurement,INDIA  Additional Material or Personnel Support required
+US15004AB - MAG Head India Rework,INDIA  Rework related to manufacturing (Material & Labor)
+US15004AC - MAG Head India Warranty,"INDIA  Warranty (material or design defects, software bugs)"
+US15004BA - MAG Head Sales Commission,INC  Code for Commissions
+US15004BB - MAG Head Project Mgmt,INC  Code for Project Mgmt Hours
+US15004BC - MAG Head Inc Warranty,"INC  Warranty (support labor, application software help)"
+US15004BD - MAG Head Inc Install,"INC  Portion of LABOR only, at customer site (see budget)"
+US15004BE - MAG Head Inc Prod Support,INC  Portion of production support on CPO
+US15004BF - MAG Block Inc Training,INC  Portion of training on CPO
+SP15006 - Mahar Tool Spares 2015-16,INC Spare Parts (for Chrysler Projects)
+MA10001 - Medical Automation,INDIA
+US70014 - PARI India Support,"INDIA - I94/I539 extensions,"
+US70022 - India Sales Support,INDIA
+US70023 - India PIP Support,"INDIA CA related activities, RFQs, shipping, etc"
+US70024 - India Project Staff Support,"INDIA bill back for supporting their staff, not project related (100/0) Verizon"
+US70001 - Operations,"INC FIXED - Utilities, Office Supplies,"
+US70002 - General Mangment,INC FIXED - Management related
+US70003 - Accounting,"INC FIXED - Taxes, Banking, QB"
+US70004 - Administration,"INC FIXED - Luncheons, Birthdays, Pantry"
+US70005 - Unassigned,"INC FIXED - Undefined, Holiday"
+US70006 - Training,"INC FIXED - Classes, Books"
+US70007 - Proposal Engineering,INC FIXED - Bid related
+US70008 - Sales,INC FIXED - Sales related
+US70009 - Sales Support,INC FIXED - Costs for supporting existing customers
+US70010 - Build & Integration,INC FIXED - Related to Build in US
+US70011 - Shipping & Receiving,"INC FIXED - Time, Packing Supplies,"
+US70012 - Travel Unassisgned,INC FIXED - Return to India
+US70013 - Lost Time,INC FIXED - Delays
+US70015 - Spare - Sales,INC FIXED - Spare Sales related
+US70016 - Business Developement,INC FIXED - Business Improvements
+US70018 - Sales - New Business Devlpmt,INC FIXED - To generate new sales leads
+US70019 - Storage,INC FIXED - Storage Rent
+US70020 - Facility Maintenance,"INC FIXED - Repairs, Service Contracts"
+US70021 - IT Support,"INC FIXED - IT expenses, not software"
+US70025 - Human Resources,"INC FIXED - EE Related, Health Ins, ADP"
+US70026 - HR Process & System Development,INC FIXED - Process Development related
+US70027 - HR Immigration,INC FIXED - Our guys Visas & related
+US70028 - Software,INC FIXED - Software Licenses
+US70029 - Project Coordination Proposals,INC FIXED - Coordinator Time on Proposals
+US70030 - Project Coordination/Management,INC FIXED - Coordinator Time on Project Mgmt
+US70031 - Engineering Software Tool Devmt,INC FIXED - Development of new Software Tool
+SP15009 - PASCO Spares 2015-16,
+SP15007 - ZF Spares 2015-16,INC Spare Parts
+SRV14002 - ZF Support for Mule Build,INC - PO 470000330 Test Run Expenses
+SRV15003 - ZF Service 2015-16,INC Service Calls Billable to Customer
+US11018 - Warranty - Support ZF,INDIA - No longer in service?
+US15013 - ZF Pallet Rework 2015,INC scope related to the pallet rework CPO
