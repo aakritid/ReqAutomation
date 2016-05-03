@@ -26,8 +26,8 @@
      
      $("#addItem").click(function(){
 		 i++; 
-      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control' onchange='totalCalc()' onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode==46) '/></td>" +
-    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit Desc' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Price' class='form-control' onchange='totalCalc()' onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode==46) '/></td>" +
+      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control' onchange='totalCalc()' onkeypress='return numVal() '/></td>" +
+    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit Desc' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Price' class='form-control' onchange='totalCalc()' onkeypress='return numVal()'/></td>" +
     		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$0' /></td> <td><p id='del"+i+"' class='delete' > <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
 
       $('#itemTable').append("<tr id='itemDesc"+(i+1)+"'></tr>");
@@ -73,7 +73,14 @@
 	 }
 	}
 }
- 
+ function numVal(){
+	 if(!((event.charCode >= 48 && event.charCode <= 57) || (event.charCode==46)))
+	 {
+		 alert("Please enter numeric value");
+		 return false;
+	 }
+	 return true;
+ }
  function validate(){
 	 if(err==1){
 		 alert("The total cost for the requisition is exceeding the allocated budget for the Job Code.");
@@ -201,13 +208,13 @@ if (!$conn) {
 				<textarea name='item0'  rows="2" placeholder='Item Description' class="form-control"></textarea>
 			</td>
 			<td>
-				<input type="text" name='quant0'  placeholder='Quantity' id="quant0" class="form-control" onchange="totalCalc()" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode==46) '/>
+				<input type="text" name='quant0'  placeholder='Quantity' id="quant0" class="form-control" onchange="totalCalc()" onkeypress='return numVal()'/>
 			</td>
 			<td>
 				<input type="text" name='unit0'  placeholder='Unit Desc' class="form-control"/>
 			</td>
 			<td>
-				<input type="text" name='unitPrice0'  placeholder='Price' id="unitPrice0" class="form-control" onchange="totalCalc()" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || (event.charCode==46) '/>
+				<input type="text" name='unitPrice0'  placeholder='Price' id="unitPrice0" class="form-control" onchange="totalCalc()" onkeypress='return numVal()'/>
 			</td>
 			<td>
 				<input type="text" id="total0" name='total0' class="form-control" value="$0" readonly onchange="sumTot()" />
