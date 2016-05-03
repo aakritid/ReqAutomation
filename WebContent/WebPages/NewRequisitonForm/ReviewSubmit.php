@@ -22,6 +22,7 @@
       <li class="active"><a href="#">New Requisition</a></li>
       <li><a href="#">Submitted Requisitions</a></li>
       <li><a href="#">Approve Requests</a></li> 
+	  <li><a href="#">Budget Allocation</a></li> 
           </ul>
   </div>
 </nav>
@@ -154,9 +155,9 @@
 		 <thead>
 		 <tr>
 		 	<th class="col-sm-2 text-center"> Item # </th>
-		 	<th class="col-sm-5 text-center"> Item Description (include note & quote number)</th>
+		 	<th class="col-sm-4 text-center"> Item Description (include note & quote number)</th>
 		 	<th class="col-sm-1 text-center"> Quantity</th>
-		 	<th class="col-sm-1 text-center"> Unit</th>
+		 	<th class="col-sm-2 text-center"> Unit Description</th>
 		 	<th class="col-sm-1 text-center">Unit Price</th>
 		 	<th class="col-sm-2 text-center">Total</th>
 		 	</tr>
