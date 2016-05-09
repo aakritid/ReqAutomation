@@ -159,7 +159,7 @@ if (!$conn) {
       <li class="active"><a href="#">New Requisition</a></li>
       <li><a href="#">Submitted Requisitions</a></li>
       <li><a href="#">Approve Requests</a></li> 
-	  <li><a href="#">Budget Allocation</a></li> 
+	  <li><a href="BudgetAllocation.php">Budget Allocation</a></li> 
           </ul>
   </div>
 </nav>
