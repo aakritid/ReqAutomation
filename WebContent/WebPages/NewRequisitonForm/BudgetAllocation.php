@@ -78,6 +78,9 @@ if (!$conn) {
 		<button class="btn btn-default center" type="Submit">Set</button>
 		</form>
 </div>
+<?php
+$conn->close();
+?>
 </body>
 </head>
 </html>

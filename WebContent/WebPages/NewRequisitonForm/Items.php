@@ -161,9 +161,9 @@ if (!$conn) {
      <a class="navbar-brand" href="#">PARI Purchase Requisition</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">New Requisition</a></li>
+      <li class="active"><a href="PurchaseRequisition.php">New Requisition</a></li>
       <li><a href="#">Submitted Requisitions</a></li>
-      <li><a href="#">Approve Requests</a></li> 
+      <li><a href="Approval.php">Approve Requests</a></li> 
 	  <li><a href="BudgetAllocation.php">Budget Allocation</a></li> 
           </ul>
   </div>

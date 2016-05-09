@@ -9,3 +9,9 @@ ALTER TABLE `itemmap`
   ALTER TABLE `requistion` ADD `RefQuote` VARCHAR(20) NOT NULL AFTER `ReqNo`, ADD `TotalCost` DECIMAL NOT NULL AFTER `RefQuote`;
   
   ALTER TABLE `itemmap` CHANGE `ItemList` `ReqId` INT(11) NOT NULL;
+  
+  drop table `reqitemmap`;
+  drop TABLE `mapping`;
+  
+  CREATE TABLE `purchasereq`.`Approval` ( `ReqId` INT NOT NULL , `AppDen` BOOLEAN NOT NULL , `Reason` TEXT NOT NULL ) ENGINE = InnoDB;
+  ALTER TABLE approval add FOREIGN KEY (ReqId) REFERENCES purdets(id);

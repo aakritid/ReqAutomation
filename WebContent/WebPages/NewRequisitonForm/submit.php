@@ -67,7 +67,7 @@ $errmsg="";
 	$result = $conn->query($qry);
 	$maxitm=$result->fetch_assoc();
 	if($maxitm['max(itemid)'] == NULL)
-		$maxid=1;
+		$maxid=0;
 	else
 		$maxid=$maxitm['max(itemid)'];
 	
@@ -90,7 +90,7 @@ $errmsg="";
 	}
 		//else
 		//	echo 'Fail';
-		
+		$maxid++;
 		$qry="insert into itemmap values (".$reqid['max(id)'].",".$maxid.")";
 		if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error;
@@ -98,7 +98,7 @@ $errmsg="";
 		//else
 		//	echo 'Fail';
 		
-		$maxid++;
+		
 	}
 	if($err == 1){
 		echo 'Failed to Submit because '.$errmsg;
