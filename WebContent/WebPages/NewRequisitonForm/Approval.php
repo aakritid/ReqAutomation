@@ -25,11 +25,11 @@ if (!$conn) {
     die('Could not connect: ' . mysqli_error($conn));
 }
 
-$qry="select count(*) from requistion";
+$qry="select count(*) from requistion where requistion.Id not in (select ReqId from approval)";
 $result = $conn->query($qry);
 $reqs=$result->fetch_assoc();
 $records=$reqs['count(*)'];
-//select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id;
+//select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval)
 		 
 ?>
 <nav class="navbar navbar-default">
@@ -62,7 +62,7 @@ $records=$reqs['count(*)'];
 			 
 		<tbody id="reqTable">
 		  <?php
-		  $qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id";
+		  $qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval)";
 			$result = $conn->query($qry);
 			
 		   for($reqs=1; $reqs<=$records; $reqs++){
