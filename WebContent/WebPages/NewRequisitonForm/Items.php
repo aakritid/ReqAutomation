@@ -108,12 +108,14 @@ $_SESSION["shipMethod"]=$_POST["shipMethod"];
 
 if(isset($_POST["bugd"])){
 	$_SESSION["bugd"]=true;
+	$_SESSION["budgeted"]=0;
 }
 else
 	$_SESSION["bugd"]=false;
 
 if(isset($_POST["nbug"])){
 	$_SESSION["nbug"]=true;
+	$_SESSION["budgeted"]=1;
 }
 else
 	$_SESSION["nbug"]=false;
@@ -124,17 +126,20 @@ if(isset($_POST["scope"])){
 		$_SESSION["pind"]=true;
 		$_SESSION["pinc"]=false;
 		$_SESSION["other"]=false;
+		$_SESSION["scope"]=0;
 	}
 	else if($selection=="pinc"){
 		$_SESSION["pinc"]=true;
 		$_SESSION["pind"]=false;
 		$_SESSION["other"]=false;
+		$_SESSION["scope"]=1;
 		}	
 	else {
 		$_SESSION["other"]=true;
 		$_SESSION["otherval"]=$_POST["otherval"];
 		$_SESSION["pind"]=false;
 		$_SESSION["pinc"]=false;
+		$_SESSION["scope"]=2;
 	}
 }
 

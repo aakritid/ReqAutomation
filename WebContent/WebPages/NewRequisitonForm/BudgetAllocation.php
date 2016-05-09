@@ -54,7 +54,7 @@ if (!$conn) {
 </nav>
 
 <div class="container">
-	<h1> Set Budget </h1>
+	<!--<h1> Set Budget </h1>-->
 	<form class="" action="setBudg.php" method="post">
 		<div class="container form-group">
 		<label class="control-label col-sm-2" for="ddown">Job Code:<span class="reqd">*</span></label>

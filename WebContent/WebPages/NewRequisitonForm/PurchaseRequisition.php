@@ -120,6 +120,7 @@ if (!$conn) {
     die('Could not connect: ' . mysqli_error($conn));
 }
 
+
 ?>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
