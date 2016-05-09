@@ -9,7 +9,23 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  
+  <script>
+  function submitData(){
+	  //$('#myModal').modal('show'); 
+	  $.ajax({
+		type: "POST",
+		url: "submit.php",
+		cache: false,
+		success: function(html) {
+			//document.getElementById("subRes").innerHTML=html;
+			//$('#myModal').modal('show'); 
+			alert(html);
+		}
+		});
+		return false;
+
+  }
+  </script>
 </head>
 
 <body>
@@ -47,8 +63,29 @@
  		 </div>
 	</div>
 	
-	<form action="submit.php" method="POST">
+	
+	
 	<div class="container">
+	<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Submit</h4>
+        </div>
+        <div class="modal-body">
+          <p id="subRes"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 	<div class="container" id="initial" style="padding: 10px;">
 	<div class="col-sm-4"><label for="requester">Requested By: AAKRITI DUBEY </label></div>
 	 <div class="col-sm-4 pull-right"><label for="jobCode1">Job Code:</label><label id="jobCode1"><?php echo $_SESSION["JobCode"]?></label></div>
@@ -200,10 +237,12 @@
 			 <div class="col-sm-3 pull-right"><label id="totalCost">Total Cost:   $<?php echo $_SESSION["totalCost"]?></label></div>
 			</div>
 		
-			  <button class="btn btn-default pull-right" type="Submit">Submit</button> 
+			  <button class="btn btn-default pull-right" onclick="submitData()">Submit</button> 
 		</div>
 
-		</form> 
+		
+		
+  
 		</div>
 	 
 </body>
