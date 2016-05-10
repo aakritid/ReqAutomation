@@ -11,19 +11,16 @@ if (!$conn) {
 session_start();
 $err=0;
 $errmsg="";
+$conn->query("START TRANSACTION");
 	$qry ="insert into shipdets (ShipAddr, Attn, Date, Method) values ('". $_SESSION["shipAddr"]."' , '" . $_SESSION["attn"]."', '".$_SESSION["daten"]."', '".$_SESSION["shipMethod"]."')";
 	if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error;
 	}
-	//else
-		//echo 'Fail';
 	
 	$qry= "insert into requester (ReqsId, Name, Phno, Fno, Email) values ('aakritid','Aakriti Dubey','".$_SESSION["phoneNum"]."', '".$_SESSION["faxNum"]."','".$_SESSION["email"]."')";
 	if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error;
 	}
-	//else
-	//	echo 'Fail';
 	
 	$qry= "select JCId from jobcode where JobCode='".$_SESSION["JobCode"]."'";
 	$result = $conn->query($qry);
@@ -45,21 +42,16 @@ $errmsg="";
 	if ($conn->query($qry) !== TRUE){
 		$err=1; $errmsg=$conn->error;
 	}
-	//else
-	//	echo 'Fail';
 	
 	$qry="select max(id) from purdets";
 	$result = $conn->query($qry);
 	$reqid=$result->fetch_assoc();
 	
 	$reqno=sprintf("P%07d",$reqid['max(id)']);
-	//echo $preq;
 	$qry="insert into requistion (Id, ReqNo, RefQuote, TotalCost) values (".$reqid['max(id)'].", '".$reqno."', '".$_SESSION["refQuote"]."', ".$_SESSION["totalCost"].")";
 	if ($conn->query($qry) !== TRUE){
 		$err=1; $errmsg=$conn->error;
 	}
-	//else
-		//printf("Errormessage: %s\n", $conn->error);
 	
 	$itemcnt=$_SESSION["rows"];
 
@@ -88,19 +80,15 @@ $errmsg="";
 		if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error;
 	}
-		//else
-		//	echo 'Fail';
 		$maxid++;
 		$qry="insert into itemmap values (".$reqid['max(id)'].",".$maxid.")";
 		if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error;
 	}
-		//else
-		//	echo 'Fail';
-		
 		
 	}
 	if($err == 1){
+		$conn->rollback();
 		echo 'Failed to Submit because '.$errmsg;
 	}
 	else
