@@ -9,13 +9,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <style>
-  .modal-dialog{
+  #myModal .modal-dialog{
 	  width: 1200px;
 	  height: 800px;
 	  overflow-y: initial !important;
 	  
   }
-  .modal-body{
+  #myModal .modal-body{
     height: auto;
     overflow-y: auto;
 	overflow-x: auto;
@@ -42,14 +42,38 @@ function showData(str){
 			$("#myModal").modal();
 		}
 		});
-		return false;
-	
+		return false;	
  	
+}
+
+function process(str,rea){
+	 if(str=='Deny'){
+		$("#denyModal").modal();
+	return;
+	}
+	$.ajax({
+		type: "POST",
+		url: "appden.php",
+		cache: false,
+		data:  {'request': 'process','reqtype': str, 'reason': rea},
+		success: function(html) {
+			if(html==0){
+				$('#resVal').addClass('alert-success');
+				document.getElementById('resVal').innerHTML="<h4>Approved!</h4>The Requisition has been approved!";
+			}
+			if(html==1){
+				$('#resVal').addClass('alert-warning');
+				document.getElementById('resVal').innerHTML="<h4>Denied!</h4>The Requisition has been denied!";
+			}
+			$("#resModal").modal();
+		}
+		});
+		return false;
 }
   </script>
 <body>
 <?php
-
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "pari123#";
@@ -93,12 +117,56 @@ $records=$reqs['count(*)'];
         <p ></p>
       </div>
       <div class="modal-footer">
+	   <button type="button" class="btn btn-primary" onclick="process(this.innerHTML,'')">Approve</button>
+		<button type="button" class="btn btn-info" onclick="process(this.innerHTML,'')">Deny</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
 
   </div>
 </div>
+
+<div id="resModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Complete</h4>
+      </div>
+      <div class="modal-body" id='datamodal'>
+        <p class="" id="resVal"></p>
+      </div>
+      <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="denyModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Deny Request</h4>
+      </div>
+      <div class="modal-body" id='datamodal'>
+        <div class='container from-inline'><label for='DReason'>Reason: </label><input id='DReason' class="form-control" type='text' Placeholder='Reason' style="width:100%;"/> </div>
+      </div>
+      <div class="modal-footer">
+	   <button type="button" class="btn btn-info" onclick="process(this.innerHTML,document.getElementById('DReason').value)">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="container">
 
 		<table class="table table-hover table-striped" style="padding:10px" >

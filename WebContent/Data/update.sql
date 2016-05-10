@@ -15,3 +15,6 @@ ALTER TABLE `itemmap`
   
   CREATE TABLE `purchasereq`.`Approval` ( `ReqId` INT NOT NULL , `AppDen` BOOLEAN NOT NULL , `Reason` TEXT NOT NULL ) ENGINE = InnoDB;
   ALTER TABLE approval add FOREIGN KEY (ReqId) REFERENCES purdets(id);
+
+  
+  ALTER TABLE `approval` ADD `Date` DATETIME on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `Reason`;

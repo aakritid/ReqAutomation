@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $reqno= $_POST['reqno'];
 $servername = "localhost";
 $username = "root";
@@ -21,6 +23,8 @@ $date=$result->fetch_assoc();
 $reqid=$reqs['Id'];
 $refqt=$reqs['RefQuote'];
 $tc=$reqs['TotalCost'];
+
+$_SESSION['SReq']=$reqid;
 
 $qry="select * from purdets where id=".$reqid;
 $result = $conn->query($qry);
