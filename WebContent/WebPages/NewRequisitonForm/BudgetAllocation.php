@@ -36,7 +36,7 @@ function budget(type,str){
 			document.getElementById('resVal').innerHTML="<h4>Success!</h4>Budget Set Successfully!";
 			}
 			else{
-				$('#resVal').addClass("alert-error");
+				$('#resVal').addClass("alert-danger");
 			document.getElementById('resVal').innerHTML="<h4>Error!</h4>Budget Set Failed.";
 			}
 		}

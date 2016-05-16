@@ -21,7 +21,7 @@
 			document.getElementById('resVal').innerHTML="<h4>Success!</h4>The Requisition submitted successfully!";
 			}
 			else{
-				$('#resVal').addClass("alert-error");
+				$('#resVal').addClass("alert-danger");
 			document.getElementById('resVal').innerHTML="<h4>Failed!</h4>The Requisition failed to submit!";
 			}
 		}
