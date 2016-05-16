@@ -126,12 +126,14 @@ if(isset($_POST["scope"])){
 		$_SESSION["pind"]=true;
 		$_SESSION["pinc"]=false;
 		$_SESSION["other"]=false;
+		$_SESSION["otherval"]=$_POST["otherval"];
 		$_SESSION["scope"]=0;
 	}
 	else if($selection=="pinc"){
 		$_SESSION["pinc"]=true;
 		$_SESSION["pind"]=false;
 		$_SESSION["other"]=false;
+		$_SESSION["otherval"]=$_POST["otherval"];
 		$_SESSION["scope"]=1;
 		}	
 	else {

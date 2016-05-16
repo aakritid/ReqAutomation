@@ -7,29 +7,59 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
   <script>
   function submitData(){
-	  //$('#myModal').modal('show'); 
+	 
 	  $.ajax({
 		type: "POST",
 		url: "submit.php",
 		cache: false,
 		success: function(html) {
-			//document.getElementById("subRes").innerHTML=html;
-			//$('#myModal').modal('show'); 
-			alert(html);
-			window.location = 'PurchaseRequisition.php';
+			if(html==0){
+				$('#resVal').addClass("alert-success");
+			document.getElementById('resVal').innerHTML="<h4>Success!</h4>The Requisition submitted successfully!";
+			}
+			else{
+				$('#resVal').addClass("alert-error");
+			document.getElementById('resVal').innerHTML="<h4>Failed!</h4>The Requisition failed to submit!";
+			}
 		}
 		});
+		 $('#resModal').modal('show'); 
 		return false;
 
   }
+  $(function () {
+$('#resModal').on('hidden.bs.modal', function () {
+	window.location="PurchaseRequisition.php";
+});
+});
   </script>
 </head>
 
 <body>
+
+<div id="resModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Result</h4>
+      </div>
+      <div class="modal-body" id='datamodal'>
+        <p class="" id="resVal"></p>
+      </div>
+      <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -67,7 +97,8 @@
 	
 	
 	<div class="container">
-	<!-- Modal -->
+	<!--<form action="ReviewSubmit1.php" method="post">
+	Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
     
@@ -239,6 +270,7 @@
 			</div>
 		
 			  <button class="btn btn-default pull-right" onclick="submitData()">Submit</button> 
+			<!-- </form> type='submit'  -->
 		</div>
 
 		

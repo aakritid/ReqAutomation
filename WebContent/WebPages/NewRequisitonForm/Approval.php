@@ -64,12 +64,20 @@ function process(str,rea){
 			if(html==1){
 				$('#resVal').addClass('alert-warning');
 				document.getElementById('resVal').innerHTML="<h4>Denied!</h4>The Requisition has been denied!";
+				$('#denyModal').modal('hide');
 			}
+			$("#myModal").modal('hide');
 			$("#resModal").modal();
+			
 		}
 		});
 		return false;
 }
+$(function () {
+$('#resModal').on('hidden.bs.modal', function () {
+	window.location="Approval.php";
+});
+});
   </script>
 <body>
 <?php
@@ -156,9 +164,9 @@ $records=$reqs['count(*)'];
         <h4 class="modal-title">Deny Request</h4>
       </div>
       <div class="modal-body" id='datamodal'>
-        <div class='container from-inline'><label for='DReason'>Reason: </label><input id='DReason' class="form-control" type='text' Placeholder='Reason' style="width:100%;"/> </div>
+        <div class='container from-inline  col-sm-12'><label for='DReason'>Reason: </label><input id='DReason' class="form-control" type='text' Placeholder='Reason' style="width:100%;"/> </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="padding:20px">
 	   <button type="button" class="btn btn-info" onclick="process(this.innerHTML,document.getElementById('DReason').value)">Confirm</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
@@ -200,7 +208,7 @@ $records=$reqs['count(*)'];
 				<p id="<?php echo 'jc'.$reqs ?>"><?php echo $reqsi['JobCode'] ?> </p>
 			</td>
 			<td>
-				<p id="<?php echo 'tc'.$reqs ?>"><?php echo '$'.$reqsi['TotalCost'] ?> </p>
+				<p id="<?php echo 'tc'.$reqs ?>"><?php echo '$'.number_format($reqsi['TotalCost'], 2, '.', ',') ?> </p>
 			</td>
 			<td>
 				<p id="<?php echo 'dt'.$reqs ?>"><?php echo $reqsi["DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p')"] ?> </p>
