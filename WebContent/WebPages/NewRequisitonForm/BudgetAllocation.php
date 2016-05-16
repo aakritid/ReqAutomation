@@ -27,7 +27,7 @@ function budget(type,str){
 		var nb=document.getElementById('nbudg').value;
 		$.ajax({
 		type: "POST",
-		url: "getBudget.php",
+		url: "Budget.php",
 		cache: false,
 		data:  {'type': type, 'jc': str, 'newBudg': nb},
 		success: function(html) {
