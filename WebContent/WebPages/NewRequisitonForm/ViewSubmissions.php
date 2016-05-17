@@ -42,6 +42,16 @@ function showData(str){
 			$("#myModal").modal();
 		}
 		});
+	$.ajax({
+		type: "POST",
+		url: "appden.php",
+		cache: false,
+		data:  {'request': 'status','reqno': reqno},
+		success: function(html) {
+			document.getElementById('status').innerHTML=html;
+			
+		}
+		});
 		return false;	
  	
 }
@@ -77,7 +87,7 @@ $records=$reqs['count(*)'];
         <p ></p>
       </div>
       <div class="modal-footer">
-	   
+		<h3 id='status'></h3>
 	   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
