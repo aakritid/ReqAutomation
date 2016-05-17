@@ -60,20 +60,7 @@ $('#resModal').on('hidden.bs.modal', function () {
   </div>
 </div>
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-     <a class="navbar-brand" href="#">PARI Purchase Requisition</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="PurchaseRequisition.php">New Requisition</a></li>
-      <li><a href="ViewSubmissions.php">Submitted Requisitions</a></li>
-      <li><a href="Approval.php">Approve Requests</a></li> 
-	  <li><a href="BudgetAllocation.php">Budget Allocation</a></li> 
-	  <li><a href="View.php">View All Requisitions</a></li> 
-          </ul>
-  </div>
-</nav>
+
  <?php
 	  session_start();
 	$_SESSION["rows"]=$_POST["vals"];
@@ -85,6 +72,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 	}
 	$_SESSION["refQuote"]=$_POST{"refQuote"};
 	$_SESSION["totalCost"]= $_POST["totalCost1"];
+	(include 'header.php');
 ?>
       <div class="container">
       <div class="container " >
@@ -272,12 +260,11 @@ $('#resModal').on('hidden.bs.modal', function () {
 		
 			  <button class="btn btn-default pull-right" onclick="submitData()">Submit</button> 
 			
-		</div>
-
-		
-		
-  
-		</div>
+</div>
+<?php
+$conn->close();
+?>
+</div>
 	 
 </body>
 </html>

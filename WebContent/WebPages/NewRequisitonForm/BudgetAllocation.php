@@ -46,7 +46,11 @@ function budget(type,str){
 	}
 	
 }
+
  $(function () {
+	 $("#l1").removeClass("active");
+	$("#l4").addClass("active");
+	
 $('#resModal').on('hidden.bs.modal', function () {
 	window.location="BudgetAllocation.php";
 });
@@ -55,14 +59,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 <body>
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "pari123#";
-
-$conn = new mysqli($servername, $username, $password,"purchasereq");
-if (!$conn) {
-    die('Could not connect: ' . mysqli_error($conn));
-}
+(include 'header.php');
 
 ?>
 
@@ -86,20 +83,6 @@ if (!$conn) {
   </div>
 </div>
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-    <a class="navbar-brand" href="#">PARI Purchase Requisition</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="PurchaseRequisition.php">New Requisition</a></li>
-      <li><a href="ViewSubmissions.php">Submitted Requisitions</a></li>
-      <li><a href="Approval.php">Approve Requests</a></li> 
-	  <li class="active"><a href="BudgetAllocation.php">Budget Allocation</a></li> 
-	  <li><a href="View.php">View All Requisitions</a></li> 
-          </ul>
-  </div>
-</nav>
 
 <div class="container">
 		<table class="col-lg-8 table table-sm table-bordered" style="padding:10px" >

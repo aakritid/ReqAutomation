@@ -55,18 +55,16 @@ function showData(str){
 		return false;	
  	
 }
+$(function () {
+	 $("#l1").removeClass("active");
+	$("#l2").addClass("active");
+});
 </script>
  <body>
 <?php
 session_start();
-$servername = "localhost";
-$username = "root";
-$password = "pari123#";
 
-$conn = new mysqli($servername, $username, $password,"purchasereq");
-if (!$conn) {
-    die('Could not connect: ' . mysqli_error($conn));
-}
+(include 'header.php');
 
 $qry="select count(*) from requester where requester.ReqsId='aakritid'";
 $result = $conn->query($qry);
@@ -94,21 +92,6 @@ $records=$reqs['count(*)'];
 
   </div>
 </div>
-
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-    <a class="navbar-brand" href="#">PARI Purchase Requisition</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="PurchaseRequisition.php">New Requisition</a></li>
-      <li  class="active"><a href="ViewSubmissions.php">Submitted Requisitions</a></li>
-      <li><a href="Approval.php">Approve Requests</a></li> 
-	  <li ><a href="BudgetAllocation.php">Budget Allocation</a></li> 
-	  <li><a href="View.php">View All Requisitions</a></li> 
-          </ul>
-  </div>
-</nav>
 
 <div class="container">
 

@@ -74,6 +74,8 @@ function process(str,rea){
 		return false;
 }
 $(function () {
+	 $("#l1").removeClass("active");
+	$("#l3").addClass("active");
 $('#resModal').on('hidden.bs.modal', function () {
 	window.location="Approval.php";
 });
@@ -82,14 +84,8 @@ $('#resModal').on('hidden.bs.modal', function () {
 <body>
 <?php
 session_start();
-$servername = "localhost";
-$username = "root";
-$password = "pari123#";
 
-$conn = new mysqli($servername, $username, $password,"purchasereq");
-if (!$conn) {
-    die('Could not connect: ' . mysqli_error($conn));
-}
+(include 'header.php');
 
 $qry="select count(*) from requistion where requistion.Id not in (select ReqId from approval)";
 $result = $conn->query($qry);
@@ -99,20 +95,7 @@ $records=$reqs['count(*)'];
 ?>
 
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-    <a class="navbar-brand" href="#">PARI Purchase Requisition</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="PurchaseRequisition.php">New Requisition</a></li>
-      <li><a href="ViewSubmissions.php">Submitted Requisitions</a></li>
-      <li class="active"><a href="Approval.php">Approve Requests</a></li> 
-	  <li ><a href="BudgetAllocation.php">Budget Allocation</a></li> 
-	  <li><a href="View.php">View All Requisitions</a></li> 
-          </ul>
-  </div>
-</nav>
+
 <div id="myModal" class="modal fade">
   <div class="modal-dialog">
 
