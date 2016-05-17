@@ -101,28 +101,42 @@ if (!$conn) {
 </nav>
 
 <div class="container">
-	<!--<h1> Set Budget </h1>-->
-	
-		<div class="container form-group">
-		<label class="control-label col-sm-2" for="ddown">Job Code:<span class="reqd">*</span></label>
-        <div id="jobCodeDiv" class="col-sm-10 form-inline selectContainer">
-            <select class="form-control" name="JobCode" id="ddown" onchange="budget('get',this.value)">
-                <option value="">Job Code</option>
-				<?php
-					$query="SELECT jobcode FROM jobcode";
-					$result = $conn->query($query);
-					while ($row = $result->fetch_assoc()) {
-						echo "<option value='" . $row['jobcode'] . "'>" . $row['jobcode'] . "</option>";
-					}
-				?>
-                
-            </select>
-        </div>
-		</div>
-		<div class="container" id="contents">
+		<table class="col-lg-8 table table-sm table-bordered" style="padding:10px" >
 		
-		</div>
-		<button class="btn btn-default center" onclick="budget('set','')">Set</button>
+		 <thead>
+		 <tr>
+		 	<th class="text-center"> SET BUDGET </th>
+		 </tr>
+		 </thead>
+		 <tbody >
+			<tr><td>
+					<div class='container text-center'>
+					<label class="control-label " for="ddown">Job Code:<span class="reqd">*</span></label>
+					<div id="jobCodeDiv" class=" form-inline selectContainer">
+						<select class="form-control" name="JobCode" id="ddown" onchange="budget('get',this.value)">
+							<option value="">Job Code</option>
+							<?php
+								$query="SELECT jobcode FROM jobcode";
+								$result = $conn->query($query);
+								while ($row = $result->fetch_assoc()) {
+									echo "<option value='" . $row['jobcode'] . "'>" . $row['jobcode'] . "</option>";
+								}
+							?>						
+						</select>
+					</div>
+					</div>
+			</td></tr>
+			<tr><td>
+				<div class="container" id="contents">
+		
+				</div>
+			</td></tr>
+			<tr><td>
+				<button class="btn btn-default pull-right" onclick="budget('set','')">Set</button>
+			</td></tr>
+		</tbody>
+	</table>
+		
 		
 </div>
 <?php

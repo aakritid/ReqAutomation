@@ -220,7 +220,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 			  </table>
 			  <input type="text" id="vals" name="vals" hidden value="<?php echo $_POST["vals"] ?>" />
 		<table class="table table-bordered" style="padding:10px" >
-		 <tbody>
+		 
 		 <thead>
 		 <tr>
 		 	<th class="col-sm-2 text-center"> Item # </th>
