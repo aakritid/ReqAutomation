@@ -20,7 +20,7 @@ if($type=='get'){
 				echo "<div class='container form-group'>";
 				echo  "<label class='control-label col-sm-2' for='decripb'>Description: </label><label class='control-label col-sm-10' id='descipb'>".$budg['Descr']."</label>";
 				echo	"</div>	<div class='container form-group'>";			
-				echo "<label class='control-label col-sm-2' for='cbudg'>Current Budget: </label><label class='control-label col-sm-2' id='cbudg'>$".$budg['Budget']."</label>";
+				echo "<label class='control-label col-sm-2' for='cbudg'>Current Budget: </label><label class='control-label col-sm-2' id='cbudg'>$".number_format($budg['Budget'], 2, '.', ',')."</label>";
 				echo	"</div>	<div class='container form-group'>";
 				
 				echo	"<label class='control-label col-sm-2' for='nbudg'>New Budget: </label>";

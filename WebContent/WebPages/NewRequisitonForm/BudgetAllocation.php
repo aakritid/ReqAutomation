@@ -93,9 +93,10 @@ if (!$conn) {
     </div>
     <ul class="nav navbar-nav">
       <li><a href="PurchaseRequisition.php">New Requisition</a></li>
-      <li><a href="#">Submitted Requisitions</a></li>
+      <li><a href="ViewSubmissions.php">Submitted Requisitions</a></li>
       <li><a href="Approval.php">Approve Requests</a></li> 
 	  <li class="active"><a href="BudgetAllocation.php">Budget Allocation</a></li> 
+	  <li><a href="View.php">View All Requisitions</a></li> 
           </ul>
   </div>
 </nav>
