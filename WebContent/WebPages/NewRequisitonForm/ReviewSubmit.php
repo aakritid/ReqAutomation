@@ -97,7 +97,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 	
 	
 	<div class="container">
-	<!--<form action="ReviewSubmit1.php" method="post">
+	<!--
 	Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
@@ -270,7 +270,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 			</div>
 		
 			  <button class="btn btn-default pull-right" onclick="submitData()">Submit</button> 
-			<!-- </form> type='submit'  -->
+			
 		</div>
 
 		
