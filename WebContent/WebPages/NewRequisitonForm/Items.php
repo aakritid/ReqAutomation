@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,26 +18,64 @@
   }
   </style>
   <script>
-   var i=0, err=0;
+   var i=0, err=0, cnt=1;
+   var rows=[];
   $(document).ready(function(){
+	  
+	  var id=0;
+	  rows[0]=1;
+	  for(id=1;id<20;id++){
+		  rows[id]=0;
+	  }
      
      $("#addItem").click(function(){
 		 i++; 
       $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control' onchange='totalCalc()' onkeypress='return numVal() '/></td>" +
     		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit Desc' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Price' class='form-control' onchange='totalCalc()' onkeypress='return numVal()'/></td>" +
-    		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$0' /></td> <td><p id='del"+i+"' class='delete' > <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
+    		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$0' /></td> <td><p id='del"+i+"' class='delete' onclick='deleteRow(this.id)'> <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
 
       $('#itemTable').append("<tr id='itemDesc"+(i+1)+"'></tr>");
       document.getElementById("vals").value=i;
-	  
+	  rows[i]=1;
+	  cnt++;
+	  document.getElementById("valid").value=rows;
   });
-     
-     $(".delete").click(function(){
-    	var id=$(this).attr('id').charAt(3);
-    	$('#itemDesc'+id).html('');
-	 });
-	 	 
+   
   });
+  function deleteRow(str){
+	  if(cnt>1){
+		  var id=str.charAt(3);
+			$('#itemDesc'+id).html('');
+			cnt--;
+			rows[id]=0;
+			 document.getElementById("valid").value=rows;
+			var tot=0;
+			 for(var ct=0;ct<=i;ct++){
+				 if(rows[ct]==1){
+				 var value=document.getElementById("total"+ct).value;
+				 value= value.substring(1,value.length);
+				 value=Number(value);
+				 tot=tot+value;
+				 }
+			 }
+			 tot=parseFloat(tot).toFixed(2);
+			 document.getElementById('totalCost').innerHTML=tot;
+			 document.getElementById('tc1').value=tot;
+			 var budg= document.getElementById('remBudget').innerHTML;
+			 budg= budg.substring(1,budg.length);
+			 budg=Number(budg);
+			 if(tot> budg){
+				 //alert('error');
+				 err=1;
+				 $("#totalCost").addClass("error");
+			 }
+			 else{
+				 err=0;
+				 $("#totalCost").removeClass("error");
+			 }
+			
+	  }
+  }
   function totalCalc(){
 	  var x = document.getElementById("quant"+i).value;
 	var y = document.getElementById("unitPrice"+i).value;
@@ -45,10 +86,12 @@
 	if(x*y!=0){
 	var tot=0;
 	 for(var ct=0;ct<=i;ct++){
+		 if(rows[ct]==1){
 		 var value=document.getElementById("total"+ct).value;
 		 value= value.substring(1,value.length);
 		 value=Number(value);
 		 tot=tot+value;
+		 }
 	 }
 	 tot=parseFloat(tot).toFixed(2);
 	 document.getElementById('totalCost').innerHTML=tot;
@@ -86,7 +129,7 @@
  
 <body>
 <?php
-session_start();
+
 $_SESSION["suggvendor"]=$_POST["suggvendor"];
 $_SESSION["JobCode"]=$_POST["JobCode"];
 $_SESSION["shipAddr"]=$_POST["shipAddr"];
@@ -197,7 +240,7 @@ if(isset($_POST["scope"])){
 				<input type="text" id="total0" name='total0' class="form-control" value="$0" readonly onchange="sumTot()" />
 			</td>
 			<td>
-			<p id='del0'  class="delete"><span class="glyphicon glyphicon-remove" title="Delete Row" style='cursor:pointer' ></span></p>
+			<p id='del0'  class="delete" onclick="deleteRow(this.id)"><span class="glyphicon glyphicon-remove" title="Delete Row" style='cursor:pointer'  ></span></p>
 			</td>			
 			</tr>
 			 
@@ -209,6 +252,7 @@ if(isset($_POST["scope"])){
 		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:<span class="reqd">*</span></label><input class="form-control" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote"/></div>
 			 <div class="col-sm-3 pull-right"><label for="totalCost" id='tcval'>Total Cost: $</label><label id="totalCost">0</label></div>
 			 <input type="text" name="totalCost1" id="tc1" hidden />
+			 <input type="text" name="vald" id="valid" hidden />
 			 </div>
 		<div><input type="text" id="vals" name="vals" hidden value="0" />
 		<button class="btn btn-default pull-right" type="Submit" onclick="return validate();">Next</button>

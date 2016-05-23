@@ -64,14 +64,20 @@ $('#resModal').on('hidden.bs.modal', function () {
  <?php
 	  session_start();
 	$_SESSION["rows"]=$_POST["vals"];
+	$active=$_POST["vald"];
+	$active = str_replace( ',', '', $active );
+	$_SESSION["active"]=$active;
 	$i=0;
 	$rs=$_POST["vals"];
 	for($rows=0; $rows<=$rs; $rows++){
+		if($active[$rows]==1){
 		$tabRow= array($_POST["itemNo".$rows],$_POST["item".$rows],$_POST["quant".$rows],$_POST["unit".$rows],$_POST["unitPrice".$rows],$_POST["total".$rows]);
 		$_SESSION["row".$rows]=$tabRow;
+		}
 	}
 	$_SESSION["refQuote"]=$_POST{"refQuote"};
 	$_SESSION["totalCost"]= $_POST["totalCost1"];
+	
 	(include 'header.php');
 ?>
       <div class="container">
@@ -224,6 +230,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 		  <?php
 		   $rs=$_POST["vals"];
 			for($rows=0; $rows<=$rs; $rows++){
+				if($active[$rows]==1){
 		  ?>
 			<tr id="<?php echo 'itemDesc'.$rows ?>">
 						
@@ -249,6 +256,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 			</tr>
 			
 			<?php
+			}
 			}				
 			?>
 			</tbody>

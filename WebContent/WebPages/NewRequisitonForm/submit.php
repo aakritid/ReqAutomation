@@ -11,6 +11,7 @@ if (!$conn) {
 session_start();
 $err=0;
 $errmsg="";
+$active=$_SESSION["active"];
 	if ($conn->query("START TRANSACTION") !== TRUE) {
 		$err=1; $errmsg=$conn->error; echo '\n Error in start';
 	}
@@ -64,29 +65,31 @@ $errmsg="";
 	$itemcnt=$_SESSION["rows"];
 
 	for($rows=0; $rows<=$itemcnt; $rows++){
-		$itno=$_SESSION["row".$rows][0];
-		$desc=$_SESSION["row".$rows][1];
-		$qnt=$_SESSION["row".$rows][2];
-		$un=$_SESSION["row".$rows][3];
-		$unpr=$_SESSION["row".$rows][4];
-		$tot=$_SESSION["row".$rows][5];
 		
-		$qry="insert into itemdescr (ItemNo, Descr, Quantity, UnitDesc,UnitPrice, Total) values (".$itno.", '".$desc."' , ".$qnt.", '".$un."' , ". $unpr.", '".$tot."')";
-		
-		if ($conn->query($qry) !== TRUE) {
-		$err=1; $errmsg=$conn->error;echo '\n Error in insert in itemdescr: '.$qry;
-	}
-	
-		$qry="select max(itemid) from itemdescr";
-		$result = $conn->query($qry);
-		$maxval=$result->fetch_assoc();
-		
-		
-		$qry="insert into itemmap values (".$reqid['max(id)'].",".$maxval['max(itemid)'].")";
-		if ($conn->query($qry) !== TRUE) {
-		$err=1; $errmsg=$conn->error;echo '\n Error in insert in itemmap: '.$qry;
-	}
-		
+		if($active[$rows]==1){
+				$itno=$_SESSION["row".$rows][0];
+				$desc=$_SESSION["row".$rows][1];
+				$qnt=$_SESSION["row".$rows][2];
+				$un=$_SESSION["row".$rows][3];
+				$unpr=$_SESSION["row".$rows][4];
+				$tot=$_SESSION["row".$rows][5];
+				
+				$qry="insert into itemdescr (ItemNo, Descr, Quantity, UnitDesc,UnitPrice, Total) values ('".$itno."', '".$desc."' , ".$qnt.", '".$un."' , ". $unpr.", '".$tot."')";
+				
+				if ($conn->query($qry) !== TRUE) {
+				$err=1; $errmsg=$conn->error;echo '\n Error in insert in itemdescr: '.$qry;
+				}
+			
+				$qry="select max(itemid) from itemdescr";
+				$result = $conn->query($qry);
+				$maxval=$result->fetch_assoc();
+				
+				
+				$qry="insert into itemmap values (".$reqid['max(id)'].",".$maxval['max(itemid)'].")";
+				if ($conn->query($qry) !== TRUE) {
+				$err=1; $errmsg=$conn->error;echo '\n Error in insert in itemmap: '.$qry;
+				}
+		}
 	}
 	if($err == 1){
 		if ($conn->rollback()!== TRUE)
