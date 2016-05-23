@@ -65,8 +65,7 @@ session_start();
 			 budg= budg.substring(1,budg.length);
 			 budg=Number(budg);
 			 if(tot> budg){
-				 //alert('error');
-				 err=1;
+				  err=1;
 				 $("#totalCost").addClass("error");
 			 }
 			 else{
@@ -100,7 +99,6 @@ session_start();
 	 budg= budg.substring(1,budg.length);
 	 budg=Number(budg);
 	 if(tot> budg){
-		 //alert('error');
 		 err=1;
 		 $("#totalCost").addClass("error");
 	 }
