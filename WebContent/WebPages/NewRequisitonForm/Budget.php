@@ -24,7 +24,7 @@ if($type=='get'){
 				echo	"</div>	<div class='container form-group'>";
 				
 				echo	"<label class='control-label col-sm-2' for='nbudg'>New Budget: </label>";
-				echo	"<div class='col-sm-4'> <input type='text' class='form-control' id='nbudg' name='newBudg' placeholder='New Budget($)'>";
+				echo	"<div class='col-sm-4'> <input type='text' class='form-control' id='nbudg' name='newBudg' placeholder='New Budget($)' onkeypress='return numVal()'>";
 				echo	"</div></div>";
 	}
 }

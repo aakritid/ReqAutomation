@@ -9,6 +9,14 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
  </head>
   <script>
+  function numVal(){
+	 if(!((event.charCode >= 48 && event.charCode <= 57) || (event.charCode==46)))
+	 {
+		 alert("Please enter numeric value");
+		 return false;
+	 }
+	 return true;
+ }
 function budget(type,str){
 	if(type=="get"){
 	 $.ajax({
