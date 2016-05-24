@@ -132,7 +132,7 @@ $records=$reqs['count(*)'];
 			<td>
 				<p id="<?php echo 'dt'.$reqs ?>"><?php echo $reqsi["DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p')"] ?> </p>
 			</td>
-			<td>
+			<td class="text-left">
 				<?php 
 					$qry1="SELECT * FROM requistion left join approval on requistion.id=approval.ReqId where requistion.ReqNo='".$reqsi['ReqNo']."'";
 					$result1=$conn->query($qry1);
@@ -145,11 +145,11 @@ $records=$reqs['count(*)'];
 						<?php
 						}
 						else if($status['AppDen']==0){
-							?> class="alert-success"><span class="glyphicon glyphicon-ok"></span>Approved
+							?> class="alert-success"><span class="glyphicon glyphicon-ok-circle"></span>Approved
 							<?php
 						}
 						else{
-							?> class="alert-danger"><span class="glyphicon glyphicon-remove"></span>Denied
+							?> class="alert-danger"><span class="glyphicon glyphicon-remove-circle"></span>Denied
 							<?php
 						}
 				?> </p>

@@ -36,10 +36,10 @@ if($_POST['request']=='status'){
 			$op="<span class='label label-warning'><span class='glyphicon  glyphicon-exclamation-sign'></span>Pending</span>";
 		}
 		else if($status['AppDen']==0){
-			$op="<span class='label label-success'><span class='glyphicon glyphicon-ok'></span>		Approved: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
+			$op="<span class='label label-success'><span class='glyphicon glyphicon-ok-circle'></span>		Approved: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
 		}
 		else{
-			$op="<span class='label label-danger' title='". $status['Reason']."' style='cursor:pointer'><span class='glyphicon glyphicon-remove'></span>		Denied:: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
+			$op="<span class='label label-danger' title='". $status['Reason']."' style='cursor:pointer'><span class='glyphicon glyphicon-remove-circle'></span>		Denied:: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
 		}
 		echo $op;
 }
