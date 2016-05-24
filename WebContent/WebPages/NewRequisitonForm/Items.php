@@ -9,6 +9,7 @@ session_start();
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   
   
@@ -27,11 +28,11 @@ session_start();
 	  for(id=1;id<20;id++){
 		  rows[id]=0;
 	  }
-     
+     document.getElementById("valid").value=rows;
      $("#addItem").click(function(){
 		 i++; 
-      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control' onchange='totalCalc()' onkeypress='return numVal() '/></td>" +
-    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit Desc' class='form-control'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Price' class='form-control' onchange='totalCalc()' onkeypress='return numVal()'/></td>" +
+      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control required'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control required'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control required' onchange='totalCalc()' onkeypress='return numVal() '/></td>" +
+    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit Desc' class='form-control required'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Price' class='form-control required' onchange='totalCalc()' onkeypress='return numVal()'/></td>" +
     		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$0' /></td> <td><p id='del"+i+"' class='delete' onclick='deleteRow(this.id)'> <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
 
       $('#itemTable').append("<tr id='itemDesc"+(i+1)+"'></tr>");
@@ -41,6 +42,16 @@ session_start();
 	  document.getElementById("valid").value=rows;
   });
    
+    $('form.itemForm').on('submit', function(event) {
+
+            // adding rules for inputs with class 'comment'
+            $('input.required').each(function() {
+                $(this).rules("add", 
+                    {
+                        required: true
+                    })
+            });            
+        });
   });
   function deleteRow(str){
 	  if(cnt>1){
@@ -121,7 +132,9 @@ session_start();
 		 alert("The total cost for the requisition is exceeding the allocated budget for the Job Code.");
 		 return false;
 	 }
+	  $('form.itemForm').validate();
  }
+ 
   </script>
   </head>
  
@@ -201,7 +214,7 @@ if(isset($_POST["scope"])){
 			echo $budg['Budget'];
 	?>
 	</label></div>
-	  <form action="ReviewSubmit.php" method="post" role="form">
+	  <form class="itemForm" action="ReviewSubmit.php" method="post" role="form">
       <table class="table table-bordered" style="padding:10px" >
 		 <tbody>
 		 <thead>
@@ -220,19 +233,19 @@ if(isset($_POST["scope"])){
 			<tr id="itemDesc0">
 			
 			<td>
-				<input type="text" name='itemNo0'  placeholder='Item #' class="form-control"/>
+				<input type="text" name='itemNo0'  placeholder='Item #' class="form-control required"/>
 			</td>
 			<td>
-				<textarea name='item0'  rows="2" placeholder='Item Description' class="form-control"></textarea>
+				<textarea name='item0'  rows="2" placeholder='Item Description' class="form-control required"></textarea>
 			</td>
 			<td>
-				<input type="text" name='quant0'  placeholder='Quantity' id="quant0" class="form-control" onchange="totalCalc()" onkeypress='return numVal()'/>
+				<input type="text" name='quant0'  placeholder='Quantity' id="quant0" class="form-control required" onchange="totalCalc()" onkeypress='return numVal()'/>
 			</td>
 			<td>
-				<input type="text" name='unit0'  placeholder='Unit Desc' class="form-control"/>
+				<input type="text" name='unit0'  placeholder='Unit Desc' class="form-control required"/>
 			</td>
 			<td>
-				<input type="text" name='unitPrice0'  placeholder='Price' id="unitPrice0" class="form-control" onchange="totalCalc()" onkeypress='return numVal()'/>
+				<input type="text" name='unitPrice0'  placeholder='Price' id="unitPrice0" class="form-control required" onchange="totalCalc()" onkeypress='return numVal()'/>
 			</td>
 			<td>
 				<input type="text" id="total0" name='total0' class="form-control" value="$0" readonly onchange="sumTot()" />
@@ -247,7 +260,7 @@ if(isset($_POST["scope"])){
 		</table>
 		<div class="form-inline container"><a id="addItem" class="btn btn-default pull-left">Add Item</a>
 		</div>
-		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:<span class="reqd">*</span></label><input class="form-control" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote"/></div>
+		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:<span class="reqd">*</span></label><input class="form-control required" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote"/></div>
 			 <div class="col-sm-3 pull-right"><label for="totalCost" id='tcval'>Total Cost: $</label><label id="totalCost">0</label></div>
 			 <input type="text" name="totalCost1" id="tc1" hidden />
 			 <input type="text" name="vald" id="valid" hidden />
