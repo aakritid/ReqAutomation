@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 $host = "localhost"; // your db host (ip/dn)
 $user = "root"; // your db's privileged user account
