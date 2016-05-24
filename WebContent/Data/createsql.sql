@@ -10,50 +10,9 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY ',,,,,\r\n'
 (VendorName, VendorAddress);
 */
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: May 16, 2016 at 08:12 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.5.33
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `purchasereq`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `approval`
---
-
-CREATE TABLE `approval` (
-  `ReqId` int(11) NOT NULL,
-  `AppDen` tinyint(1) NOT NULL,
-  `Reason` text NOT NULL,
-  `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `approval`
---
-
-INSERT INTO `approval` (`ReqId`, `AppDen`, `Reason`, `Date`) VALUES
-(2, 0, '', '2016-05-16 11:33:16'),
-(11, 1, 'Not required', '2016-05-16 13:18:28'),
-(8, 0, '', '2016-05-16 13:27:10'),
-(10, 1, 'Check w/ approver', '2016-05-16 14:11:41');
 
 -- --------------------------------------------------------
 
@@ -63,7 +22,7 @@ INSERT INTO `approval` (`ReqId`, `AppDen`, `Reason`, `Date`) VALUES
 
 CREATE TABLE `itemdescr` (
   `itemid` int(11) NOT NULL,
-  `ItemNo` bigint(20) NOT NULL,
+  `ItemNo` varchar(20) NOT NULL,
   `Descr` text NOT NULL,
   `Quantity` int(11) NOT NULL,
   `UnitDesc` varchar(30) NOT NULL,
@@ -74,22 +33,6 @@ CREATE TABLE `itemdescr` (
 --
 -- Dumping data for table `itemdescr`
 --
-
-INSERT INTO `itemdescr` (`itemid`, `ItemNo`, `Descr`, `Quantity`, `UnitDesc`, `UnitPrice`, `Total`) VALUES
-(2, 54345, 'fgfdgdfg', 3, 'gsdfd', '40', '$120.00'),
-(6, 54325, 'fgdgf', 453, 'ggdfg', '4', '$1812.00'),
-(8, 5543, 'gerfe', 342, 'ggr', '2', '$684.00'),
-(9, 4543, 'gfsdfad', 32, 'fvgdfg', '33', '$1056.00'),
-(11, 32423, 'gfdgd', 34, 'fdgfd', '12', '$408.00'),
-(12, 34323, 'fdsfs', 2, '12 pack', '65', '$130.00'),
-(13, 342, 'fdgfd', 43, 'ffdgs', '23', '$989.00'),
-(14, 34233, 'fsfds', 3, 'fdfd', '123', '$369.00'),
-(15, 5435, 'hhdufgsu', 2, 'sdfsd', '12', '$24.00'),
-(16, 4535, 'sfsdbvbd', 12, 'fsdfs', '30', '$360.00'),
-(17, 453, 'sdfsdf', 12, 'ewrew', '230', '$2760.00'),
-(18, 5435, 'fvsdfds', 7, '1 pack', '123', '$861.00');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `itemmap`
@@ -103,20 +46,6 @@ CREATE TABLE `itemmap` (
 --
 -- Dumping data for table `itemmap`
 --
-
-INSERT INTO `itemmap` (`ReqId`, `ItemId`) VALUES
-(2, 2),
-(4, 6),
-(5, 8),
-(6, 9),
-(7, 11),
-(8, 12),
-(9, 13),
-(10, 14),
-(11, 15),
-(11, 16),
-(12, 17),
-(12, 18);
 
 -- --------------------------------------------------------
 
@@ -141,19 +70,19 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`) VALUES
 (3, 'US14005 - Tigershark Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '10000'),
 (4, 'US14006 - Tigershark Spares', 'INC', '5500'),
 (5, 'US14044AA - TS OP97 India Procurement', 'INDIA  Additional Material or Personnel Support Required', '4500'),
-(6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
+(6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '12501'),
 (7, 'US14044AC - TS OP97 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '50000'),
-(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '1800'),
+(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '3500'),
 (9, 'US14044BB - TS OP97 Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
+(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '6000'),
 (11, 'US14044BD - TS OP97 Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '2500'),
 (12, 'US14044BE - TS OP97 Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
 (13, 'US14052 - Tigershark Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
 (14, 'US15006AA - TS PSU Retool India Procurem', 'INDIA  Additional Material or Personnel Support required', '0'),
-(15, 'US15006AB - TS PSU India Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '0'),
+(15, 'US15006AB - TS PSU India Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '2500'),
 (16, 'US15006AC - TS PSU India Warranty', 'INDIA Warranty (material or design defects  software bugs)', '0'),
-(17, 'US15006BA - TS PSU Sales Commission', 'INC Code for Commissions', '5000'),
-(18, 'US15006BB - TS PSU Retool Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
+(17, 'US15006BA - TS PSU Sales Commission', 'INC Code for Commissions', '9500'),
+(18, 'US15006BB - TS PSU Retool Project Mgmt', 'INC  Code for Project Mgmt Hours', '2300'),
 (19, 'US15006BC - TS PSU Inc Warranty', 'INC Warranty (support labor  application software help)', '0'),
 (20, 'US15006BD - TS PSU Inc Install', 'INC Portion of LABOR at customer site (see budget)', '0'),
 (21, 'US15006BE - TS PSU Inc Prod Support', 'INC Portion of production support on CPO', '0'),
@@ -206,7 +135,7 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`) VALUES
 (68, 'SRV15004 - Trenton Flex Service 2015-16', 'INC Service Calls Billable to Customer', '0'),
 (69, 'US12009 - Flex Manufacturing Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '0'),
 (70, 'US12010 - Trenton Flex Line MECR''s', 'General only  all CPO''s will be assigned own new code', '0'),
-(71, 'US13005 - Trenton Flex Install', 'INC scope only - for setup at Customer site (0/100) Does not include material  material = India', '0'),
+(71, 'US13005 - Trenton Flex Install', 'INC scope only - for setup at Customer site (0/100) Does not include material  material = India', '25000'),
 (72, 'US13009 - Trenton Flex Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
 (73, 'US14019 - Trenton Production Support', '*INC', '0'),
 (74, 'US14024 - Trenton Vacuum Station', '**INDIA scope Material  Rework  all / **INC only I & C', '0'),
@@ -278,7 +207,7 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`) VALUES
 (140, 'US14051BA - Essex Retool Sales Commissio', 'INC code for Commissions (US14051A)', '0'),
 (141, 'US14051BB - Essex Retool Inc Project Mgm', 'INC code for Project Mgmt Hours (US14051B)', '0'),
 (142, 'US14051BC - Essex Retool Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14051X)', '0'),
-(143, 'US14051BD - Essex Retool Inc Install &Co', 'INC portion of labor only  at customer site (see budget) (US14051C)', '0'),
+(143, 'US14051BD - Essex Retool Inc Install &Co', 'INC portion of labor only  at customer site (see budget) (US14051C)', '5000'),
 (144, 'US14051BE - Essex Retool Inc Prod Suppor', 'INC  Portion of production support on CPO', '0'),
 (145, 'US14002 - FORD India - Dragon Crank', 'INDIA', '0'),
 (146, 'US14018 - Ford Dragon Key Press Machine', 'INDIA', '0'),
@@ -472,23 +401,7 @@ CREATE TABLE `purdets` (
   `Other` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `purdets`
---
 
-INSERT INTO `purdets` (`id`, `ReqsId`, `JobCode`, `VendorId`, `ShipId`, `Budgeted`, `BCS`, `Expl`, `Scope`, `Other`) VALUES
-(2, 2, 4, 6, 2, 0, 765543, '', 1, ''),
-(4, 6, 3, 119, 6, 1, 0, 'Extra', 0, ''),
-(5, 8, 17, 180, 8, 0, 554322, '', 1, ''),
-(6, 9, 17, 241, 9, 1, 0, 'LKJHGH', 0, ''),
-(7, 11, 4, 7, 11, 0, 34324, '', 0, ''),
-(8, 12, 4, 260, 12, 0, 3432322, '', 0, ''),
-(9, 13, 3, 402, 13, 0, 12345, '', 1, ''),
-(10, 14, 3, 12, 14, 0, 554322, '', 1, ''),
-(11, 15, 3, 33, 15, 1, 0, 'Extra', 1, ''),
-(12, 16, 7, 437, 16, 0, 665453, '', 0, '');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `requester`
@@ -503,23 +416,6 @@ CREATE TABLE `requester` (
   `Email` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `requester`
---
-
-INSERT INTO `requester` (`id`, `ReqsId`, `Name`, `Phno`, `Fno`, `Email`) VALUES
-(2, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@usc.edu'),
-(6, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritidubey@outlook.com'),
-(8, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(9, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(11, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'abcd@1234.com'),
-(12, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(13, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(14, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(15, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544342', 'aakritid@pariusa.com'),
-(16, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@pariusa.com');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `requistion`
@@ -529,27 +425,10 @@ CREATE TABLE `requistion` (
   `Id` int(11) NOT NULL,
   `ReqNo` varchar(8) NOT NULL,
   `RefQuote` varchar(20) NOT NULL,
-  `TotalCost` decimal(10,0) NOT NULL,
+  `TotalCost` decimal(10,2) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `requistion`
---
-
-INSERT INTO `requistion` (`Id`, `ReqNo`, `RefQuote`, `TotalCost`, `Date`) VALUES
-(2, 'P0000002', '3432432', '120', '2016-05-16 15:32:32'),
-(4, 'P0000004', '4234', '1812', '2016-05-16 16:11:11'),
-(5, 'P0000005', '5432', '684', '2016-05-16 16:31:22'),
-(6, 'P0000006', '452342', '1056', '2016-05-16 16:32:11'),
-(7, 'P0000007', '4234', '408', '2016-05-16 16:47:00'),
-(8, 'P0000008', '5654332', '130', '2016-05-16 17:03:03'),
-(9, 'P0000009', '432432', '989', '2016-05-16 17:06:11'),
-(10, 'P0000010', '452342', '369', '2016-05-16 17:11:11'),
-(11, 'P0000011', '45432231', '384', '2016-05-16 17:17:17'),
-(12, 'P0000012', '4434521', '3621', '2016-05-16 17:42:36');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `shipdets`
@@ -563,23 +442,6 @@ CREATE TABLE `shipdets` (
   `Method` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `shipdets`
---
-
-INSERT INTO `shipdets` (`shipid`, `ShipAddr`, `Attn`, `Date`, `Method`) VALUES
-(2, '5440 LMN Dr,\r\nRochester Hils, MI', 'Mr XYZ', '05/26/2016', 'FedEx'),
-(6, 'ABC DR', 'Mr ABC', '06/08/2016', 'USPS'),
-(8, 'bdfbsfgcfsd', 'Mr ABC', '05/27/2016', 'UTI'),
-(9, 'bdfbsfgcfsd\r\nrI MI', 'Mr ABC', '05/31/2016', 'UTI'),
-(11, 'dfsdfds', 'Mr XYZ', '05/25/2016', 'UPS'),
-(12, 'sfsdfsdvc', 'Mr PQR', '06/16/2016', 'UTI'),
-(13, 'fdgds', 'Mr ABC', '05/25/2016', 'FedEx'),
-(14, 'rerqqefef', 'Mr XYZ', '05/30/2016', 'Freight'),
-(15, 'rerqqefef\r\nTroy, MI', 'Mr XYZA', '05/30/2016', 'USPS'),
-(16, '78625 LMN DR,\r\nPontiac, MI', 'Mr XYZ', '05/27/2016', 'UPS');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `vendor`
@@ -1111,12 +973,6 @@ INSERT INTO `vendor` (`VendorCode`, `VendorName`, `VendorAddress`) VALUES
 --
 
 --
--- Indexes for table `approval`
---
-ALTER TABLE `approval`
-  ADD KEY `ReqId` (`ReqId`);
-
---
 -- Indexes for table `itemdescr`
 --
 ALTER TABLE `itemdescr`
@@ -1176,7 +1032,7 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `itemdescr`
 --
 ALTER TABLE `itemdescr`
-  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `jobcode`
 --
@@ -1186,17 +1042,17 @@ ALTER TABLE `jobcode`
 -- AUTO_INCREMENT for table `purdets`
 --
 ALTER TABLE `purdets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `requester`
 --
 ALTER TABLE `requester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `shipdets`
 --
 ALTER TABLE `shipdets`
-  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `vendor`
 --
@@ -1205,12 +1061,6 @@ ALTER TABLE `vendor`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `approval`
---
-ALTER TABLE `approval`
-  ADD CONSTRAINT `approval_ibfk_1` FOREIGN KEY (`ReqId`) REFERENCES `purdets` (`id`);
 
 --
 -- Constraints for table `itemmap`
