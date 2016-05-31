@@ -56,24 +56,84 @@ function vendorAddr(str){
         }
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				if(xmlhttp.responseText!="new"){
                 document.getElementById("vendorAddress").value = xmlhttp.responseText;
-            }
+				}
+				else{
+					$('#vendModal').modal();
+				}
+			}
+			
         };
-        xmlhttp.open("GET","vendAdrr.php?q="+str,true);
+        xmlhttp.open("GET","vendAdrr.php?type=get&q="+str,true);
         xmlhttp.send();
 }
 function validate(){
 		
 	$('form.detForm').validate();
 }
-
-    
+function addVendor(){
+	 	if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				if(xmlhttp.responseText==1){
+					var nm=document.getElementById("vName").value;
+					var addr=document.getElementById("vAddr").value;
+					var	venS = document.getElementById('svendor');
+					var option = document.createElement('option');
+					option.text=nm;
+					option.selected="selected";
+					venS.appendChild(option);
+					 document.getElementById("vendorAddress").value = addr;
+					 $('#vendModal').modal("hide");
+				}
+			}
+			
+        };
+		var nm=document.getElementById("vName").value;
+		var addr=document.getElementById("vAddr").value;
+        xmlhttp.open("GET","vendAdrr.php?type=set&name="+nm+"&addr="+addr,true);
+        xmlhttp.send();
+}		
 </script>
 </head>
 <body>
 <?php
 (include 'header.php');
 ?>
+<div id="vendModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Vendor</h4>
+      </div>
+      <div class="modal-body" id='datamodal'>
+		<form>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="vName">Vendor Name: </label><input id="vName" type="text" class="form-control" placeholder="Name" /> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="vAddr">Vendor Address: </label><textarea id="vAddr" rows="4" class="form-control" placeholder="Address"></textarea> </div>
+		</div>
+	   </form>
+      </div>
+      <div class="modal-footer">
+	  
+	   <button type="button" class="btn btn-primary" onclick="addVendor()">Add</button>
+		 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		
+      </div>
+    </div>
+
+  </div>
+</div>
 
       <div class="container">
       <div class="container " >
@@ -115,7 +175,7 @@ function validate(){
 							<option value="">Suggested Vendor</option>
 							<option value="new">New Vendor</option>
 							<?php
-								$query="SELECT * FROM vendor";
+								$query="SELECT * FROM vendor ORDER BY VendorName ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['VendorName'] . "'>" . $row['VendorName'] . "</option>";
