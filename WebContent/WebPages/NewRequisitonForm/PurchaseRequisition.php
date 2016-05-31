@@ -73,31 +73,34 @@ function validate(){
 	$('form.detForm').validate();
 }
 function addVendor(){
-	 	if (window.XMLHttpRequest) {
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				if(xmlhttp.responseText==1){
-					var nm=document.getElementById("vName").value;
-					var addr=document.getElementById("vAddr").value;
-					var	venS = document.getElementById('svendor');
-					var option = document.createElement('option');
-					option.text=nm;
-					option.selected="selected";
-					venS.appendChild(option);
-					 document.getElementById("vendorAddress").value = addr;
-					 $('#vendModal').modal("hide");
-				}
-			}
-			
-        };
 		var nm=document.getElementById("vName").value;
 		var addr=document.getElementById("vAddr").value;
-        xmlhttp.open("GET","vendAdrr.php?type=set&name="+nm+"&addr="+addr,true);
-        xmlhttp.send();
+		if(nm!="" && addr !=""){
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					if(xmlhttp.responseText==1){
+						nm=document.getElementById("vName").value;
+						addr=document.getElementById("vAddr").value;
+						var	venS = document.getElementById('svendor');
+						var option = document.createElement('option');
+						option.text=nm;
+						option.selected="selected";
+						venS.appendChild(option);
+						 document.getElementById("vendorAddress").value = addr;
+						 $('#vendModal').modal("hide");
+					}
+				}
+				
+			};
+			
+			xmlhttp.open("GET","vendAdrr.php?type=set&name="+nm+"&addr="+addr,true);
+			xmlhttp.send();
+		}
 }		
 </script>
 </head>
@@ -117,10 +120,10 @@ function addVendor(){
       <div class="modal-body" id='datamodal'>
 		<form>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="vName">Vendor Name: </label><input id="vName" type="text" class="form-control" placeholder="Name" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="vName">Vendor Name:<span class="reqd">*</span> </label><input id="vName" type="text" class="form-control" placeholder="Name" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="vAddr">Vendor Address: </label><textarea id="vAddr" rows="4" class="form-control" placeholder="Address"></textarea> </div>
+		<div class="col-md-10 form-group"> <label class="" for="vAddr">Vendor Address:<span class="reqd">*</span> </label><textarea id="vAddr" rows="4" class="form-control" placeholder="Address"></textarea> </div>
 		</div>
 	   </form>
       </div>
