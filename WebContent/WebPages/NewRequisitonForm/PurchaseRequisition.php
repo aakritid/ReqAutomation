@@ -178,7 +178,7 @@ function addVendor(){
 							<option value="">Suggested Vendor</option>
 							<option value="new">New Vendor</option>
 							<?php
-								$query="SELECT * FROM vendor ORDER BY VendorName ASC";
+								$query="SELECT * FROM vendor";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['VendorName'] . "'>" . $row['VendorName'] . "</option>";
