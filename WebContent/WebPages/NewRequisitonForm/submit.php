@@ -16,7 +16,7 @@ $active=$_SESSION["active"];
 		$err=1; $errmsg=$conn->error; echo '\n Error in start';
 	}
 	
-	$qry ="insert into shipdets (ShipAddr, Attn, Date, Method) values ('". $_SESSION["shipAddr"]."' , '" . $_SESSION["attn"]."', '".$_SESSION["daten"]."', '".$_SESSION["shipMethod"]."')";
+	$qry ="insert into shipdets (Attn, Date, Method, AddrId) values ('" . $_SESSION["attn"]."', '".$_SESSION["daten"]."', '".$_SESSION["shipMethod"]."', ".$_SESSION['ShipCode'].")";
 	if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error; echo '\nError in insert in shipdets: '.$qry;
 	}

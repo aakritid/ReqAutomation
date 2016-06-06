@@ -18,3 +18,5 @@ ALTER TABLE `itemmap`
 
   
   ALTER TABLE `approval` ADD `Date` DATETIME on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `Reason`;
+  
+   ALTER TABLE shipdets add FOREIGN KEY (AddrId) REFERENCES shippingaddr(AddrId);

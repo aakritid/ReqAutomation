@@ -49,6 +49,10 @@ function showData(str){
 function process(str,rea){
 	 if(str=='Deny'){
 		$("#denyModal").modal();
+		return;
+	 }
+	if(str=='Approve'){
+		$("#confirmModal").modal();
 	return;
 	}
 	$.ajax({
@@ -57,9 +61,15 @@ function process(str,rea){
 		cache: false,
 		data:  {'request': 'process','reqtype': str, 'reason': rea},
 		success: function(html) {
-			if(html==0){
+		if(html==0){
 				$('#resVal').addClass('alert-success');
 				document.getElementById('resVal').innerHTML="<h4>Approved!</h4>The Requisition has been approved!";
+				$('#confirmModal').modal('hide');
+			}
+			if(html==-1){
+				$('#resVal').addClass('alert-danger');
+				document.getElementById('resVal').innerHTML="<h4>Error</h4>Insufficient Budget Remaining, Unable to approve.";
+				$('#confirmModal').modal('hide');
 			}
 			if(html==1){
 				$('#resVal').addClass('alert-warning');
@@ -147,11 +157,36 @@ $records=$reqs['count(*)'];
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Deny Request</h4>
       </div>
-      <div class="modal-body" id='datamodal'>
+	  <div class="row">
+      <div class="modal-body" id='datamodal' style="padding:30px">
         <div class='container from-inline  col-sm-12'><label for='DReason'>Reason: </label><input id='DReason' class="form-control" type='text' Placeholder='Reason' style="width:100%;"/> </div>
       </div>
+	  </div>
       <div class="modal-footer" style="padding:20px">
-	   <button type="button" class="btn btn-info" onclick="process(this.innerHTML,document.getElementById('DReason').value)">Confirm</button>
+	   <button type="button" class="btn btn-info" onclick="process('deny'+this.innerHTML,document.getElementById('DReason').value)">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="confirmModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Approve Request</h4>
+      </div>
+	  <div class="row">
+      <div class="modal-body">
+        <div class='container from-inline  col-sm-12' style="padding:30px"><label for='DReason'>Confirm Approval of Requisition? </label></div>
+      </div>
+	  </div>
+      <div class="modal-footer" >
+	   <button type="button" class="btn btn-info" onclick="process('approve'+this.innerHTML,'')">Confirm</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
