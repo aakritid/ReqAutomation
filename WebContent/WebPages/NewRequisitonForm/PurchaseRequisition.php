@@ -92,6 +92,27 @@ function jobCodeChange(str){
         xmlhttp.open("GET","vendAdrr.php?type=getBudg&q="+str,true);
         xmlhttp.send();
 }
+
+function shipChange(str){
+	if (window.XMLHttpRequest) {
+           xmlhttp = new XMLHttpRequest();
+        } else {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				if(xmlhttp.responseText!="new"){
+                document.getElementById("shipAddress").value = xmlhttp.responseText;
+				}
+				else{
+					$('#shipModal').modal();
+				}
+			}
+			
+        };
+        xmlhttp.open("GET","vendAdrr.php?type=getShip&q="+str,true);
+        xmlhttp.send();
+}
 function addVendor(){
 		var nm=document.getElementById("vName").value;
 		var addr=document.getElementById("vAddr").value;
@@ -155,6 +176,43 @@ function addjc(){
 			xmlhttp.send();
 		}
 }	
+
+function addShip(){
+	var ln=document.getElementById("lName").value;
+	var add=document.getElementById("stAdd").value;
+	var st=document.getElementById("state").value;
+	var ct=document.getElementById("city").value;
+	var zp=document.getElementById("zip").value;
+	var cn=document.getElementById("ctry").value;
+		if(ln!="" && add !=""){
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					if(xmlhttp.responseText!=-1){
+						jc=document.getElementById("lName").value;
+						var	venS = document.getElementById('shaddr');
+						var option = document.createElement('option');
+						option.text=jc;
+						option.selected="selected";
+						option.value=xmlhttp.responseText;
+						venS.appendChild(option);
+						document.getElementById("shipAddress").value = ln+",\n"+add+",\n"+ct+",\n"+st+"-"+zp+".\n"+cn+".";
+						  $('#shipModal').modal("hide");
+					}
+					else 
+						alert(xmlhttp.responseText);
+				}
+				
+			};
+			
+			xmlhttp.open("GET","vendAdrr.php?type=setSAd&ln="+ln+"&add="+add+"&st="+st+"&ct="+ct+"&zp="+zp+"&cn="+cn,true);
+			xmlhttp.send();
+		}
+}
 </script>
 </head>
 <body>
@@ -233,6 +291,49 @@ function addjc(){
   </div>
 </div>
 
+<div id="shipModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Shipping Address</h4>
+      </div>
+      <div class="modal-body" id='datamodal'>
+		<form>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="lName">Location Name:<span class="reqd">*</span> </label><input id="lName" type="text" class="form-control" placeholder="Name" /> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="stAdd">Street Address:<span class="reqd">*</span> </label><textarea id="stAdd" rows="2" class="form-control" placeholder="Street Address"></textarea> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-6 form-group"> <label class="" for="city">City:<span class="reqd">*</span> </label><input id="city"  class="form-control" placeholder="City"/> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-6 form-group"> <label class="" for="state">State:<span class="reqd">*</span> </label><input id="state"  class="form-control" placeholder="State"/> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-6 form-group"> <label class="" for="zip">Zip/Pin Code:<span class="reqd">*</span> </label><input id="zip"  class="form-control" placeholder="Zip/Pin Code"/> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-6 form-group"> <label class="" for="ctry">Country:<span class="reqd">*</span> </label><input id="ctry"  class="form-control" placeholder="Country"/> </div>
+		</div>
+	   </form>
+      </div>
+      <div class="modal-footer">
+	  
+	   <button type="button" class="btn btn-primary" onclick="addShip()">Add</button>
+		 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
       <div class="container">
       <div class="container " >
   			<div class="progress " align="right" >
@@ -284,8 +385,28 @@ function addjc(){
 						</select>
 					</div>
 					</td>
-			        <td id="saddrdiv" class="col-sm-4"><label for="shipAddress">Shipping Address:<span class="reqd">*</span></label> 
-			        <textarea class="form-control required" rows="4" id="shipAddress" name="shipAddr"></textarea> </td>
+			        <td id="saddrdiv" class="col-sm-4">
+					<div class="form-inline">
+					<label for="shipVal">Shipping Location:<span class="reqd">*</span></label> 
+					<div id="shipVal" class="form-inline selectContainer">
+						<select class="form-control required " name="shipVals" id="shaddr" onchange="shipChange(this.value)">
+							<option value="">Shipping Address</option>
+							<option value="new">New Address</option>
+							<?php
+								$query="SELECT * FROM shippingaddr";
+								$result = $conn->query($query);
+								while ($row = $result->fetch_assoc()) {
+									echo "<option value='" . $row['AddrId'] . "'>" . $row['Name'] . "</option>";
+								}
+							?>
+						</select>
+					</div>
+					</div>
+					<div >
+					<label for="shipAdd">Shipping Address:<span class="reqd">*</span></label> 
+			        <textarea class="form-control required" rows="5" id="shipAddress" name="shipAddr" id="shipAdd"></textarea> 
+					</div>
+					</td>
 			        <td class="col-sm-4"> <div class="checkbox"><label class="checkbox-inline"><input type="checkbox" value="" name="bugd" id="budgt" checked>Budgeted</label>
 						</div> 
 						<div id="budgdiv"><label for="bcs">BCS#:</label><input  type="text" class="form-control" id="bcs" name="bcs"/></div></td>

@@ -143,6 +143,7 @@ session_start();
 
 $_SESSION["suggvendor"]=$_POST["suggvendor"];
 $_SESSION["JobCode"]=$_POST["JobCode"];
+$_SESSION["ShipCode"]=$_POST["shipVals"];
 $_SESSION["shipAddr"]=$_POST["shipAddr"];
 $_SESSION["bcs"]=$_POST["bcs"];
 $_SESSION["vendAddr"]=$_POST["vendAddr"];

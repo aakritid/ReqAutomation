@@ -124,7 +124,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 			        <input type="text" class="form-control" id="svendor1" value ="<?php echo $_SESSION["suggvendor"]?>" readonly />
 					</td>
 			        <td class="col-sm-4"><label for="shipAddress1">Shipping Address:</label> 
-			        <textarea class="form-control" rows="4" id="shipAddress1" readonly> <?php echo $_SESSION["shipAddr"]?> </textarea></td>
+			        <textarea class="form-control" rows="5" id="shipAddress1" readonly> <?php echo $_SESSION["shipAddr"]?> </textarea></td>
 			        <td class="col-sm-4"> <div class="checkbox">
 					<?php
 					 if($_SESSION["bugd"]==true){ 

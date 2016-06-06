@@ -47,6 +47,10 @@ $qry="select * from shipdets where shipid=".$prdts['ShipId'];
 $result = $conn->query($qry);
 $ship=$result->fetch_assoc();
 
+$qry="select * from shippingaddr where AddrId=".$ship['AddrId'];
+$result = $conn->query($qry);
+$addr=$result->fetch_assoc();
+
 $qry="select ItemId from itemmap where ReqId=".$reqid;
 $result = $conn->query($qry);
 
@@ -89,7 +93,7 @@ switch($prdts['Scope']){
 		
 	$opt2=" <table class='table table-bordered' style='padding:10px'>";
 	$opt2=$opt2."<tbody><tr><td colspan='2' class='col-sm-4'><label>Suggested Vendor:  </label><p>".$vendor['VendorName']. "</p></td>";
-	$opt2=$opt2."<td class='col-sm-4'><label>Shipping Address:</label><p>".$ship['ShipAddr']."</p></td><td rowspan='2' class='col-sm-4'><label>Budgeted: </label><p>".$bdg."</p></td></tr>";
+	$opt2=$opt2."<td class='col-sm-4'><label>Shipping Address:</label><p>".$addr['Name']."<br>". $addr['Address']."<br>".$addr['City']."<br>".$addr['State']."-". $addr['ZipCode']."<br>".$addr['Country']."</p></td><td rowspan='2' class='col-sm-4'><label>Budgeted: </label><p>".$bdg."</p></td></tr>";
 	$opt2=$opt2."<tr><td colspan='2' class='col-sm-4'><label>Address of Vendor:</label><p>".$vendor['VendorAddress']."</p></td><td class='col-sm-4'><label>Attention:</label><p>".$ship['Attn']."</p></td></tr>";
 	$opt2=$opt2."<tr><td class='col-sm-2'><label>Phone Number:</label><p>".$requester['Phno']."</p></td><td class='col-sm-2'><label>Fax Number:</label><p>".$requester['Fno']."</p></td>";
 	$opt2=$opt2."<td class='col-sm-4 form-control'><label>Date Needed:</label><p>".$ship['Date']."</p></td>";
