@@ -1,30 +1,5 @@
 <?php
-/**
- * PHPExcel
- *
- * Copyright (c) 2006 - 2015 PHPExcel
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * @category   PHPExcel
- * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
- * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
- * @version    ##VERSION##, ##DATE##
- */
-/** Error reporting */
+
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
@@ -44,7 +19,7 @@ $conn = new mysqli($servername, $username, $password,"purchasereq");
 if (!$conn) {
     die('Could not connect: ' . mysqli_error($conn));
 }
-$reqno='P0000023';
+$reqno='P0000011';
 
 $qry="select * from requistion where ReqNo='".$reqno."'";
 $result = $conn->query($qry);
@@ -58,7 +33,6 @@ $reqid=$reqs['Id'];
 $refqt=$reqs['RefQuote'];
 $tc=$reqs['TotalCost'];
 
-//$_SESSION['SReq']=$reqid;
 
 $qry="select * from purdets where id=".$reqid;
 $result = $conn->query($qry);
@@ -80,6 +54,10 @@ $vendor=$result->fetch_assoc();
 $qry="select * from shipdets where shipid=".$prdts['ShipId'];
 $result = $conn->query($qry);
 $ship=$result->fetch_assoc();
+
+$qry="select * from shippingaddr where AddrId=".$ship['AddrId'];
+$result = $conn->query($qry);
+$addr=$result->fetch_assoc();
 
 $qry="select ItemId from itemmap where ReqId=".$reqid;
 $result = $conn->query($qry);
@@ -112,7 +90,7 @@ $dt=$date['DATE_FORMAT(Date,\'%d %b %Y\')'];
 $name=$requester['Name'];
 $vend=$vendor['VendorName'];
 $vaddr=$vendor['VendorAddress'];
-$saddr=$ship['ShipAddr'];
+$saddr=sprintf("%s,\n%s,\n%s,\n%s-%s.\n%s.", $addr['Name'], $addr['Address'], $addr['City'], $addr['State'], $addr['ZipCode'], $addr['Country']);
 $attn=$ship['Attn'];
 $phno=$requester['Phno'];
 $faxno=$requester['Fno'];
