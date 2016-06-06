@@ -61,9 +61,14 @@ function process(str,rea){
 		cache: false,
 		data:  {'request': 'process','reqtype': str, 'reason': rea},
 		success: function(html) {
-			if(html==0){
+		if(html==0){
 				$('#resVal').addClass('alert-success');
 				document.getElementById('resVal').innerHTML="<h4>Approved!</h4>The Requisition has been approved!";
+				$('#confirmModal').modal('hide');
+			}
+			if(html==-1){
+				$('#resVal').addClass('alert-danger');
+				document.getElementById('resVal').innerHTML="<h4>Error</h4>Insufficient Budget Remaining, Unable to approve.";
 				$('#confirmModal').modal('hide');
 			}
 			if(html==1){
