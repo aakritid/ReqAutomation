@@ -31,8 +31,8 @@ session_start();
      document.getElementById("valid").value=rows;
      $("#addItem").click(function(){
 		 i++; 
-      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control required'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control required'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control required' onchange='totalCalc()' onkeypress='return numVal() '/></td>" +
-    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit Desc' class='form-control required'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Price' class='form-control required' onchange='totalCalc()' onkeypress='return numVal()'/></td>" +
+      $('#itemDesc'+i).html( "<td><input type='text' name='itemNo"+i+"'  placeholder='Item #' class='form-control required'/> </td><td><textarea name='item"+i+"'  rows='2' placeholder='Item Description' class='form-control required'></textarea></td> <td><input type='text' name='quant"+i+"' id='quant"+i+"' placeholder='Quantity' class='form-control required digits' onchange='totalCalc()' /></td>" +
+    		  "<td><input type='text' name='unit"+i+"'  placeholder='Unit Desc' class='form-control required'/></td> <td><input type='text' name='unitPrice"+i+"' id='unitPrice"+i+"' placeholder='Price' class='form-control required numb' onchange='totalCalc()' /></td>" +
     		  "<td><input type='text' id='total"+i+"' name='total"+i+"' class='form-control' readonly value='$0' /></td> <td><p id='del"+i+"' class='delete' onclick='deleteRow(this.id)'> <span class='glyphicon glyphicon-remove' title='Delete Row' style='cursor:pointer'></span></p></td>");
 
       $('#itemTable').append("<tr id='itemDesc"+(i+1)+"'></tr>");
@@ -50,7 +50,19 @@ session_start();
                     {
                         required: true
                     })
-            });            
+            });  
+			$('input.digits').each(function() {
+                $(this).rules("add", 
+                    {
+                        digits: true
+                    })
+            });
+			 $('input.numb').each(function() {
+                $(this).rules("add", 
+                    {
+                        number: true
+                    })
+            });  	
         });
   });
   function deleteRow(str){
@@ -119,17 +131,10 @@ session_start();
 	 }
 	}
 }
- function numVal(){
-	 if(!((event.charCode >= 48 && event.charCode <= 57) || (event.charCode==46)))
-	 {
-		 alert("Please enter numeric value");
-		 return false;
-	 }
-	 return true;
- }
+ 
  function validate(){
 	 if(err==1){
-		 alert("The total cost for the requisition is exceeding the allocated budget for the Job Code.");
+		 $("#errModal").modal();
 		 return false;
 	 }
 	  $('form.itemForm').validate();
@@ -195,7 +200,26 @@ if(isset($_POST["scope"])){
 }
 (include 'header.php');
 ?>
-  
+ <div id="errModal" class="modal fade">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Error</h4>
+      </div>
+      <div class="modal-body" id='datamodal'>
+        <p class="alert-danger" id="resVal">The total cost for the requisition is exceeding the available budget for the Job Code. Please Review.</p>
+      </div>
+      <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
       <div class="container">
       <div class="container " >
   			<div class="progress " align="right" >
@@ -240,13 +264,13 @@ if(isset($_POST["scope"])){
 				<textarea name='item0'  rows="2" placeholder='Item Description' class="form-control required"></textarea>
 			</td>
 			<td>
-				<input type="text" name='quant0'  placeholder='Quantity' id="quant0" class="form-control required" onchange="totalCalc()" onkeypress='return numVal()'/>
+				<input type="text" name='quant0'  placeholder='Quantity' id="quant0" class="form-control required digits" onchange="totalCalc()"/>
 			</td>
 			<td>
 				<input type="text" name='unit0'  placeholder='Unit Desc' class="form-control required"/>
 			</td>
 			<td>
-				<input type="text" name='unitPrice0'  placeholder='Price' id="unitPrice0" class="form-control required" onchange="totalCalc()" onkeypress='return numVal()'/>
+				<input type="text" name='unitPrice0'  placeholder='Price' id="unitPrice0" class="form-control required numb" onchange="totalCalc()" />
 			</td>
 			<td>
 				<input type="text" id="total0" name='total0' class="form-control" value="$0" readonly onchange="sumTot()" />
@@ -261,7 +285,7 @@ if(isset($_POST["scope"])){
 		</table>
 		<div class="form-inline container"><a id="addItem" class="btn btn-default pull-left">Add Item</a>
 		</div>
-		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:<span class="reqd">*</span></label><input class="form-control required" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote"/></div>
+		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:<span class="reqd">*</span></label><input class="form-control required digits" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote"/></div>
 			 <div class="col-sm-3 pull-right"><label for="totalCost" id='tcval'>Total Cost: $</label><label id="totalCost">0</label></div>
 			 <input type="text" name="totalCost1" id="tc1" hidden />
 			 <input type="text" name="vald" id="valid" hidden />

@@ -41,7 +41,13 @@ $('form.detForm').on('submit', function(event) {
                     {
                         required: true
                     })
-            });            
+            });  
+			$('.digit').each(function() {
+                $(this).rules("add", 
+                    {
+                        digits: true
+                    })
+            });
         });
 		
 });
@@ -409,7 +415,7 @@ function addShip(){
 					</td>
 			        <td class="col-sm-4"> <div class="checkbox"><label class="checkbox-inline"><input type="checkbox" value="" name="bugd" id="budgt" checked>Budgeted</label>
 						</div> 
-						<div id="budgdiv"><label for="bcs">BCS#:</label><input  type="text" class="form-control" id="bcs" name="bcs"/></div></td>
+						<div id="budgdiv"><label for="bcs">BCS#:</label><input  type="text" class="form-control digit" id="bcs" name="bcs"/></div></td>
 			      </tr>
 			      <tr>
 			        <td id="vaddrdiv" colspan="2" class="col-sm-4"><label for="vendorAddress">Address of Vendor:<span class="reqd">*</span></label> 
@@ -422,9 +428,9 @@ function addShip(){
 			      </tr>
 			      <tr>
 			         <td class="col-sm-2"><label for="phoneNum">Phone Number:</label> 
-			        <input type="text" class="form-control" id="phoneNum" name="phoneNum"/></td>
+			        <input type="text" class="form-control digit" id="phoneNum" name="phoneNum"/></td>
 			        <td class="col-sm-2"><label for="faxNum">Fax Number:</label> 
-			        <input type="text" class="form-control" id="faxNum" name="faxNum"/></td>
+			        <input type="text" class="form-control digit" id="faxNum" name="faxNum"/></td>
 			        <td id="datediv" class="col-sm-4 form-control " >
                 <label for="datepicker">Date Needed:<span class="reqd">*</span></label>
                     <div class="input-group date" data-provide="datepicker">

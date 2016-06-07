@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
   <style>
   #myModal .modal-dialog{
 	  width: 1200px;
@@ -90,6 +91,14 @@ $(function () {
 $('#resModal').on('hidden.bs.modal', function () {
 	window.location="Approval.php";
 });
+
+ $(document).ajaxStart(function(){
+        $("#load").css("display", "block");
+    });
+    $(document).ajaxComplete(function(){
+        $("#load").css("display", "none");
+    });
+
 });
   </script>
 <body>
@@ -118,6 +127,7 @@ $records=$reqs['count(*)'];
       </div>
       <div class="modal-body" id='datamodal'>
         <p ></p>
+		
       </div>
       <div class="modal-footer">
 	   <button type="button" class="btn btn-primary" onclick="process(this.innerHTML,'')">Approve</button>
@@ -184,6 +194,9 @@ $records=$reqs['count(*)'];
 	  <div class="row">
       <div class="modal-body">
         <div class='container from-inline  col-sm-12' style="padding:30px"><label for='DReason'>Confirm Approval of Requisition? </label></div>
+		<div id="load" style="display:none">
+		<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+		</div>
       </div>
 	  </div>
       <div class="modal-footer" >

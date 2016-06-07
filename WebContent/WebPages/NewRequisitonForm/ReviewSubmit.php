@@ -47,7 +47,7 @@ $('#resModal').on('hidden.bs.modal', function () {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Result</h4>
+        <h4 class="modal-title">Submit Requisition</h4>
       </div>
       <div class="modal-body" id='datamodal'>
         <p class="" id="resVal"></p>
