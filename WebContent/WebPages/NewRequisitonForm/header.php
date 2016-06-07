@@ -35,7 +35,7 @@ $unapproved=$reqs['count(*)'];
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
 		<ul class="dropdown-menu">
             <li><a class="btn" href="budgetexport.php"><span class="glyphicon glyphicon-download-alt"></span>Budget Report</a></li>
-            <li><a class="btn" href="#"><span class="glyphicon glyphicon-download-alt"></span>Requisition Report</a></li>
+            <li><a class="btn" href="ReqReport.php"><span class="glyphicon glyphicon-download-alt"></span>Requisition Report</a></li>
 		 </ul>
 		</li> 
       </ul>
