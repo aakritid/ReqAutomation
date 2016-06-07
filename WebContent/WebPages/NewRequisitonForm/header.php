@@ -31,7 +31,13 @@ $unapproved=$reqs['count(*)'];
       <li id='l2'><a href="ViewSubmissions.php">Submitted Requisitions</a></li>
       <li id='l3'><a href="Approval.php">Approve Requests  <span class="badge"><?php echo $unapproved; ?></span></a></li> 
 	  <li id='l4'><a href="BudgetAllocation.php">Budget Allocation</a></li> 
-	  <li id='l5'><a href="View.php">View All Requisitions</a></li> 
-          </ul>
+	  <li id='l5' class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+		<ul class="dropdown-menu">
+            <li><a class="btn" href="budgetexport.php"><span class="glyphicon glyphicon-download-alt"></span>Budget Report</a></li>
+            <li><a class="btn" href="#"><span class="glyphicon glyphicon-download-alt"></span>Requisition Report</a></li>
+		 </ul>
+		</li> 
+      </ul>
   </div>
 </nav>
