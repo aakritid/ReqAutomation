@@ -272,7 +272,7 @@ function addShip(){
 		<div class="row">
 		<div class="col-md-10 form-group"> <label class="" for="jcpm">Project Manager:</label>
 		<div  class="form-inline selectContainer">
-						<select id="jcdd" class="form-control required" name="shipMethod" id="shipMethod">
+						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
 							
 						</select>
