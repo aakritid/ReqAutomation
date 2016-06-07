@@ -14,6 +14,54 @@ LINES TERMINATED BY ',,,,,\r\n'
 -- Database: `purchasereq`
 --
 
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 07, 2016 at 08:00 PM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 5.5.33
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `purchasereq`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `approval`
+--
+
+CREATE TABLE `approval` (
+  `ReqId` int(11) NOT NULL,
+  `AppDen` tinyint(1) NOT NULL,
+  `Reason` text NOT NULL,
+  `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `approval`
+--
+
+INSERT INTO `approval` (`ReqId`, `AppDen`, `Reason`, `Date`) VALUES
+(13, 1, 'Extra', '2016-06-07 10:52:57'),
+(18, 0, '', '2016-06-07 10:53:18'),
+(5, 0, '', '2016-06-07 11:26:32'),
+(16, 0, '', '2016-06-07 11:32:41'),
+(8, 0, '', '2016-06-07 11:35:00'),
+(21, 0, '', '2016-06-07 13:09:06'),
+(14, 1, 'Denied', '2016-06-07 13:11:18');
+
 -- --------------------------------------------------------
 
 --
@@ -34,6 +82,39 @@ CREATE TABLE `itemdescr` (
 -- Dumping data for table `itemdescr`
 --
 
+INSERT INTO `itemdescr` (`itemid`, `ItemNo`, `Descr`, `Quantity`, `UnitDesc`, `UnitPrice`, `Total`) VALUES
+(2, '54345', 'fgfdgdfg', 3, 'gsdfd', '40', '$120.00'),
+(6, '54325', 'fgdgf', 453, 'ggdfg', '4', '$1812.00'),
+(8, '5543', 'gerfe', 342, 'ggr', '2', '$684.00'),
+(9, '4543', 'gfsdfad', 32, 'fvgdfg', '33', '$1056.00'),
+(11, '32423', 'gfdgd', 34, 'fdgfd', '12', '$408.00'),
+(12, '34323', 'fdsfs', 2, '12 pack', '65', '$130.00'),
+(13, '342', 'fdgfd', 43, 'ffdgs', '23', '$989.00'),
+(14, '34233', 'fsfds', 3, 'fdfd', '123', '$369.00'),
+(15, '5435', 'hhdufgsu', 2, 'sdfsd', '12', '$24.00'),
+(16, '4535', 'sfsdbvbd', 12, 'fsdfs', '30', '$360.00'),
+(17, '453', 'sdfsdf', 12, 'ewrew', '230', '$2760.00'),
+(18, '5435', 'fvsdfds', 7, '1 pack', '123', '$861.00'),
+(19, '5653', 'AI BOLTS', 4, '12 pack', '35', '$140.00'),
+(20, '65422', 'DDFDE Tapes', 10, '3 pack', '40', '$400.00'),
+(21, '2323221', 'adasdaksjj', 4, '3 pack', '240', '$960.00'),
+(22, '22324', 'fdsdsgs', 3, '44 pack', '123', '$369.00'),
+(23, '6547', 'rertryre', 1, '12 pack', '58', '$57.50'),
+(24, '34234', 'rterte', 1, 'rtre', '126', '$125.50'),
+(27, '543', 'bgbf', 3, 'fdgfd', '36', '$106.50'),
+(28, '765', 'gfhgf', 5, 'gfhf', '85', '$425.00'),
+(29, '543', 'dfdsf', 35, 'sdfds', '250', '$8750.00'),
+(30, '3423', 'fgdsdfd', 2, 'dfsd', '300', '$600.00'),
+(31, '452334', 'fsd', 3, 'ffds', '120', '$360.00'),
+(32, '432fd', 'dwerwe', 4, '1 pack', '120', '$480.00'),
+(33, '543543', 'fdfsdfdssgf', 30, 'fdgfgd', '37', '$1095.00'),
+(34, '654345', 'dfdbbgbdfg', 4, 'fdgfd', '76', '$302.00'),
+(35, '83424', 'ytrerer', 1, 'bght', '450', '$450.00'),
+(36, '543d', 'abcd', 6, 'hgfhg', '120', '$720.00'),
+(37, '654gfd', 'fdsfdsf', 4, 'fdsfsd', '55', '$220.00');
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `itemmap`
 --
@@ -47,6 +128,37 @@ CREATE TABLE `itemmap` (
 -- Dumping data for table `itemmap`
 --
 
+INSERT INTO `itemmap` (`ReqId`, `ItemId`) VALUES
+(2, 2),
+(4, 6),
+(5, 8),
+(6, 9),
+(7, 11),
+(8, 12),
+(9, 13),
+(10, 14),
+(11, 15),
+(11, 16),
+(12, 17),
+(12, 18),
+(13, 19),
+(13, 20),
+(14, 21),
+(15, 22),
+(15, 23),
+(16, 24),
+(18, 27),
+(18, 28),
+(19, 29),
+(20, 30),
+(20, 31),
+(21, 32),
+(22, 33),
+(23, 34),
+(23, 35),
+(24, 36),
+(25, 37);
+
 -- --------------------------------------------------------
 
 --
@@ -57,330 +169,335 @@ CREATE TABLE `jobcode` (
   `JCId` int(11) NOT NULL,
   `JobCode` varchar(40) NOT NULL,
   `Descr` text NOT NULL,
-  `Budget` decimal(10,0) NOT NULL
+  `Budget` decimal(15,2) UNSIGNED NOT NULL,
+  `Spent` decimal(15,2) UNSIGNED NOT NULL,
+  `PM` int(11) NOT NULL,
+  `LastSet` decimal(15,2) UNSIGNED NOT NULL,
+  `TotalAlloc` decimal(15,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jobcode`
 --
 
-INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`) VALUES
-(1, 'US13003 - Tigershark Rework', 'INDIA Rework related to manufacturing issues (100/0)', '0'),
-(2, 'US13004 - Tigershark MECR''s', 'INC  all new changes should have own job code', '0'),
-(3, 'US14005 - Tigershark Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '10000'),
-(4, 'US14006 - Tigershark Spares', 'INC', '5500'),
-(5, 'US14044AA - TS OP97 India Procurement', 'INDIA  Additional Material or Personnel Support Required', '4500'),
-(6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '12501'),
-(7, 'US14044AC - TS OP97 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '50000'),
-(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '3500'),
-(9, 'US14044BB - TS OP97 Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '6000'),
-(11, 'US14044BD - TS OP97 Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '2500'),
-(12, 'US14044BE - TS OP97 Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(13, 'US14052 - Tigershark Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(14, 'US15006AA - TS PSU Retool India Procurem', 'INDIA  Additional Material or Personnel Support required', '0'),
-(15, 'US15006AB - TS PSU India Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '2500'),
-(16, 'US15006AC - TS PSU India Warranty', 'INDIA Warranty (material or design defects  software bugs)', '0'),
-(17, 'US15006BA - TS PSU Sales Commission', 'INC Code for Commissions', '9500'),
-(18, 'US15006BB - TS PSU Retool Project Mgmt', 'INC  Code for Project Mgmt Hours', '2300'),
-(19, 'US15006BC - TS PSU Inc Warranty', 'INC Warranty (support labor  application software help)', '0'),
-(20, 'US15006BD - TS PSU Inc Install', 'INC Portion of LABOR at customer site (see budget)', '0'),
-(21, 'US15006BE - TS PSU Inc Prod Support', 'INC Portion of production support on CPO', '0'),
-(22, 'US15006BF - TS PSU Drip Pan RMC Transfer', 'INC  Cost of Drip Pan MATERIAL only; Budget very limited', '0'),
-(23, 'US15015AA - OP107/117 India Procurement', 'INDIA  Additional Material or Personnel Support required', '0'),
-(24, 'US15015AB - OP107/117 India Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '0'),
-(25, 'US15015AC - OP107/117 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(26, 'US15015BA - OP107/117 Sales Commissions', 'INC Code for Commissions', '0'),
-(27, 'US15015BB - OP107/117 INC Project Managm', 'INC  Code for Project Mgmt Hours', '0'),
-(28, 'US15015BC - OP107/117 INC Warranty', 'INC Warranty (support labor  application software help)', '0'),
-(29, 'US15015BD - OP107/117 INC Integration', 'INC  Integration & Run Off at PARI US (INACTIVE / NA)', '0'),
-(30, 'US15015BE - OP107/117 Inc Install at Sit', 'INC  Portion of LABOR at customer site (see budget)', '0'),
-(31, 'US15015BF - OP107/117 INC Production Sup', 'INC  Portion of production support on CPO', '0'),
-(32, 'US15015BG - OP107/117 RMC INC material', 'INC  Cost of scheduled MATERIAL only; Budget very limited', '0'),
-(33, 'SP14006 - Tipton Spare Parts', 'INC Tipton Spare Part Orders for INC (0/100)', '0'),
-(34, 'US13012 - Tipton India Procurement', 'Known purchases on behalf of India (100/0) w Purchase Req', '0'),
-(35, 'US13013 - Tipton Change Order MECR', 'General Time Only  all CPO''s will be assigned own new code', '0'),
-(36, 'US13033 - Tipton Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(37, 'US13035 - India Personnel Support Tipton', 'INDIA - Bill back for supporting their staff (100/0)', '0'),
-(38, 'US14030 - Tipton Install General (Inc)', 'INC Costs ONLY for Install unable to split by system', '0'),
-(39, 'US14036A - S5-P3 Sales Commissions', 'INC code for Commissions', '0'),
-(40, 'US14036B - S5-P3 Inc Project Management', 'INC code for Project Mgmt Hours', '0'),
-(41, 'US14036E - S5-P3 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0'),
-(42, 'US14036N - S5-P3 India Procurement', 'INDIA unplanned additional material required', '0'),
-(43, 'US14036P - S5-P3 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(44, 'US14036Q - S5-P3 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(45, 'US14036S - S5-P3 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '0'),
-(46, 'US14037A - S1-P3 Sales Commissions', 'INC code for Commissions', '0'),
-(47, 'US14037B - S1-P3 Inc Project Management', 'INC code for Project Mgmt Hours', '0'),
-(48, 'US14037E - S1-P3 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0'),
-(49, 'US14037K - S1-P3 India Procure Unplanned', 'INDIA unplanned additional material required', '0'),
-(50, 'US14037L - S1-P3 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(51, 'US14037M - S1-P3 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(52, 'US14037P - S1-P3 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '20000'),
-(53, 'US14038A - S3-P2 Sales Commissions', 'INC code for Commissions', '0'),
-(54, 'US14038B - S3-P2 Inc Project Management', 'INC code for Project Mgmt Hours', '0'),
-(55, 'US14038F - S3-P2 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0'),
-(56, 'US14038G - S3-P2 Project Engineering RH', 'INC Project Engineering at Rochester Hills (*)', '0'),
-(57, 'US14038H - S3-P2 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(58, 'US14038J - S3-P2 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(59, 'US14038K - S3-P2 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '0'),
-(60, 'US14039A - S3-P3 Sales Commissions', 'INC code for Commissions', '0'),
-(61, 'US14039B - S3-P3 Inc Project Management', 'INC code for Project Mgmt Hours', '0'),
-(62, 'US14039F - S3-P3 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0'),
-(63, 'US14039G - S3-P3 Project Engineering RH', 'INC Project Engineering at Rochester Hills (*)', '0'),
-(64, 'US14039H - S3-P3 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(65, 'US14039J - S3-P3 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(66, 'US14039K - S3-P3 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '6000'),
-(67, 'US14053 - Tipton Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(68, 'SRV15004 - Trenton Flex Service 2015-16', 'INC Service Calls Billable to Customer', '0'),
-(69, 'US12009 - Flex Manufacturing Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '0'),
-(70, 'US12010 - Trenton Flex Line MECR''s', 'General only  all CPO''s will be assigned own new code', '0'),
-(71, 'US13005 - Trenton Flex Install', 'INC scope only - for setup at Customer site (0/100) Does not include material  material = India', '25000'),
-(72, 'US13009 - Trenton Flex Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(73, 'US14019 - Trenton Production Support', '*INC', '0'),
-(74, 'US14024 - Trenton Vacuum Station', '**INDIA scope Material  Rework  all / **INC only I & C', '0'),
-(75, 'US14025 - Trenton GME India', 'INDIA Scope: Engineering & Build  Shipping  Docs', '0'),
-(76, 'US14026 - Trenton GME Inc', 'INC Scope: Install & Comm  Project Mgmt', '0'),
-(77, 'US14027 - Trenton GME Rework', 'INDIA For damaged  missing or not fitting material', '0'),
-(78, 'US14043 - Trenton Oil Hole Check Station', 'INC related to PO 80524003 Only', '0'),
-(79, 'US14055 - Trenton Flex Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(80, 'SP15001 - Crystal Sugar Spares 2015-16', 'INC Spare Parts', '0'),
-(81, 'SP14001 - Fanuc Spares 2014-15', 'INC Spare Parts (thru India)', '0'),
-(82, 'SP15002 - Fanuc Spares 2015-16', 'INC Spare Parts (thru India)', '0'),
-(83, 'US15007AA - Ferrari Block India Procurem', 'INDIA  Additional Material or Personnel Support Required', '0'),
-(84, 'US15007AB - Ferrari India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(85, 'US15007AC - Ferrari India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(86, 'US15007BA - Ferrari Sales Commission', 'INC  Code for Commissions', '0'),
-(87, 'US15007BB - Ferrari Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(88, 'US15007BC - Ferrari Inc Warranty', 'INC Warranty (support labor  application software help)', '0'),
-(89, 'US15007BD - Ferrari Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0'),
-(90, 'US15007BE - Ferrari Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(91, 'US15007BF - Ferrari Telesis RMC Transfer', 'INC  Cost of Telesis Order ONLY MATERIAL', '0'),
-(92, 'US15007BG - Ferrari ASI RMC Transfer', 'INC  Cost of ASI Order ONLY MATERIAL', '0'),
-(93, 'US15007BH - Ferrari Inc Integration Cost', 'INC  Portion of costs to Integrate prior to Customer Site', '0'),
-(94, 'US15008AA - GMET Head India Procurement', 'INDIA  Additional Material or Personnel Support Required', '0'),
-(95, 'US15008AB - GMET Head India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(96, 'US15008AC - GMET Head India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(97, 'US15008BA - GMET Head Sales Commission', 'INC  Code for Commissions', '0'),
-(98, 'US15008BB - GMET Head Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(99, 'US15008BC - GMET Head Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(100, 'US15008BD - GMET Head Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0'),
-(101, 'US15008BE - GMET Head Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(102, 'US15008BF - GMET Head Telesis RMC Transf', 'INC  Cost of Telesis Order ONLY MATERIAL', '0'),
-(103, 'US15008BG - GMET Head ASI RMC Transfe', 'INC  Cost of ASI Order ONLY MATERIAL', '0'),
-(104, 'US15008BH - GMET Head Inc Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0'),
-(105, 'US15009AA - GMET Block India Procurement', 'INDIA  Additional Material or Personnel Support Required', '0'),
-(106, 'US15009AB - GMET Block India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(107, 'US15009AC - GMET Block India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(108, 'US15009BA - GMET Block Sales Commission', 'INC  Code for Commissions', '0'),
-(109, 'US15009BB - GMET Block Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(110, 'US15009BC - GMET Block Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(111, 'US15009BD - GMET Block Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0'),
-(112, 'US15009BE - GMET Block Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(113, 'US15009BF - GMET Block Telesis RMC Trans', 'INC  Cost of Telesis Order ONLY MATERIAL', '0'),
-(114, 'US15009BG - GMET Block ASI RMC Transfer', 'INC  Cost of ASI Order ONLY MATERIAL', '0'),
-(115, 'US15009BH - GMET Block Inc Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0'),
-(116, 'US15010AA - GMET Crank India Procurement', 'INDIA  Additional Material or Personnel Support Required', '0'),
-(117, 'US15010AB - GMET Crank India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(118, 'US15010AC - GMET Crank India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(119, 'US15010BA - GMET Crank Sales Commission', 'INC  Code for Commissions', '0'),
-(120, 'US15010BB - GMET Crank Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(121, 'US15010BC - GMET Crank Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(122, 'US15010BD - GMET Crank Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0'),
-(123, 'US15010BE - GMET Crank Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(124, 'US15010BF - GMET Crank Telesis RMC Trans', 'INC  Cost of Telesis Order ONLY MATERIAL', '0'),
-(125, 'US15010BG - GMET Crank INC Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0'),
-(126, 'SRV15001 - Essex Service Calls 2015-16', 'INC Service Calls Billable to Customer', '0'),
-(127, 'US110028 - Warranty - Support Coyote', 'INDIA warranty related to original system', '0'),
-(128, 'US12005 - Spare Parts Ford Essex', 'INC Spare Parts', '0'),
-(129, 'US14050AA - Expansion India Procurement', 'INDIA additional material/labor required (US14050G) & their personnel (US14050K)', '0'),
-(130, 'US14050AB - Expansion Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14050H / US14050J)', '0'),
-(131, 'US14050AC - Expansion Warranty - India', 'INDIA Warranty (Material or design defects  software bugs) (US14050W)', '0'),
-(132, 'US14050BA - Expansion Sales Commissions', 'INC code for Commissions (US14050A)', '0'),
-(133, 'US14050BB - Expansion Inc Project Mgmt', 'INC code for Project Mgmt Hours (US14050B)', '0'),
-(134, 'US14050BC - Expansion Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14050X)', '0'),
-(135, 'US14050BD - Expansion Inc Install & Comi', 'INC portion of labor  at customer site (see budget) (US14050C)', '0'),
-(136, 'US14050BE - Expansion Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(137, 'US14051AA - Essex Retool India Procuremn', 'INDIA additional material/labor required (US14051G) & their personnel (US14051K)', '0'),
-(138, 'US14051AB - Essex Retool Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14051H / US14051J)', '0'),
-(139, 'US14051AC - Essex Retool Warranty - Indi', 'INDIA Warranty (Material or design defects  software bugs) (US14051W)', '0'),
-(140, 'US14051BA - Essex Retool Sales Commissio', 'INC code for Commissions (US14051A)', '0'),
-(141, 'US14051BB - Essex Retool Inc Project Mgm', 'INC code for Project Mgmt Hours (US14051B)', '0'),
-(142, 'US14051BC - Essex Retool Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14051X)', '0'),
-(143, 'US14051BD - Essex Retool Inc Install &Co', 'INC portion of labor only  at customer site (see budget) (US14051C)', '5000'),
-(144, 'US14051BE - Essex Retool Inc Prod Suppor', 'INC  Portion of production support on CPO', '0'),
-(145, 'US14002 - FORD India - Dragon Crank', 'INDIA', '0'),
-(146, 'US14018 - Ford Dragon Key Press Machine', 'INDIA', '0'),
-(147, 'US14020 - FORD India - Dragon Crank - In', 'INC', '0'),
-(148, 'US14041 - Ford Dragon India Proj Support', 'INDIA', '0'),
-(149, 'SRV15002 - Ford Lima Service 2015-16', 'INC Service Calls Billable to Customer', '0'),
-(150, 'US12002 - Install Nano Crank', 'INC Install Billable to Customer.  Material goes to different code', '0'),
-(151, 'US12004 - Repair Manufacturing Quality', 'INDIA Rework related to manufacturing (Material & Labor)', '0'),
-(152, 'US12011 - Ford Lima Nano OCR''s', 'INC General Time Only  all CPO''s will be assigned own new code', '0'),
-(153, 'US13014 - Ford Lima Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(154, 'US13034 - Ford Lima Spare Parts', 'INC Spare Parts', '0'),
-(155, 'US14056 - Ford Lima Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(156, 'US15014AA - OP130 Retool India Procuremn', 'INDIA  Additional Material or Personnel Support required', '0'),
-(157, 'US15014AB - OP130 Retool India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(158, 'US15014AC - OP130 Retool India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(159, 'US15014BA - OP130 Retool Sales Commissio', 'INC  Code for Commissions', '0'),
-(160, 'US15014BB - OP130 Retool Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(161, 'US15014BC - OP130 Retool Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(162, 'US15014BD - OP130 Retool Inc Install', 'INC  Portion of LABOR  at customer site (see budget)', '0'),
-(163, 'US15014BE - OP130 Retool Inc Prod Suppor', 'INC  Portion of production support on CPO', '0'),
-(164, 'US14040AA - Dragon Crank India Procuremn', 'INDIA additional material/labor required (US14040G) & their personnel (US14040K)', '0'),
-(165, 'US14040AB - Dragon Crank Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14040H / US14040J)', '0'),
-(166, 'US14040AC - Dragon Crank Warranty - Indi', 'INDIA Warranty (Material or design defects  software bugs) (US14040W)', '0'),
-(167, 'US14040BA - Dragon Crank Sales Commissio', 'INC code for Commissions (US14040A)', '0'),
-(168, 'US14040BB - Dragon Crank Inc Project Mgm', 'INC code for Project Mgmt Hours (US14040B)', '0'),
-(169, 'US14040BC - Dragon Crank Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14040X)', '0'),
-(170, 'US14040BD - Dragon Crank Inc Install &Co', 'INC portion of labor only  at customer site (see budget) (US14040C)', '0'),
-(171, 'US14049AA - Dragon KP1 India Procurement', 'INDIA additional material/labor required (US14049G) & their personnel (US14049K)', '0'),
-(172, 'US14049AB - Dragon KP1 Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14049H / US14049J)', '0'),
-(173, 'US14049AC - Dragon KP1 Warranty - India', 'INDIA Warranty (Material or design defects  software bugs) (US14049W)', '0'),
-(174, 'US14049BA - Dragon KP1 Sales Commission', 'INC code for Commissions (US14049A)', '0'),
-(175, 'US14049BB - Dragon KP1 Inc Project Mgmt', 'INC code for Project Mgmt Hours (US14049B)', '0'),
-(176, 'US14049BC - Dragon KP1 Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14049X)', '0'),
-(177, 'US14049BD - Dragon KP1 Inc Install & Com', 'INC portion of labor only  at customer site (see budget) (US14049C)', '0'),
-(178, 'SP15008 - FMCSA Spares 2015-16', 'INC  Spare Parts Orders for Fiscal Year 2015-16', '0'),
-(179, 'US15005AA - Sterling P1 India Procuremen', 'INDIA  Additional Material or Personnel Support required', '0'),
-(180, 'US15005AB - Sterling P1 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(181, 'US15005AC - Sterling P1 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(182, 'US15005BA - Sterling P1 Sales Commission', 'INC  Code for Commissions', '0'),
-(183, 'US15005BB - Sterling P1 Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(184, 'US15005BC - Sterling P1 Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(185, 'US15005BD - Sterling P1 Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0'),
-(186, 'US15005BE - Sterling P1 Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(187, 'US15005BF - Sterling P1 Integration @ RH', 'INC  Integration & Run Off at PARI Rochester Hills', '0'),
-(188, 'US15005CA - Sterling P1 Adder Camera OCR', 'INDIA   Adder for Camera Upgrade Material & Engineering', '0'),
-(189, 'US15005CB - Sterling P1 + INC Trial Part', 'INC  Adder for Trial Parts Cleaning Shores & Ship to India Budget', '0'),
-(190, 'US15011AA - Sterling P2 India Procuremen', 'INDIA  Additional Material or Personnel Support required', '0'),
-(191, 'US15011AB - Sterling P2 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(192, 'US15011AC - Sterling P2 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(193, 'US15011BA - Sterling P2 Sales Commission', 'INC  Code for Commissions', '0'),
-(194, 'US15011BB - Sterling P2 Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(195, 'US15011BC - Sterling P2 Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(196, 'US15011BD - Sterling P2 Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0'),
-(197, 'US15011BE - Sterling P2 Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(198, 'US15011BF - Sterling P2 Inc Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0'),
-(199, 'SP15003 - GKN Land Spares 2015-16', 'INC Spare Parts', '0'),
-(200, 'SP14005 - Ford GPM Spares 2014-15', 'INC Spare Parts for Ford (may be thru India)', '0'),
-(201, 'SP15004 - Ford GPM Spares 2015-16', 'INC Spare Parts for Ford (may be thru India)', '0'),
-(202, 'US14045A - Test Cell Sales Commissions', 'INC code for Commissions', '0'),
-(203, 'US14045B - Test Cell Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0'),
-(204, 'US14045C - Test Cell Inc Install & Commi', 'INC portion of labor only  at customer site (see budget)', '0'),
-(205, 'US14045G - Test Cell India Procurement', 'INDIA additional material required', '0'),
-(206, 'US14045H - Test Cell Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(207, 'US14045J - Test Cell Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(208, 'US14045K - Test Cell India Personnel Sup', 'INDIA costs related their personnel here in US', '0'),
-(209, 'US14045L - Heller Test Cell Trial Parts', '', '0'),
-(210, 'US14045W - Test Cell Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(211, 'US14045X - Test Cell Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(212, 'US15012AA - MVB Cell India Procurement', 'INDIA  Additional Material or Personnel Support required', '0'),
-(213, 'US15012AB - MVB Cell India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(214, 'US15012AC - MVB Cell India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(215, 'US15012BA - MVB Cell Sales Commission', 'INC  Code for Commissions', '0'),
-(216, 'US15012BB - MVB Cell Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(217, 'US15012BC - MVB Cell Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(218, 'US15012BD - MVB Cell Inc Install', 'INC  Portion of LABOR  at customer site (see budget)', '0'),
-(219, 'US15012BE - MVB Cell Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(220, 'US15012CA - MVB Cell Shipping Robots', 'TBD', '0'),
-(221, 'US14046A - 6F Case Sales Commissions', 'INC code for Commissions', '0'),
-(222, 'US14046B - 6F Case Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0'),
-(223, 'US14046C - 6F Case Inc Install & Commis', 'INC portion of labor only  at customer site (see budget)', '0'),
-(224, 'US14046G - 6F Case India Procurement', 'INDIA additional material required', '0'),
-(225, 'US14046H - 6F Case Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(226, 'US14046J - 6F Case Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(227, 'US14046K - 6F Case India Personnel Suppo', 'INDIA costs related their personnel here in US', '0'),
-(228, 'US14046W - 6F Case Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(229, 'US14046X - 6F Case Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(230, 'US14047A - 6F Converter Sales Commission', 'INC code for Commissions', '0'),
-(231, 'US14047B - 6F Converter Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0'),
-(232, 'US14047C - 6F Converter Inc Install & Co', 'INC portion of labor only  at customer site (see budget)', '0'),
-(233, 'US14047G - 6F Converter India Procuremen', 'INDIA additional material required', '0'),
-(234, 'US14047H - 6F Converter Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(235, 'US14047J - 6F Converter Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(236, 'US14047K - 6F Converter India Personnel ', 'INDIA costs related their personnel here in US', '0'),
-(237, 'US14047W - 6F Converter Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(238, 'US14047X - 6F Converter Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(239, 'US14048A - 6F MVB Sales Commissions', 'INC code for Commissions', '0'),
-(240, 'US14048B - 6F MVB Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0'),
-(241, 'US14048C - 6F MVB Inc Install & Commis', 'INC portion of labor only  at customer site (see budget)', '0'),
-(242, 'US14048G - 6F MVB India Procurement', 'INDIA additional material required', '0'),
-(243, 'US14048H - 6F MVB Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0'),
-(244, 'US14048J - 6F MVB Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0'),
-(245, 'US14048K - 6F MVB India Personnel Suppor', 'INDIA costs related their personnel here in US', '0'),
-(246, 'US14048W - 6F MVB Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(247, 'US14048X - 6F MVB Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(248, 'SP15005 - IMS Spares 2015-16', 'INC Spare Parts', '0'),
-(249, 'US09054*INC*ABA Grinder Automation', 'INC scope of Caterpillar ABA Grinder Project', '0'),
-(250, 'US09054*INDIA*ABA Grinder', 'INDIA scope of Caterpillar ABA Grinder Project', '0'),
-(251, 'US15001 - IMS Caterpillar Warrty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0'),
-(252, 'US15002 - IMS Caterpillar Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0'),
-(253, 'US11019 - Mag-Ford- IEP#2 Block Line', 'INDIA', '0'),
-(254, 'US11020 - Mag/Ford IEP#2 Cylinder Head', 'INDIA', '0'),
-(255, 'US13015 - MAG India - Dragon Head', 'INDIA', '0'),
-(256, 'US13016 - MAG India - Dragon Block', 'INDIA', '0'),
-(257, 'US14003 - MAG India - Dragon OCRs', 'INDIA', '0'),
-(258, 'US14021 - MAG India - Dragon Head - Inc', 'INC', '0'),
-(259, 'US14022 - MAG India - Dragon Block - Inc', 'INC', '0'),
-(260, 'US14042 - MAG Dragon India Proj Support', 'INDIA', '0'),
-(261, 'US15003AA - MAG Block India Procurement', 'INDIA  Additional Material or Personnel Support required', '0'),
-(262, 'US15003AB - MAG Block India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(263, 'US15003AC - MAG Block India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(264, 'US15003BA - MAG Block Sales Commission', 'INC  Code for Commissions', '0'),
-(265, 'US15003BB - MAG Block Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(266, 'US15003BC - MAG Block Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(267, 'US15003BD - MAG Block Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0'),
-(268, 'US15003BE - MAG Block Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(269, 'US15003BF - MAG Block Inc Training', 'INC  Portion of training on CPO', '0'),
-(270, 'US15004AA - MAG Head India Procurement', 'INDIA  Additional Material or Personnel Support required', '0'),
-(271, 'US15004AB - MAG Head India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0'),
-(272, 'US15004AC - MAG Head India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0'),
-(273, 'US15004BA - MAG Head Sales Commission', 'INC  Code for Commissions', '0'),
-(274, 'US15004BB - MAG Head Project Mgmt', 'INC  Code for Project Mgmt Hours', '0'),
-(275, 'US15004BC - MAG Head Inc Warranty', 'INC  Warranty (support labor  application software help)', '0'),
-(276, 'US15004BD - MAG Head Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0'),
-(277, 'US15004BE - MAG Head Inc Prod Support', 'INC  Portion of production support on CPO', '0'),
-(278, 'US15004BF - MAG Block Inc Training', 'INC  Portion of training on CPO', '0'),
-(279, 'SP15006 - Mahar Tool Spares 2015-16', 'INC Spare Parts (for Chrysler Projects)', '0'),
-(280, 'MA10001 - Medical Automation', 'INDIA', '0'),
-(281, 'US70014 - PARI India Support', 'INDIA - I94/I539 extensions ', '0'),
-(282, 'US70022 - India Sales Support', 'INDIA', '0'),
-(283, 'US70023 - India PIP Support', 'INDIA CA related activities  RFQs  shipping  etc', '0'),
-(284, 'US70024 - India Project Staff Support', 'INDIA bill back for supporting their staff  not project related (100/0) Verizon', '0'),
-(285, 'US70001 - Operations', 'INC FIXED - Utilities  Office Supplies ', '0'),
-(286, 'US70002 - General Mangment', 'INC FIXED - Management related', '0'),
-(287, 'US70003 - Accounting', 'INC FIXED - Taxes  Banking  QB', '0'),
-(288, 'US70004 - Administration', 'INC FIXED - Luncheons  Birthdays  Pantry', '0'),
-(289, 'US70005 - Unassigned', 'INC FIXED - Undefined  Holiday', '0'),
-(290, 'US70006 - Training', 'INC FIXED - Classes  Books', '0'),
-(291, 'US70007 - Proposal Engineering', 'INC FIXED - Bid related', '0'),
-(292, 'US70008 - Sales', 'INC FIXED - Sales related', '0'),
-(293, 'US70009 - Sales Support', 'INC FIXED - Costs for supporting existing customers', '0'),
-(294, 'US70010 - Build & Integration', 'INC FIXED - Related to Build in US', '0'),
-(295, 'US70011 - Shipping & Receiving', 'INC FIXED - Time  Packing Supplies ', '0'),
-(296, 'US70012 - Travel Unassisgned', 'INC FIXED - Return to India', '0'),
-(297, 'US70013 - Lost Time', 'INC FIXED - Delays', '0'),
-(298, 'US70015 - Spare - Sales', 'INC FIXED - Spare Sales related', '0'),
-(299, 'US70016 - Business Developement', 'INC FIXED - Business Improvements', '0'),
-(300, 'US70018 - Sales - New Business Devlpmt', 'INC FIXED - To generate new sales leads', '0'),
-(301, 'US70019 - Storage', 'INC FIXED - Storage Rent', '0'),
-(302, 'US70020 - Facility Maintenance', 'INC FIXED - Repairs  Service Contracts', '0'),
-(303, 'US70021 - IT Support', 'INC FIXED - IT expenses  not software', '0'),
-(304, 'US70025 - Human Resources', 'INC FIXED - EE Related  Health Ins  ADP', '0'),
-(305, 'US70026 - HR Process & System Developmen', 'INC FIXED - Process Development related', '0'),
-(306, 'US70027 - HR Immigration', 'INC FIXED - Our guys Visas & related', '0'),
-(307, 'US70028 - Software', 'INC FIXED - Software Licenses', '0'),
-(308, 'US70029 - Project Coordination Proposals', 'INC FIXED - Coordinator Time on Proposals', '0'),
-(309, 'US70030 - Project Coordination/Managemen', 'INC FIXED - Coordinator Time on Project Mgmt', '0'),
-(310, 'US70031 - Engineering Software Tool Devm', 'INC FIXED - Development of new Software Tool', '0'),
-(311, 'SP15009 - PASCO Spares 2015-16', '', '0'),
-(312, 'SP15007 - ZF Spares 2015-16', 'INC Spare Parts', '0'),
-(313, 'SRV14002 - ZF Support for Mule Build', 'INC - PO 470000330 Test Run Expenses', '0'),
-(314, 'SRV15003 - ZF Service 2015-16', 'INC Service Calls Billable to Customer', '0'),
-(315, 'US11018 - Warranty - Support ZF', 'INDIA - No longer in service?', '0'),
-(316, 'US15013 - ZF Pallet Rework 2015', 'INC scope related to the pallet rework CPO', '0');
+INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `LastSet`, `TotalAlloc`) VALUES
+(1, 'US13003 - Tigershark Rework', 'INDIA Rework related to manufacturing issues (100/0)', '0.00', '0.00', 0, '0.00', '0.00'),
+(2, 'US13004 - Tigershark MECR''s', 'INC  all new changes should have own job code', '0.00', '0.00', 0, '0.00', '0.00'),
+(3, 'US14005 - Tigershark Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '10000.00', '0.00', 0, '10000.00', '10000.00'),
+(4, 'US14006 - Tigershark Spares', 'INC', '1862.00', '668.00', 0, '2400.00', '2400.00'),
+(5, 'US14044AA - TS OP97 India Procurement', 'INDIA  Additional Material or Personnel Support Required', '4400.00', '0.00', 0, '4400.00', '4400.00'),
+(6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '12375.00', '126.00', 0, '12501.00', '12501.00'),
+(7, 'US14044AC - TS OP97 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '43927.50', '6072.50', 0, '50000.00', '50000.00'),
+(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '3240.00', '1260.00', 0, '4500.00', '4500.00'),
+(9, 'US14044BB - TS OP97 Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '7000.00', '0.00', 0, '7000.00', '7000.00'),
+(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '8000.00', '647.00', 0, '8000.00', '14000.00'),
+(11, 'US14044BD - TS OP97 Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(12, 'US14044BE - TS OP97 Inc Prod Support', 'INC  Portion of production support on CPO', '7500.00', '0.00', 0, '7500.00', '7500.00'),
+(13, 'US14052 - Tigershark Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(14, 'US15006AA - TS PSU Retool India Procurem', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(15, 'US15006AB - TS PSU India Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '2500.00', '0.00', 0, '2500.00', '2500.00'),
+(16, 'US15006AC - TS PSU India Warranty', 'INDIA Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(17, 'US15006BA - TS PSU Sales Commission', 'INC Code for Commissions', '8064.00', '1436.00', 0, '9500.00', '9500.00'),
+(18, 'US15006BB - TS PSU Retool Project Mgmt', 'INC  Code for Project Mgmt Hours', '2300.00', '0.00', 0, '2300.00', '2300.00'),
+(19, 'US15006BC - TS PSU Inc Warranty', 'INC Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(20, 'US15006BD - TS PSU Inc Install', 'INC Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(21, 'US15006BE - TS PSU Inc Prod Support', 'INC Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(22, 'US15006BF - TS PSU Drip Pan RMC Transfer', 'INC  Cost of Drip Pan MATERIAL only; Budget very limited', '0.00', '0.00', 0, '0.00', '0.00'),
+(23, 'US15015AA - OP107/117 India Procurement', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(24, 'US15015AB - OP107/117 India Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(25, 'US15015AC - OP107/117 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(26, 'US15015BA - OP107/117 Sales Commissions', 'INC Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(27, 'US15015BB - OP107/117 INC Project Managm', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(28, 'US15015BC - OP107/117 INC Warranty', 'INC Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(29, 'US15015BD - OP107/117 INC Integration', 'INC  Integration & Run Off at PARI US (INACTIVE / NA)', '0.00', '0.00', 0, '0.00', '0.00'),
+(30, 'US15015BE - OP107/117 Inc Install at Sit', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(31, 'US15015BF - OP107/117 INC Production Sup', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(32, 'US15015BG - OP107/117 RMC INC material', 'INC  Cost of scheduled MATERIAL only; Budget very limited', '0.00', '0.00', 0, '0.00', '0.00'),
+(33, 'SP14006 - Tipton Spare Parts', 'INC Tipton Spare Part Orders for INC (0/100)', '0.00', '0.00', 0, '0.00', '0.00'),
+(34, 'US13012 - Tipton India Procurement', 'Known purchases on behalf of India (100/0) w Purchase Req', '0.00', '0.00', 0, '0.00', '0.00'),
+(35, 'US13013 - Tipton Change Order MECR', 'General Time Only  all CPO''s will be assigned own new code', '0.00', '0.00', 0, '0.00', '0.00'),
+(36, 'US13033 - Tipton Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(37, 'US13035 - India Personnel Support Tipton', 'INDIA - Bill back for supporting their staff (100/0)', '0.00', '0.00', 0, '0.00', '0.00'),
+(38, 'US14030 - Tipton Install General (Inc)', 'INC Costs ONLY for Install unable to split by system', '0.00', '0.00', 0, '0.00', '0.00'),
+(39, 'US14036A - S5-P3 Sales Commissions', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(40, 'US14036B - S5-P3 Inc Project Management', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(41, 'US14036E - S5-P3 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(42, 'US14036N - S5-P3 India Procurement', 'INDIA unplanned additional material required', '0.00', '0.00', 0, '0.00', '0.00'),
+(43, 'US14036P - S5-P3 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(44, 'US14036Q - S5-P3 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(45, 'US14036S - S5-P3 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '0.00', '0.00', 0, '0.00', '0.00'),
+(46, 'US14037A - S1-P3 Sales Commissions', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(47, 'US14037B - S1-P3 Inc Project Management', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(48, 'US14037E - S1-P3 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(49, 'US14037K - S1-P3 India Procure Unplanned', 'INDIA unplanned additional material required', '0.00', '0.00', 0, '0.00', '0.00'),
+(50, 'US14037L - S1-P3 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(51, 'US14037M - S1-P3 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(52, 'US14037P - S1-P3 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '20000.00', '0.00', 0, '20000.00', '20000.00'),
+(53, 'US14038A - S3-P2 Sales Commissions', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(54, 'US14038B - S3-P2 Inc Project Management', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(55, 'US14038F - S3-P2 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(56, 'US14038G - S3-P2 Project Engineering RH', 'INC Project Engineering at Rochester Hills (*)', '0.00', '0.00', 0, '0.00', '0.00'),
+(57, 'US14038H - S3-P2 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(58, 'US14038J - S3-P2 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(59, 'US14038K - S3-P2 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '0.00', '0.00', 0, '0.00', '0.00'),
+(60, 'US14039A - S3-P3 Sales Commissions', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(61, 'US14039B - S3-P3 Inc Project Management', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(62, 'US14039F - S3-P3 Install at Tipton-Inc', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(63, 'US14039G - S3-P3 Project Engineering RH', 'INC Project Engineering at Rochester Hills (*)', '0.00', '0.00', 0, '0.00', '0.00'),
+(64, 'US14039H - S3-P3 Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(65, 'US14039J - S3-P3 Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(66, 'US14039K - S3-P3 India Personnel-Tipton', 'INDIA costs related their personnel here for Install', '6000.00', '0.00', 0, '6000.00', '6000.00'),
+(67, 'US14053 - Tipton Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(68, 'SRV15004 - Trenton Flex Service 2015-16', 'INC Service Calls Billable to Customer', '0.00', '0.00', 0, '0.00', '0.00'),
+(69, 'US12009 - Flex Manufacturing Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(70, 'US12010 - Trenton Flex Line MECR''s', 'General only  all CPO''s will be assigned own new code', '0.00', '0.00', 0, '0.00', '0.00'),
+(71, 'US13005 - Trenton Flex Install', 'INC scope only - for setup at Customer site (0/100) Does not include material  material = India', '25000.00', '0.00', 0, '25000.00', '25000.00'),
+(72, 'US13009 - Trenton Flex Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(73, 'US14019 - Trenton Production Support', '*INC', '0.00', '0.00', 0, '0.00', '0.00'),
+(74, 'US14024 - Trenton Vacuum Station', '**INDIA scope Material  Rework  all / **INC only I & C', '0.00', '0.00', 0, '0.00', '0.00'),
+(75, 'US14025 - Trenton GME India', 'INDIA Scope: Engineering & Build  Shipping  Docs', '0.00', '0.00', 0, '0.00', '0.00'),
+(76, 'US14026 - Trenton GME Inc', 'INC Scope: Install & Comm  Project Mgmt', '0.00', '0.00', 0, '0.00', '0.00'),
+(77, 'US14027 - Trenton GME Rework', 'INDIA For damaged  missing or not fitting material', '0.00', '0.00', 0, '0.00', '0.00'),
+(78, 'US14043 - Trenton Oil Hole Check Station', 'INC related to PO 80524003 Only', '5500.00', '0.00', 0, '5500.00', '5500.00'),
+(79, 'US14055 - Trenton Flex Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(80, 'SP15001 - Crystal Sugar Spares 2015-16', 'INC Spare Parts', '0.00', '0.00', 0, '0.00', '0.00'),
+(81, 'SP14001 - Fanuc Spares 2014-15', 'INC Spare Parts (thru India)', '0.00', '0.00', 0, '0.00', '0.00'),
+(82, 'SP15002 - Fanuc Spares 2015-16', 'INC Spare Parts (thru India)', '0.00', '0.00', 0, '0.00', '0.00'),
+(83, 'US15007AA - Ferrari Block India Procurem', 'INDIA  Additional Material or Personnel Support Required', '0.00', '0.00', 0, '0.00', '0.00'),
+(84, 'US15007AB - Ferrari India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(85, 'US15007AC - Ferrari India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(86, 'US15007BA - Ferrari Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(87, 'US15007BB - Ferrari Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(88, 'US15007BC - Ferrari Inc Warranty', 'INC Warranty (support labor  application software help)', '65400.00', '0.00', 0, '65400.00', '65400.00'),
+(89, 'US15007BD - Ferrari Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(90, 'US15007BE - Ferrari Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(91, 'US15007BF - Ferrari Telesis RMC Transfer', 'INC  Cost of Telesis Order ONLY MATERIAL', '0.00', '0.00', 0, '0.00', '0.00'),
+(92, 'US15007BG - Ferrari ASI RMC Transfer', 'INC  Cost of ASI Order ONLY MATERIAL', '0.00', '0.00', 0, '0.00', '0.00'),
+(93, 'US15007BH - Ferrari Inc Integration Cost', 'INC  Portion of costs to Integrate prior to Customer Site', '0.00', '0.00', 0, '0.00', '0.00'),
+(94, 'US15008AA - GMET Head India Procurement', 'INDIA  Additional Material or Personnel Support Required', '0.00', '0.00', 0, '0.00', '0.00'),
+(95, 'US15008AB - GMET Head India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(96, 'US15008AC - GMET Head India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(97, 'US15008BA - GMET Head Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(98, 'US15008BB - GMET Head Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(99, 'US15008BC - GMET Head Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(100, 'US15008BD - GMET Head Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(101, 'US15008BE - GMET Head Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(102, 'US15008BF - GMET Head Telesis RMC Transf', 'INC  Cost of Telesis Order ONLY MATERIAL', '0.00', '0.00', 0, '0.00', '0.00'),
+(103, 'US15008BG - GMET Head ASI RMC Transfe', 'INC  Cost of ASI Order ONLY MATERIAL', '0.00', '0.00', 0, '0.00', '0.00'),
+(104, 'US15008BH - GMET Head Inc Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0.00', '0.00', 0, '0.00', '0.00'),
+(105, 'US15009AA - GMET Block India Procurement', 'INDIA  Additional Material or Personnel Support Required', '0.00', '0.00', 0, '0.00', '0.00'),
+(106, 'US15009AB - GMET Block India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(107, 'US15009AC - GMET Block India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(108, 'US15009BA - GMET Block Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(109, 'US15009BB - GMET Block Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(110, 'US15009BC - GMET Block Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(111, 'US15009BD - GMET Block Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(112, 'US15009BE - GMET Block Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(113, 'US15009BF - GMET Block Telesis RMC Trans', 'INC  Cost of Telesis Order ONLY MATERIAL', '0.00', '0.00', 0, '0.00', '0.00'),
+(114, 'US15009BG - GMET Block ASI RMC Transfer', 'INC  Cost of ASI Order ONLY MATERIAL', '0.00', '0.00', 0, '0.00', '0.00'),
+(115, 'US15009BH - GMET Block Inc Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0.00', '0.00', 0, '0.00', '0.00'),
+(116, 'US15010AA - GMET Crank India Procurement', 'INDIA  Additional Material or Personnel Support Required', '0.00', '0.00', 0, '0.00', '0.00'),
+(117, 'US15010AB - GMET Crank India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(118, 'US15010AC - GMET Crank India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(119, 'US15010BA - GMET Crank Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(120, 'US15010BB - GMET Crank Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(121, 'US15010BC - GMET Crank Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(122, 'US15010BD - GMET Crank Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(123, 'US15010BE - GMET Crank Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(124, 'US15010BF - GMET Crank Telesis RMC Trans', 'INC  Cost of Telesis Order ONLY MATERIAL', '0.00', '0.00', 0, '0.00', '0.00'),
+(125, 'US15010BG - GMET Crank INC Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0.00', '0.00', 0, '0.00', '0.00'),
+(126, 'SRV15001 - Essex Service Calls 2015-16', 'INC Service Calls Billable to Customer', '0.00', '0.00', 0, '0.00', '0.00'),
+(127, 'US110028 - Warranty - Support Coyote', 'INDIA warranty related to original system', '0.00', '0.00', 0, '0.00', '0.00'),
+(128, 'US12005 - Spare Parts Ford Essex', 'INC Spare Parts', '0.00', '0.00', 0, '0.00', '0.00'),
+(129, 'US14050AA - Expansion India Procurement', 'INDIA additional material/labor required (US14050G) & their personnel (US14050K)', '0.00', '0.00', 0, '0.00', '0.00'),
+(130, 'US14050AB - Expansion Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14050H / US14050J)', '0.00', '0.00', 0, '0.00', '0.00'),
+(131, 'US14050AC - Expansion Warranty - India', 'INDIA Warranty (Material or design defects  software bugs) (US14050W)', '0.00', '0.00', 0, '0.00', '0.00'),
+(132, 'US14050BA - Expansion Sales Commissions', 'INC code for Commissions (US14050A)', '0.00', '0.00', 0, '0.00', '0.00'),
+(133, 'US14050BB - Expansion Inc Project Mgmt', 'INC code for Project Mgmt Hours (US14050B)', '0.00', '0.00', 0, '0.00', '0.00'),
+(134, 'US14050BC - Expansion Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14050X)', '0.00', '0.00', 0, '0.00', '0.00'),
+(135, 'US14050BD - Expansion Inc Install & Comi', 'INC portion of labor  at customer site (see budget) (US14050C)', '0.00', '0.00', 0, '0.00', '0.00'),
+(136, 'US14050BE - Expansion Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(137, 'US14051AA - Essex Retool India Procuremn', 'INDIA additional material/labor required (US14051G) & their personnel (US14051K)', '0.00', '0.00', 0, '0.00', '0.00'),
+(138, 'US14051AB - Essex Retool Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14051H / US14051J)', '0.00', '0.00', 0, '0.00', '0.00'),
+(139, 'US14051AC - Essex Retool Warranty - Indi', 'INDIA Warranty (Material or design defects  software bugs) (US14051W)', '0.00', '0.00', 0, '0.00', '0.00'),
+(140, 'US14051BA - Essex Retool Sales Commissio', 'INC code for Commissions (US14051A)', '0.00', '0.00', 0, '0.00', '0.00'),
+(141, 'US14051BB - Essex Retool Inc Project Mgm', 'INC code for Project Mgmt Hours (US14051B)', '0.00', '0.00', 0, '0.00', '0.00'),
+(142, 'US14051BC - Essex Retool Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14051X)', '0.00', '0.00', 0, '0.00', '0.00'),
+(143, 'US14051BD - Essex Retool Inc Install &Co', 'INC portion of labor only  at customer site (see budget) (US14051C)', '5000.00', '0.00', 0, '5000.00', '5000.00'),
+(144, 'US14051BE - Essex Retool Inc Prod Suppor', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(145, 'US14002 - FORD India - Dragon Crank', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(146, 'US14018 - Ford Dragon Key Press Machine', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(147, 'US14020 - FORD India - Dragon Crank - In', 'INC', '0.00', '0.00', 0, '0.00', '0.00'),
+(148, 'US14041 - Ford Dragon India Proj Support', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(149, 'SRV15002 - Ford Lima Service 2015-16', 'INC Service Calls Billable to Customer', '0.00', '0.00', 0, '0.00', '0.00'),
+(150, 'US12002 - Install Nano Crank', 'INC Install Billable to Customer.  Material goes to different code', '0.00', '0.00', 0, '0.00', '0.00'),
+(151, 'US12004 - Repair Manufacturing Quality', 'INDIA Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(152, 'US12011 - Ford Lima Nano OCR''s', 'INC General Time Only  all CPO''s will be assigned own new code', '0.00', '0.00', 0, '0.00', '0.00'),
+(153, 'US13014 - Ford Lima Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(154, 'US13034 - Ford Lima Spare Parts', 'INC Spare Parts', '0.00', '0.00', 0, '0.00', '0.00'),
+(155, 'US14056 - Ford Lima Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(156, 'US15014AA - OP130 Retool India Procuremn', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(157, 'US15014AB - OP130 Retool India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(158, 'US15014AC - OP130 Retool India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(159, 'US15014BA - OP130 Retool Sales Commissio', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(160, 'US15014BB - OP130 Retool Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(161, 'US15014BC - OP130 Retool Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(162, 'US15014BD - OP130 Retool Inc Install', 'INC  Portion of LABOR  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(163, 'US15014BE - OP130 Retool Inc Prod Suppor', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(164, 'US14040AA - Dragon Crank India Procuremn', 'INDIA additional material/labor required (US14040G) & their personnel (US14040K)', '0.00', '0.00', 0, '0.00', '0.00'),
+(165, 'US14040AB - Dragon Crank Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14040H / US14040J)', '0.00', '0.00', 0, '0.00', '0.00'),
+(166, 'US14040AC - Dragon Crank Warranty - Indi', 'INDIA Warranty (Material or design defects  software bugs) (US14040W)', '0.00', '0.00', 0, '0.00', '0.00'),
+(167, 'US14040BA - Dragon Crank Sales Commissio', 'INC code for Commissions (US14040A)', '0.00', '0.00', 0, '0.00', '0.00'),
+(168, 'US14040BB - Dragon Crank Inc Project Mgm', 'INC code for Project Mgmt Hours (US14040B)', '0.00', '0.00', 0, '0.00', '0.00'),
+(169, 'US14040BC - Dragon Crank Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14040X)', '0.00', '0.00', 0, '0.00', '0.00'),
+(170, 'US14040BD - Dragon Crank Inc Install &Co', 'INC portion of labor only  at customer site (see budget) (US14040C)', '0.00', '0.00', 0, '0.00', '0.00'),
+(171, 'US14049AA - Dragon KP1 India Procurement', 'INDIA additional material/labor required (US14049G) & their personnel (US14049K)', '0.00', '0.00', 0, '0.00', '0.00'),
+(172, 'US14049AB - Dragon KP1 Rework Material', 'INDIA Rework related to manufacturing Material / Labor (US14049H / US14049J)', '0.00', '0.00', 0, '0.00', '0.00'),
+(173, 'US14049AC - Dragon KP1 Warranty - India', 'INDIA Warranty (Material or design defects  software bugs) (US14049W)', '0.00', '0.00', 0, '0.00', '0.00'),
+(174, 'US14049BA - Dragon KP1 Sales Commission', 'INC code for Commissions (US14049A)', '0.00', '0.00', 0, '0.00', '0.00'),
+(175, 'US14049BB - Dragon KP1 Inc Project Mgmt', 'INC code for Project Mgmt Hours (US14049B)', '0.00', '0.00', 0, '0.00', '0.00'),
+(176, 'US14049BC - Dragon KP1 Warranty - Inc', 'INC Warranty (Support labor  Application software help) (US14049X)', '0.00', '0.00', 0, '0.00', '0.00'),
+(177, 'US14049BD - Dragon KP1 Inc Install & Com', 'INC portion of labor only  at customer site (see budget) (US14049C)', '0.00', '0.00', 0, '0.00', '0.00'),
+(178, 'SP15008 - FMCSA Spares 2015-16', 'INC  Spare Parts Orders for Fiscal Year 2015-16', '0.00', '0.00', 0, '0.00', '0.00'),
+(179, 'US15005AA - Sterling P1 India Procuremen', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(180, 'US15005AB - Sterling P1 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(181, 'US15005AC - Sterling P1 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(182, 'US15005BA - Sterling P1 Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(183, 'US15005BB - Sterling P1 Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(184, 'US15005BC - Sterling P1 Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(185, 'US15005BD - Sterling P1 Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(186, 'US15005BE - Sterling P1 Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(187, 'US15005BF - Sterling P1 Integration @ RH', 'INC  Integration & Run Off at PARI Rochester Hills', '0.00', '0.00', 0, '0.00', '0.00'),
+(188, 'US15005CA - Sterling P1 Adder Camera OCR', 'INDIA   Adder for Camera Upgrade Material & Engineering', '0.00', '0.00', 0, '0.00', '0.00'),
+(189, 'US15005CB - Sterling P1 + INC Trial Part', 'INC  Adder for Trial Parts Cleaning Shores & Ship to India Budget', '0.00', '0.00', 0, '0.00', '0.00'),
+(190, 'US15011AA - Sterling P2 India Procuremen', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(191, 'US15011AB - Sterling P2 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(192, 'US15011AC - Sterling P2 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(193, 'US15011BA - Sterling P2 Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(194, 'US15011BB - Sterling P2 Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(195, 'US15011BC - Sterling P2 Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(196, 'US15011BD - Sterling P2 Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(197, 'US15011BE - Sterling P2 Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(198, 'US15011BF - Sterling P2 Inc Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '0.00', '0.00', 0, '0.00', '0.00'),
+(199, 'SP15003 - GKN Land Spares 2015-16', 'INC Spare Parts', '0.00', '0.00', 0, '0.00', '0.00'),
+(200, 'SP14005 - Ford GPM Spares 2014-15', 'INC Spare Parts for Ford (may be thru India)', '0.00', '0.00', 0, '0.00', '0.00'),
+(201, 'SP15004 - Ford GPM Spares 2015-16', 'INC Spare Parts for Ford (may be thru India)', '0.00', '0.00', 0, '0.00', '0.00'),
+(202, 'US14045A - Test Cell Sales Commissions', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(203, 'US14045B - Test Cell Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(204, 'US14045C - Test Cell Inc Install & Commi', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(205, 'US14045G - Test Cell India Procurement', 'INDIA additional material required', '0.00', '0.00', 0, '0.00', '0.00'),
+(206, 'US14045H - Test Cell Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(207, 'US14045J - Test Cell Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(208, 'US14045K - Test Cell India Personnel Sup', 'INDIA costs related their personnel here in US', '0.00', '0.00', 0, '0.00', '0.00'),
+(209, 'US14045L - Heller Test Cell Trial Parts', '', '0.00', '0.00', 0, '0.00', '0.00'),
+(210, 'US14045W - Test Cell Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(211, 'US14045X - Test Cell Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(212, 'US15012AA - MVB Cell India Procurement', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(213, 'US15012AB - MVB Cell India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(214, 'US15012AC - MVB Cell India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(215, 'US15012BA - MVB Cell Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(216, 'US15012BB - MVB Cell Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(217, 'US15012BC - MVB Cell Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(218, 'US15012BD - MVB Cell Inc Install', 'INC  Portion of LABOR  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(219, 'US15012BE - MVB Cell Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(220, 'US15012CA - MVB Cell Shipping Robots', 'TBD', '0.00', '0.00', 0, '0.00', '0.00'),
+(221, 'US14046A - 6F Case Sales Commissions', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(222, 'US14046B - 6F Case Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(223, 'US14046C - 6F Case Inc Install & Commis', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(224, 'US14046G - 6F Case India Procurement', 'INDIA additional material required', '0.00', '0.00', 0, '0.00', '0.00'),
+(225, 'US14046H - 6F Case Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(226, 'US14046J - 6F Case Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(227, 'US14046K - 6F Case India Personnel Suppo', 'INDIA costs related their personnel here in US', '0.00', '0.00', 0, '0.00', '0.00'),
+(228, 'US14046W - 6F Case Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(229, 'US14046X - 6F Case Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(230, 'US14047A - 6F Converter Sales Commission', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(231, 'US14047B - 6F Converter Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(232, 'US14047C - 6F Converter Inc Install & Co', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(233, 'US14047G - 6F Converter India Procuremen', 'INDIA additional material required', '0.00', '0.00', 0, '0.00', '0.00'),
+(234, 'US14047H - 6F Converter Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(235, 'US14047J - 6F Converter Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(236, 'US14047K - 6F Converter India Personnel ', 'INDIA costs related their personnel here in US', '0.00', '0.00', 0, '0.00', '0.00'),
+(237, 'US14047W - 6F Converter Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(238, 'US14047X - 6F Converter Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(239, 'US14048A - 6F MVB Sales Commissions', 'INC code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(240, 'US14048B - 6F MVB Inc Project Mgmt', 'INC code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(241, 'US14048C - 6F MVB Inc Install & Commis', 'INC portion of labor only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(242, 'US14048G - 6F MVB India Procurement', 'INDIA additional material required', '0.00', '0.00', 0, '0.00', '0.00'),
+(243, 'US14048H - 6F MVB Rework Material', 'INDIA Rework MATERIAL ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(244, 'US14048J - 6F MVB Rework Labor', 'INDIA Rework LABOR ONLY related to manufacturing', '0.00', '0.00', 0, '0.00', '0.00'),
+(245, 'US14048K - 6F MVB India Personnel Suppor', 'INDIA costs related their personnel here in US', '0.00', '0.00', 0, '0.00', '0.00'),
+(246, 'US14048W - 6F MVB Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(247, 'US14048X - 6F MVB Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(248, 'SP15005 - IMS Spares 2015-16', 'INC Spare Parts', '0.00', '0.00', 0, '0.00', '0.00'),
+(249, 'US09054*INC*ABA Grinder Automation', 'INC scope of Caterpillar ABA Grinder Project', '0.00', '0.00', 0, '0.00', '0.00'),
+(250, 'US09054*INDIA*ABA Grinder', 'INDIA scope of Caterpillar ABA Grinder Project', '0.00', '0.00', 0, '0.00', '0.00'),
+(251, 'US15001 - IMS Caterpillar Warrty - India', 'INDIA Warranty (Material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(252, 'US15002 - IMS Caterpillar Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(253, 'US11019 - Mag-Ford- IEP#2 Block Line', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(254, 'US11020 - Mag/Ford IEP#2 Cylinder Head', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(255, 'US13015 - MAG India - Dragon Head', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(256, 'US13016 - MAG India - Dragon Block', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(257, 'US14003 - MAG India - Dragon OCRs', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(258, 'US14021 - MAG India - Dragon Head - Inc', 'INC', '0.00', '0.00', 0, '0.00', '0.00'),
+(259, 'US14022 - MAG India - Dragon Block - Inc', 'INC', '0.00', '0.00', 0, '0.00', '0.00'),
+(260, 'US14042 - MAG Dragon India Proj Support', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(261, 'US15003AA - MAG Block India Procurement', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(262, 'US15003AB - MAG Block India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(263, 'US15003AC - MAG Block India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(264, 'US15003BA - MAG Block Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(265, 'US15003BB - MAG Block Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(266, 'US15003BC - MAG Block Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(267, 'US15003BD - MAG Block Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(268, 'US15003BE - MAG Block Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(269, 'US15003BF - MAG Block Inc Training', 'INC  Portion of training on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(270, 'US15004AA - MAG Head India Procurement', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
+(271, 'US15004AB - MAG Head India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
+(272, 'US15004AC - MAG Head India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
+(273, 'US15004BA - MAG Head Sales Commission', 'INC  Code for Commissions', '0.00', '0.00', 0, '0.00', '0.00'),
+(274, 'US15004BB - MAG Head Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
+(275, 'US15004BC - MAG Head Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
+(276, 'US15004BD - MAG Head Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
+(277, 'US15004BE - MAG Head Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(278, 'US15004BF - MAG Block Inc Training', 'INC  Portion of training on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(279, 'SP15006 - Mahar Tool Spares 2015-16', 'INC Spare Parts (for Chrysler Projects)', '0.00', '0.00', 0, '0.00', '0.00'),
+(280, 'MA10001 - Medical Automation', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(281, 'US70014 - PARI India Support', 'INDIA - I94/I539 extensions ', '0.00', '0.00', 0, '0.00', '0.00'),
+(282, 'US70022 - India Sales Support', 'INDIA', '0.00', '0.00', 0, '0.00', '0.00'),
+(283, 'US70023 - India PIP Support', 'INDIA CA related activities  RFQs  shipping  etc', '0.00', '0.00', 0, '0.00', '0.00'),
+(284, 'US70024 - India Project Staff Support', 'INDIA bill back for supporting their staff  not project related (100/0) Verizon', '0.00', '0.00', 0, '0.00', '0.00'),
+(285, 'US70001 - Operations', 'INC FIXED - Utilities  Office Supplies ', '0.00', '0.00', 0, '0.00', '0.00'),
+(286, 'US70002 - General Mangment', 'INC FIXED - Management related', '0.00', '0.00', 0, '0.00', '0.00'),
+(287, 'US70003 - Accounting', 'INC FIXED - Taxes  Banking  QB', '0.00', '0.00', 0, '0.00', '0.00'),
+(288, 'US70004 - Administration', 'INC FIXED - Luncheons  Birthdays  Pantry', '0.00', '0.00', 0, '0.00', '0.00'),
+(289, 'US70005 - Unassigned', 'INC FIXED - Undefined  Holiday', '0.00', '0.00', 0, '0.00', '0.00'),
+(290, 'US70006 - Training', 'INC FIXED - Classes  Books', '0.00', '0.00', 0, '0.00', '0.00'),
+(291, 'US70007 - Proposal Engineering', 'INC FIXED - Bid related', '0.00', '0.00', 0, '0.00', '0.00'),
+(292, 'US70008 - Sales', 'INC FIXED - Sales related', '0.00', '0.00', 0, '0.00', '0.00'),
+(293, 'US70009 - Sales Support', 'INC FIXED - Costs for supporting existing customers', '0.00', '0.00', 0, '0.00', '0.00'),
+(294, 'US70010 - Build & Integration', 'INC FIXED - Related to Build in US', '0.00', '0.00', 0, '0.00', '0.00'),
+(295, 'US70011 - Shipping & Receiving', 'INC FIXED - Time  Packing Supplies ', '0.00', '0.00', 0, '0.00', '0.00'),
+(296, 'US70012 - Travel Unassisgned', 'INC FIXED - Return to India', '0.00', '0.00', 0, '0.00', '0.00'),
+(297, 'US70013 - Lost Time', 'INC FIXED - Delays', '0.00', '0.00', 0, '0.00', '0.00'),
+(298, 'US70015 - Spare - Sales', 'INC FIXED - Spare Sales related', '0.00', '0.00', 0, '0.00', '0.00'),
+(299, 'US70016 - Business Developement', 'INC FIXED - Business Improvements', '0.00', '0.00', 0, '0.00', '0.00'),
+(300, 'US70018 - Sales - New Business Devlpmt', 'INC FIXED - To generate new sales leads', '0.00', '0.00', 0, '0.00', '0.00'),
+(301, 'US70019 - Storage', 'INC FIXED - Storage Rent', '0.00', '0.00', 0, '0.00', '0.00'),
+(302, 'US70020 - Facility Maintenance', 'INC FIXED - Repairs  Service Contracts', '0.00', '0.00', 0, '0.00', '0.00'),
+(303, 'US70021 - IT Support', 'INC FIXED - IT expenses  not software', '0.00', '0.00', 0, '0.00', '0.00'),
+(304, 'US70025 - Human Resources', 'INC FIXED - EE Related  Health Ins  ADP', '0.00', '0.00', 0, '0.00', '0.00'),
+(305, 'US70026 - HR Process & System Developmen', 'INC FIXED - Process Development related', '0.00', '0.00', 0, '0.00', '0.00'),
+(306, 'US70027 - HR Immigration', 'INC FIXED - Our guys Visas & related', '0.00', '0.00', 0, '0.00', '0.00'),
+(307, 'US70028 - Software', 'INC FIXED - Software Licenses', '0.00', '0.00', 0, '0.00', '0.00'),
+(308, 'US70029 - Project Coordination Proposals', 'INC FIXED - Coordinator Time on Proposals', '0.00', '0.00', 0, '0.00', '0.00'),
+(309, 'US70030 - Project Coordination/Managemen', 'INC FIXED - Coordinator Time on Project Mgmt', '0.00', '0.00', 0, '0.00', '0.00'),
+(310, 'US70031 - Engineering Software Tool Devm', 'INC FIXED - Development of new Software Tool', '0.00', '0.00', 0, '0.00', '0.00'),
+(311, 'SP15009 - PASCO Spares 2015-16', '', '0.00', '0.00', 0, '0.00', '0.00'),
+(312, 'SP15007 - ZF Spares 2015-16', 'INC Spare Parts', '0.00', '0.00', 0, '0.00', '0.00'),
+(313, 'SRV14002 - ZF Support for Mule Build', 'INC - PO 470000330 Test Run Expenses', '0.00', '0.00', 0, '0.00', '0.00'),
+(314, 'SRV15003 - ZF Service 2015-16', 'INC Service Calls Billable to Customer', '0.00', '0.00', 0, '0.00', '0.00'),
+(315, 'US11018 - Warranty - Support ZF', 'INDIA - No longer in service?', '0.00', '0.00', 0, '0.00', '0.00'),
+(316, 'US15013 - ZF Pallet Rework 2015', 'INC scope related to the pallet rework CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(317, 'US132432', 'Stff', '0.00', '0.00', 0, '0.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -401,7 +518,35 @@ CREATE TABLE `purdets` (
   `Other` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `purdets`
+--
 
+INSERT INTO `purdets` (`id`, `ReqsId`, `JobCode`, `VendorId`, `ShipId`, `Budgeted`, `BCS`, `Expl`, `Scope`, `Other`) VALUES
+(2, 2, 4, 6, 2, 0, 765543, '', 1, ''),
+(4, 6, 3, 119, 6, 1, 0, 'Extra', 0, ''),
+(5, 8, 17, 180, 8, 0, 554322, '', 1, ''),
+(6, 9, 17, 241, 9, 1, 0, 'LKJHGH', 0, ''),
+(7, 11, 4, 7, 11, 0, 34324, '', 0, ''),
+(8, 12, 4, 260, 12, 0, 3432322, '', 0, ''),
+(9, 13, 3, 402, 13, 0, 12345, '', 1, ''),
+(10, 14, 3, 12, 14, 0, 554322, '', 1, ''),
+(11, 15, 3, 33, 15, 1, 0, 'Extra', 1, ''),
+(12, 16, 7, 437, 16, 0, 665453, '', 0, ''),
+(13, 17, 8, 31, 17, 0, 65477432, '', 1, ''),
+(14, 18, 6, 406, 18, 1, 0, 'Extra', 1, ''),
+(15, 19, 10, 5, 19, 1, 0, 'Extra', 1, ''),
+(16, 20, 6, 157, 20, 0, 12345, '', 1, ''),
+(18, 22, 7, 118, 22, 0, 74324, '', 1, ''),
+(19, 23, 7, 55, 23, 0, 464353, '', 1, ''),
+(20, 24, 7, 12, 24, 0, 34523, '', 1, ''),
+(21, 25, 7, 8, 25, 0, 5543223, '', 1, ''),
+(22, 26, 12, 131, 26, 0, 987576, '', 1, ''),
+(23, 27, 17, 5, 27, 0, 7643423, '', 1, ''),
+(24, 28, 8, 5, 28, 0, 8567540, '', 1, ''),
+(25, 29, 10, 4, 29, 1, 0, 'Extra', 1, '');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `requester`
@@ -416,6 +561,35 @@ CREATE TABLE `requester` (
   `Email` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `requester`
+--
+
+INSERT INTO `requester` (`id`, `ReqsId`, `Name`, `Phno`, `Fno`, `Email`) VALUES
+(2, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@usc.edu'),
+(6, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritidubey@outlook.com'),
+(8, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
+(9, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
+(11, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'abcd@1234.com'),
+(12, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
+(13, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
+(14, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(15, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544342', 'aakritid@pariusa.com'),
+(16, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@pariusa.com'),
+(17, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com'),
+(18, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(19, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(20, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(22, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(23, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(24, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
+(25, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
+(26, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(27, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(28, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
+(29, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `requistion`
@@ -429,6 +603,35 @@ CREATE TABLE `requistion` (
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `requistion`
+--
+
+INSERT INTO `requistion` (`Id`, `ReqNo`, `RefQuote`, `TotalCost`, `Date`) VALUES
+(2, 'P0000002', '3432432', '120.00', '2016-05-16 15:32:32'),
+(4, 'P0000004', '4234', '1812.00', '2016-05-16 16:11:11'),
+(5, 'P0000005', '5432', '684.00', '2016-05-16 16:31:22'),
+(6, 'P0000006', '452342', '1056.00', '2016-05-16 16:32:11'),
+(7, 'P0000007', '4234', '408.00', '2016-05-16 16:47:00'),
+(8, 'P0000008', '5654332', '130.00', '2016-05-16 17:03:03'),
+(9, 'P0000009', '432432', '989.00', '2016-05-16 17:06:11'),
+(10, 'P0000010', '452342', '369.00', '2016-05-16 17:11:11'),
+(11, 'P0000011', '45432231', '384.00', '2016-05-16 17:17:17'),
+(12, 'P0000012', '4434521', '3621.00', '2016-05-16 17:42:36'),
+(13, 'P0000013', '54364232', '540.00', '2016-05-17 13:45:15'),
+(14, 'P0000014', '42345521', '960.00', '2016-05-17 17:00:01'),
+(15, 'P0000015', '765768', '427.00', '2016-05-23 13:42:30'),
+(16, 'P0000016', '54366343', '126.00', '2016-05-23 13:47:18'),
+(18, 'P0000018', '776554', '531.50', '2016-05-23 16:02:02'),
+(19, 'P0000019', '35324121', '8750.00', '2016-05-24 15:17:03'),
+(20, 'P0000020', '6534343', '960.00', '2016-05-24 15:21:05'),
+(21, 'P0000021', '65332345', '480.00', '2016-05-24 15:32:00'),
+(22, 'P0000022', '764543211', '1095.00', '2016-05-31 18:57:37'),
+(23, 'P0000023', '76434235', '752.00', '2016-06-02 13:18:43'),
+(24, 'P0000024', '87754343', '720.00', '2016-06-02 18:24:19'),
+(25, 'P0000025', '6353', '220.00', '2016-06-06 18:30:20');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `shipdets`
@@ -436,12 +639,66 @@ CREATE TABLE `requistion` (
 
 CREATE TABLE `shipdets` (
   `shipid` int(11) NOT NULL,
-  `ShipAddr` text NOT NULL,
   `Attn` varchar(30) NOT NULL,
   `Date` varchar(10) NOT NULL,
-  `Method` varchar(20) NOT NULL
+  `Method` varchar(20) NOT NULL,
+  `AddrId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `shipdets`
+--
+
+INSERT INTO `shipdets` (`shipid`, `Attn`, `Date`, `Method`, `AddrId`) VALUES
+(2, 'Mr XYZ', '05/26/2016', 'FedEx', 1),
+(6, 'Mr ABC', '06/08/2016', 'USPS', 1),
+(8, 'Mr ABC', '05/27/2016', 'UTI', 1),
+(9, 'Mr ABC', '05/31/2016', 'UTI', 1),
+(11, 'Mr XYZ', '05/25/2016', 'UPS', 1),
+(12, 'Mr PQR', '06/16/2016', 'UTI', 1),
+(13, 'Mr ABC', '05/25/2016', 'FedEx', 1),
+(14, 'Mr XYZ', '05/30/2016', 'Freight', 1),
+(15, 'Mr XYZA', '05/30/2016', 'USPS', 1),
+(16, 'Mr XYZ', '05/27/2016', 'UPS', 1),
+(17, 'Mr ABC', '05/26/2016', 'UPS', 1),
+(18, 'Mr XYZA', '05/31/2016', 'UPS', 1),
+(19, 'Mr XYZA', '05/25/2016', 'Freight', 1),
+(20, 'Mr XYZ', '05/27/2016', 'FedEx', 1),
+(22, 'Mr XYZA', '05/28/2016', 'FedEx', 1),
+(23, 'Mr ABC ', '05/27/2016', 'UPS', 1),
+(24, 'Mr XYZ', '05/31/2016', 'USPS', 1),
+(25, 'Mr XYZ', '06/15/2016', 'Freight', 1),
+(26, 'Mr XYZA', '06/08/2016', 'Freight', 1),
+(27, 'Mr LMN', '06/16/2016', 'Freight', 1),
+(28, 'Mr XYZ', '06/10/2016', 'Freight', 1),
+(29, 'Mr ABC', '06/17/2016', 'UTI', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shippingaddr`
+--
+
+CREATE TABLE `shippingaddr` (
+  `AddrId` int(11) NOT NULL,
+  `Name` text NOT NULL,
+  `Address` text NOT NULL,
+  `City` varchar(20) NOT NULL,
+  `State` varchar(25) NOT NULL,
+  `Country` varchar(30) NOT NULL,
+  `ZipCode` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shippingaddr`
+--
+
+INSERT INTO `shippingaddr` (`AddrId`, `Name`, `Address`, `City`, `State`, `Country`, `ZipCode`) VALUES
+(1, 'PARI Robotics Inc, Rochester Hills', '2930 Technology Drive', 'Rochester Hills', 'MI', 'USA', '48309'),
+(5, 'PARI Inc', '1984 ABC Dr', 'Madison Heigths', 'MI', 'USA', '48072'),
+(6, 'Residence', '1910 Golfview Dr', 'Troy', 'MI', 'USA', '48084');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `vendor`
@@ -966,11 +1223,19 @@ INSERT INTO `vendor` (`VendorCode`, `VendorName`, `VendorAddress`) VALUES
 (506, 'Workshop Media (ACH)', 'Workshop Media Group 590 Hemingway Rd Lake Orion, MI  48362 '),
 (507, 'XRI TESTING (ACH)', 'X-Ray Industries, Inc. 1961 Thunderbird Troy, MI 48084 '),
 (508, 'YourBigSign.com', 'YourBigSign.com 3440 Fenton Rd, Hartland, Hartland, MI 48353 '),
-(509, 'Zorotools.com', 'Zoro Tools, Inc. 1000 Ashbury Drive, Suite 1 Buffalo Grove, IL  60089 ');
+(509, 'Zorotools.com', 'Zoro Tools, Inc. 1000 Ashbury Drive, Suite 1 Buffalo Grove, IL  60089 '),
+(511, 'ABC', '1234 PQR DrTroy, MI'),
+(512, 'JKL', '1 JKL Dr Chicago, IL');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `approval`
+--
+ALTER TABLE `approval`
+  ADD KEY `ReqId` (`ReqId`);
 
 --
 -- Indexes for table `itemdescr`
@@ -1016,7 +1281,14 @@ ALTER TABLE `requistion`
 -- Indexes for table `shipdets`
 --
 ALTER TABLE `shipdets`
-  ADD PRIMARY KEY (`shipid`);
+  ADD PRIMARY KEY (`shipid`),
+  ADD KEY `AddrId` (`AddrId`);
+
+--
+-- Indexes for table `shippingaddr`
+--
+ALTER TABLE `shippingaddr`
+  ADD PRIMARY KEY (`AddrId`);
 
 --
 -- Indexes for table `vendor`
@@ -1032,35 +1304,46 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `itemdescr`
 --
 ALTER TABLE `itemdescr`
-  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `jobcode`
 --
 ALTER TABLE `jobcode`
-  MODIFY `JCId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=317;
+  MODIFY `JCId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
 --
 -- AUTO_INCREMENT for table `purdets`
 --
 ALTER TABLE `purdets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `requester`
 --
 ALTER TABLE `requester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `shipdets`
 --
 ALTER TABLE `shipdets`
-  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `shippingaddr`
+--
+ALTER TABLE `shippingaddr`
+  MODIFY `AddrId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
-  MODIFY `VendorCode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=510;
+  MODIFY `VendorCode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=513;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `approval`
+--
+ALTER TABLE `approval`
+  ADD CONSTRAINT `approval_ibfk_1` FOREIGN KEY (`ReqId`) REFERENCES `purdets` (`id`);
 
 --
 -- Constraints for table `itemmap`
@@ -1082,6 +1365,12 @@ ALTER TABLE `purdets`
 --
 ALTER TABLE `requistion`
   ADD CONSTRAINT `requistion_ibfk_1` FOREIGN KEY (`Id`) REFERENCES `purdets` (`id`);
+
+--
+-- Constraints for table `shipdets`
+--
+ALTER TABLE `shipdets`
+  ADD CONSTRAINT `shipdets_ibfk_1` FOREIGN KEY (`AddrId`) REFERENCES `shippingaddr` (`AddrId`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
