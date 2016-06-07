@@ -61,9 +61,10 @@ function process(str,rea){
 		cache: false,
 		data:  {'request': 'process','reqtype': str, 'reason': rea},
 		success: function(html) {
+			//alert(html);
 		if(html==0){
 				$('#resVal').addClass('alert-success');
-				document.getElementById('resVal').innerHTML="<h4>Approved!</h4>The Requisition has been approved!";
+				document.getElementById('resVal').innerHTML="<h4>Approved!</h4>The Requisition has been approved and forwarded to the buyer!";
 				$('#confirmModal').modal('hide');
 			}
 			if(html==-1){
