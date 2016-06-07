@@ -8,7 +8,7 @@ date_default_timezone_set('America/New_York');
 /** PHPExcel_IOFactory */
 require_once dirname(__FILE__) . '\Classes\PHPExcel\IOFactory.php';
 $objReader = PHPExcel_IOFactory::createReader('Excel5');
-$objPHPExcel = $objReader->load("template.xls");
+$objPHPExcel = $objReader->load("..\..\Templates\Req-Template.xls");
 
 $reqid=$_SESSION['SReq'];
 
