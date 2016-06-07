@@ -22,12 +22,14 @@ if($_POST['request']=='process'){
 		$bg=$res->fetch_assoc();
 		//echo $tc['TotalCost'] ."<=". $tc['Budget'];
 		if($tc['TotalCost'] <= $bg['Budget']){
+			
 			$qry="update jobcode set budget=budget-".$tc['TotalCost']." where JCId=".$tc['JobCode'];
 			$conn->query($qry);
 			$qry="update jobcode set spent=spent+".$tc['TotalCost']." where JCId=".$tc['JobCode'];
 			$conn->query($qry);
 			$qry="insert into approval (ReqId, AppDen) values (".$reqid.",0)";
 			$conn->query($qry);
+			(include 'export.php');
 			echo (0);
 		}
 		else{

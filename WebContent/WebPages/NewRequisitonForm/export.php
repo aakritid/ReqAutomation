@@ -7,29 +7,22 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('America/New_York');
 /** PHPExcel_IOFactory */
 require_once dirname(__FILE__) . '\Classes\PHPExcel\IOFactory.php';
-echo date('H:i:s') , " Load from Excel5 template" , EOL;
 $objReader = PHPExcel_IOFactory::createReader('Excel5');
-$objPHPExcel = $objReader->load("template.xls");
-echo date('H:i:s') , " Add new data to the template" , EOL;
-$servername = "localhost";
-$username = "root";
-$password = "pari123#";
+$objPHPExcel = $objReader->load("..\..\Templates\Req-Template.xls");
 
-$conn = new mysqli($servername, $username, $password,"purchasereq");
-if (!$conn) {
-    die('Could not connect: ' . mysqli_error($conn));
-}
-$reqno='P0000011';
+$reqid=$_SESSION['SReq'];
 
-$qry="select * from requistion where ReqNo='".$reqno."'";
+
+
+$qry="select * from requistion where Id=".$reqid;
 $result = $conn->query($qry);
 $reqs=$result->fetch_assoc();
 
-$qry="select DATE_FORMAT(Date,'%d %b %Y') from requistion where ReqNo='".$reqno."'";
+$qry="select DATE_FORMAT(Date,'%d %b %Y') from requistion where Id=".$reqid;
 $result = $conn->query($qry);
 $date=$result->fetch_assoc();
 
-$reqid=$reqs['Id'];
+$reqno=$reqs['ReqNo'];
 $refqt=$reqs['RefQuote'];
 $tc=$reqs['TotalCost'];
 
@@ -140,14 +133,29 @@ $row=5;
 		$row++;
 		}
 
+ob_start();
 $objPHPExcel->setActiveSheetIndex(0);		
-echo date('H:i:s') , " Write to Excel5 format" , EOL;
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-$objWriter->save($reqno.'.xls');
-echo date('H:i:s') , " File written to " , $reqno.'.xls' , EOL;
-// Echo memory peak usage
-echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 1024 / 1024) , " MB" , EOL;
-// Echo done
-echo date('H:i:s') , " Done writing file" , EOL;
-echo 'File has been created in ' , getcwd() , EOL;
-$conn->close();
+$objWriter->save('php://output');
+$excelFileContents = ob_get_clean();
+$filename=$reqno.'.xls';
+
+$content = chunk_split(base64_encode($excelFileContents));
+$uid = md5(uniqid(time()));
+$header = "From: ".'PARI Purchase Req'." <"."pari.purchasereq@gmail.com".">\r\n";
+$header .= "Reply-To: "."no-reply@pariusa.com"."\r\n";
+$header .= "MIME-Version: 1.0\r\n";
+$header .= "Content-Type: multipart/mixed; boundary=\"".$uid."\"\r\n\r\n";
+
+$nmessage = "Content-type:text/plain; charset=iso-8859-1\r\n";
+$nmessage .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
+$nmessage .= "PFA Approved Purchase Req - ". $reqno."\r\n\r\n";
+$nmessage .= "--".$uid."\r\n";
+$nmessage .= "Content-Type: application/octet-stream; name=\"".$filename."\"\r\n";
+$nmessage .= "Content-Transfer-Encoding: base64\r\n";
+$nmessage .= "Content-Disposition: attachment; filename=\"".$filename."\"\r\n\r\n";
+$nmessage .= $content."\r\n\r\n";
+$nmessage .= "--".$uid."--";
+
+
+mail("aakritid@pariusa.com", "Purchase Requisition - ".$reqno, $nmessage, $header);
