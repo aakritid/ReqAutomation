@@ -40,7 +40,7 @@ if($type=='set'){
 		$val=$_POST["newBudg"];
 		$jc= $_POST["jc"];
 
-		$query="update jobcode set LastSet=".$val.", Budget=".$val." where JobCode='".$jc."'";
+		$query="update jobcode set LastSet=".$val.", Budget=".$val.", TotalAlloc= TotalAlloc+".$val." where JobCode='".$jc."'";
 		if ($conn->query($query)== TRUE)
 			echo 1;
 		else 

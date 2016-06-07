@@ -54,7 +54,19 @@ function budget(type,str){
 	}
 	
 }
-
+function getRep(){
+	$.ajax({
+		type: "POST",
+		url: "budgetexport.php",
+		cache: false,
+		
+		success: function(html) {
+			//document.getElementById('contents').innerHTML=html;			
+		}
+		});
+		return false;	
+	
+}
  $(function () {
 	 $("#l1").removeClass("active");
 	$("#l4").addClass("active");
@@ -90,7 +102,11 @@ $('#resModal').on('hidden.bs.modal', function () {
 
   </div>
 </div>
-
+<div class="row" style="padding:20px; padding-right:50px;">
+ <a href="budgetexport.php" class="btn btn-info pull-right" >
+          <span class="glyphicon glyphicon-download-alt"></span> Budget Report
+       </a>
+</div>
 
 <div class="container">
 		<table class="col-lg-8 table table-sm table-bordered" style="padding:10px" >
