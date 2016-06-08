@@ -14,14 +14,6 @@ LINES TERMINATED BY ',,,,,\r\n'
 -- Database: `purchasereq`
 --
 
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Jun 07, 2016 at 08:00 PM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 5.5.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -55,12 +47,20 @@ CREATE TABLE `approval` (
 
 INSERT INTO `approval` (`ReqId`, `AppDen`, `Reason`, `Date`) VALUES
 (13, 1, 'Extra', '2016-06-07 10:52:57'),
-(18, 0, '', '2016-06-07 10:53:18'),
 (5, 0, '', '2016-06-07 11:26:32'),
 (16, 0, '', '2016-06-07 11:32:41'),
 (8, 0, '', '2016-06-07 11:35:00'),
 (21, 0, '', '2016-06-07 13:09:06'),
-(14, 1, 'Denied', '2016-06-07 13:11:18');
+(14, 1, 'Denied', '2016-06-07 13:11:18'),
+(10, 0, '', '2016-06-07 15:06:30'),
+(15, 0, '', '2016-06-07 15:21:44'),
+(28, 0, '', '2016-06-07 15:25:30'),
+(25, 0, '', '2016-06-07 15:30:12'),
+(24, 1, '', '2016-06-07 15:58:36'),
+(23, 0, '', '2016-06-08 09:46:30'),
+(18, 0, '', '2016-06-08 09:48:15'),
+(20, 0, '', '2016-06-08 13:24:56'),
+(29, 0, '', '2016-06-08 13:52:23');
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,13 @@ INSERT INTO `itemdescr` (`itemid`, `ItemNo`, `Descr`, `Quantity`, `UnitDesc`, `U
 (34, '654345', 'dfdbbgbdfg', 4, 'fdgfd', '76', '$302.00'),
 (35, '83424', 'ytrerer', 1, 'bght', '450', '$450.00'),
 (36, '543d', 'abcd', 6, 'hgfhg', '120', '$720.00'),
-(37, '654gfd', 'fdsfdsf', 4, 'fdsfsd', '55', '$220.00');
+(37, '654gfd', 'fdsfdsf', 4, 'fdsfsd', '55', '$220.00'),
+(39, '432', 'gdf', 5, 'rter', '450', '$2250.00'),
+(40, '5435', 'gerg', 45, 'dfgfd', '343', '$15423.75'),
+(41, '342342', 'frgerg', 50, 'gdf', '30', '$1500.00'),
+(42, '65422', 'DDFDE Tapes', 10, '3 pack', '40', '$400.00'),
+(43, '2323221', 'adasdaksjj', 4, '3 pack', '240', '$960.00'),
+(44, '76544', 'trvfdgdf', 5, '1 pack', '120', '$600.00');
 
 -- --------------------------------------------------------
 
@@ -157,7 +163,13 @@ INSERT INTO `itemmap` (`ReqId`, `ItemId`) VALUES
 (23, 34),
 (23, 35),
 (24, 36),
-(25, 37);
+(25, 37),
+(27, 39),
+(28, 40),
+(29, 41),
+(30, 42),
+(31, 43),
+(31, 44);
 
 -- --------------------------------------------------------
 
@@ -183,21 +195,21 @@ CREATE TABLE `jobcode` (
 INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `LastSet`, `TotalAlloc`) VALUES
 (1, 'US13003 - Tigershark Rework', 'INDIA Rework related to manufacturing issues (100/0)', '0.00', '0.00', 0, '0.00', '0.00'),
 (2, 'US13004 - Tigershark MECR''s', 'INC  all new changes should have own job code', '0.00', '0.00', 0, '0.00', '0.00'),
-(3, 'US14005 - Tigershark Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '10000.00', '0.00', 0, '10000.00', '10000.00'),
+(3, 'US14005 - Tigershark Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '131.00', '369.00', 0, '500.00', '10500.00'),
 (4, 'US14006 - Tigershark Spares', 'INC', '1862.00', '668.00', 0, '2400.00', '2400.00'),
 (5, 'US14044AA - TS OP97 India Procurement', 'INDIA  Additional Material or Personnel Support Required', '4400.00', '0.00', 0, '4400.00', '4400.00'),
 (6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '12375.00', '126.00', 0, '12501.00', '12501.00'),
-(7, 'US14044AC - TS OP97 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '43927.50', '6072.50', 0, '50000.00', '50000.00'),
-(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '3240.00', '1260.00', 0, '4500.00', '4500.00'),
+(7, 'US14044AC - TS OP97 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '26052.25', '23947.75', 0, '50000.00', '50000.00'),
+(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '1020.00', '3480.00', 0, '4500.00', '4500.00'),
 (9, 'US14044BB - TS OP97 Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '7000.00', '0.00', 0, '7000.00', '7000.00'),
-(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '8000.00', '647.00', 0, '8000.00', '14000.00'),
+(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '4883.00', '3764.00', 0, '8000.00', '14000.00'),
 (11, 'US14044BD - TS OP97 Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
-(12, 'US14044BE - TS OP97 Inc Prod Support', 'INC  Portion of production support on CPO', '7500.00', '0.00', 0, '7500.00', '7500.00'),
+(12, 'US14044BE - TS OP97 Inc Prod Support', 'INC  Portion of production support on CPO', '6405.00', '1095.00', 0, '7500.00', '7500.00'),
 (13, 'US14052 - Tigershark Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
 (14, 'US15006AA - TS PSU Retool India Procurem', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
 (15, 'US15006AB - TS PSU India Rework', 'INDIA Rework related to manufacturing (Material & Labor)', '2500.00', '0.00', 0, '2500.00', '2500.00'),
 (16, 'US15006AC - TS PSU India Warranty', 'INDIA Warranty (material or design defects  software bugs)', '0.00', '0.00', 0, '0.00', '0.00'),
-(17, 'US15006BA - TS PSU Sales Commission', 'INC Code for Commissions', '8064.00', '1436.00', 0, '9500.00', '9500.00'),
+(17, 'US15006BA - TS PSU Sales Commission', 'INC Code for Commissions', '6560.00', '2940.00', 0, '9500.00', '9500.00'),
 (18, 'US15006BB - TS PSU Retool Project Mgmt', 'INC  Code for Project Mgmt Hours', '2300.00', '0.00', 0, '2300.00', '2300.00'),
 (19, 'US15006BC - TS PSU Inc Warranty', 'INC Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
 (20, 'US15006BD - TS PSU Inc Install', 'INC Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
@@ -512,7 +524,7 @@ CREATE TABLE `purdets` (
   `VendorId` int(11) NOT NULL,
   `ShipId` int(11) NOT NULL,
   `Budgeted` tinyint(1) NOT NULL,
-  `BCS` bigint(20) NOT NULL,
+  `BCS` varchar(20) NOT NULL,
   `Expl` varchar(40) NOT NULL,
   `Scope` int(11) NOT NULL,
   `Other` varchar(40) NOT NULL
@@ -523,28 +535,33 @@ CREATE TABLE `purdets` (
 --
 
 INSERT INTO `purdets` (`id`, `ReqsId`, `JobCode`, `VendorId`, `ShipId`, `Budgeted`, `BCS`, `Expl`, `Scope`, `Other`) VALUES
-(2, 2, 4, 6, 2, 0, 765543, '', 1, ''),
-(4, 6, 3, 119, 6, 1, 0, 'Extra', 0, ''),
-(5, 8, 17, 180, 8, 0, 554322, '', 1, ''),
-(6, 9, 17, 241, 9, 1, 0, 'LKJHGH', 0, ''),
-(7, 11, 4, 7, 11, 0, 34324, '', 0, ''),
-(8, 12, 4, 260, 12, 0, 3432322, '', 0, ''),
-(9, 13, 3, 402, 13, 0, 12345, '', 1, ''),
-(10, 14, 3, 12, 14, 0, 554322, '', 1, ''),
-(11, 15, 3, 33, 15, 1, 0, 'Extra', 1, ''),
-(12, 16, 7, 437, 16, 0, 665453, '', 0, ''),
-(13, 17, 8, 31, 17, 0, 65477432, '', 1, ''),
-(14, 18, 6, 406, 18, 1, 0, 'Extra', 1, ''),
-(15, 19, 10, 5, 19, 1, 0, 'Extra', 1, ''),
-(16, 20, 6, 157, 20, 0, 12345, '', 1, ''),
-(18, 22, 7, 118, 22, 0, 74324, '', 1, ''),
-(19, 23, 7, 55, 23, 0, 464353, '', 1, ''),
-(20, 24, 7, 12, 24, 0, 34523, '', 1, ''),
-(21, 25, 7, 8, 25, 0, 5543223, '', 1, ''),
-(22, 26, 12, 131, 26, 0, 987576, '', 1, ''),
-(23, 27, 17, 5, 27, 0, 7643423, '', 1, ''),
-(24, 28, 8, 5, 28, 0, 8567540, '', 1, ''),
-(25, 29, 10, 4, 29, 1, 0, 'Extra', 1, '');
+(2, 2, 4, 6, 2, 0, '765543', '', 1, ''),
+(4, 6, 3, 119, 6, 1, '0', 'Extra', 0, ''),
+(5, 8, 17, 180, 8, 0, '554322', '', 1, ''),
+(6, 9, 17, 241, 9, 1, '0', 'LKJHGH', 0, ''),
+(7, 11, 4, 7, 11, 0, '34324', '', 0, ''),
+(8, 12, 4, 260, 12, 0, '3432322', '', 0, ''),
+(9, 13, 3, 402, 13, 0, '12345', '', 1, ''),
+(10, 14, 3, 12, 14, 0, '554322', '', 1, ''),
+(11, 15, 3, 33, 15, 1, '0', 'Extra', 1, ''),
+(12, 16, 7, 437, 16, 0, '665453', '', 0, ''),
+(13, 17, 8, 31, 17, 0, '65477432', '', 1, ''),
+(14, 18, 6, 406, 18, 1, '0', 'Extra', 1, ''),
+(15, 19, 10, 5, 19, 1, '0', 'Extra', 1, ''),
+(16, 20, 6, 157, 20, 0, '12345', '', 1, ''),
+(18, 22, 7, 118, 22, 0, '74324', '', 1, ''),
+(19, 23, 7, 55, 23, 0, '464353', '', 1, ''),
+(20, 24, 7, 12, 24, 0, '34523', '', 1, ''),
+(21, 25, 7, 8, 25, 0, '5543223', '', 1, ''),
+(22, 26, 12, 131, 26, 0, '987576', '', 1, ''),
+(23, 27, 17, 5, 27, 0, '7643423', '', 1, ''),
+(24, 28, 8, 5, 28, 0, '8567540', '', 1, ''),
+(25, 29, 10, 4, 29, 1, '0', 'Extra', 1, ''),
+(27, 31, 10, 12, 30, 0, '34234', '', 0, ''),
+(28, 32, 7, 5, 31, 0, '4543', '', 1, ''),
+(29, 33, 8, 9, 32, 0, '754643', '', 1, ''),
+(30, 34, 8, 31, 33, 0, '65477432', '', 1, ''),
+(31, 35, 6, 406, 34, 1, '0', 'Extra', 1, '');
 
 -- --------------------------------------------------------
 
@@ -587,7 +604,12 @@ INSERT INTO `requester` (`id`, `ReqsId`, `Name`, `Phno`, `Fno`, `Email`) VALUES
 (26, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
 (27, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
 (28, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
-(29, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com');
+(29, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
+(31, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu'),
+(32, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
+(33, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu'),
+(34, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com'),
+(35, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com');
 
 -- --------------------------------------------------------
 
@@ -629,7 +651,12 @@ INSERT INTO `requistion` (`Id`, `ReqNo`, `RefQuote`, `TotalCost`, `Date`) VALUES
 (22, 'P0000022', '764543211', '1095.00', '2016-05-31 18:57:37'),
 (23, 'P0000023', '76434235', '752.00', '2016-06-02 13:18:43'),
 (24, 'P0000024', '87754343', '720.00', '2016-06-02 18:24:19'),
-(25, 'P0000025', '6353', '220.00', '2016-06-06 18:30:20');
+(25, 'P0000025', '6353', '220.00', '2016-06-06 18:30:20'),
+(27, 'P0000027', '54353245', '2250.00', '2016-06-07 18:28:21'),
+(28, 'P0000028', '5435', '15423.75', '2016-06-07 18:55:52'),
+(29, 'P0000029', '5635543', '1500.00', '2016-06-07 19:02:11'),
+(30, 'P0000030', '54364232', '400.00', '2016-06-08 16:17:16'),
+(31, 'P0000031', '42345521', '1560.00', '2016-06-08 17:19:33');
 
 -- --------------------------------------------------------
 
@@ -671,7 +698,12 @@ INSERT INTO `shipdets` (`shipid`, `Attn`, `Date`, `Method`, `AddrId`) VALUES
 (26, 'Mr XYZA', '06/08/2016', 'Freight', 1),
 (27, 'Mr LMN', '06/16/2016', 'Freight', 1),
 (28, 'Mr XYZ', '06/10/2016', 'Freight', 1),
-(29, 'Mr ABC', '06/17/2016', 'UTI', 5);
+(29, 'Mr ABC', '06/17/2016', 'UTI', 5),
+(30, 'Mr dkfjd', '06/28/2016', 'UPS', 1),
+(31, 'cvsdvds', '06/23/2016', 'UPS', 1),
+(32, 'Mr XYZA', '06/28/2016', 'Freight', 5),
+(33, 'Mr ABC', '05/26/2016', 'UPS', 1),
+(34, 'Mr XYZA', '05/31/2016', 'UPS', 1);
 
 -- --------------------------------------------------------
 
@@ -697,6 +729,64 @@ INSERT INTO `shippingaddr` (`AddrId`, `Name`, `Address`, `City`, `State`, `Count
 (1, 'PARI Robotics Inc, Rochester Hills', '2930 Technology Drive', 'Rochester Hills', 'MI', 'USA', '48309'),
 (5, 'PARI Inc', '1984 ABC Dr', 'Madison Heigths', 'MI', 'USA', '48072'),
 (6, 'Residence', '1910 Golfview Dr', 'Troy', 'MI', 'USA', '48084');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `First Name` varchar(20) NOT NULL,
+  `Last Name` varchar(20) NOT NULL,
+  `LoginId` varchar(10) NOT NULL,
+  `LoginPwd` varchar(20) NOT NULL,
+  `Email` varchar(40) NOT NULL,
+  `Type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `First Name`, `Last Name`, `LoginId`, `LoginPwd`, `Email`, `Type`) VALUES
+(1, 'Admin', 'User', 'aakritid', 'abcd123', 'aakritid@pariusa.com', 6),
+(2, 'General', 'User', 'general', 'abcd123', 'aakritid@pariusa.com', 1),
+(3, 'Proj', 'Engg', 'projeng', 'abcd123', 'aakritid@pariusa.com', 2),
+(4, 'Proj', 'Manager', 'projman', 'abcd123', 'aakritid@pariusa.com', 3),
+(5, 'Buyer', '', 'buyer', 'abcd123', 'aakritid@pariusa.com', 4),
+(6, 'Management', '', 'manage', 'abcd123', 'aakritid@pariusa.com', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usertypes`
+--
+
+CREATE TABLE `usertypes` (
+  `id` int(11) NOT NULL,
+  `Type` varchar(30) NOT NULL,
+  `JCCreate` tinyint(1) NOT NULL,
+  `Approval` tinyint(1) NOT NULL,
+  `BudgAlloc` tinyint(1) NOT NULL,
+  `Report` tinyint(1) NOT NULL,
+  `Setup` tinyint(1) NOT NULL,
+  `CVReqs` tinyint(1) NOT NULL,
+  `CostLevel` decimal(15,2) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `usertypes`
+--
+
+INSERT INTO `usertypes` (`id`, `Type`, `JCCreate`, `Approval`, `BudgAlloc`, `Report`, `Setup`, `CVReqs`, `CostLevel`) VALUES
+(1, 'General User', 0, 0, 0, 0, 0, 1, '0.00'),
+(2, 'Project Engineer', 0, 1, 0, 0, 0, 1, '5000.00'),
+(3, 'Project Maanger', 0, 1, 0, 1, 0, 1, '10000.00'),
+(4, 'Buyer', 0, 0, 0, 0, 0, 1, '0.00'),
+(5, 'Management', 1, 1, 1, 1, 0, 1, '50000.00'),
+(6, 'Administrator', 1, 1, 1, 1, 1, 1, '500000.00');
 
 -- --------------------------------------------------------
 
@@ -1291,6 +1381,19 @@ ALTER TABLE `shippingaddr`
   ADD PRIMARY KEY (`AddrId`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Type` (`Type`);
+
+--
+-- Indexes for table `usertypes`
+--
+ALTER TABLE `usertypes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `vendor`
 --
 ALTER TABLE `vendor`
@@ -1304,7 +1407,7 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `itemdescr`
 --
 ALTER TABLE `itemdescr`
-  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `jobcode`
 --
@@ -1314,22 +1417,32 @@ ALTER TABLE `jobcode`
 -- AUTO_INCREMENT for table `purdets`
 --
 ALTER TABLE `purdets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `requester`
 --
 ALTER TABLE `requester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `shipdets`
 --
 ALTER TABLE `shipdets`
-  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `shippingaddr`
 --
 ALTER TABLE `shippingaddr`
   MODIFY `AddrId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `usertypes`
+--
+ALTER TABLE `usertypes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `vendor`
 --
@@ -1371,6 +1484,12 @@ ALTER TABLE `requistion`
 --
 ALTER TABLE `shipdets`
   ADD CONSTRAINT `shipdets_ibfk_1` FOREIGN KEY (`AddrId`) REFERENCES `shippingaddr` (`AddrId`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`Type`) REFERENCES `usertypes` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
