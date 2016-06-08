@@ -20,7 +20,6 @@ if($_POST['request']=='process'){
 		$qry="select Budget from jobcode where JCId=".$tc['JobCode'];
 		$res=$conn->query($qry);
 		$bg=$res->fetch_assoc();
-		//echo $tc['TotalCost'] ."<=". $tc['Budget'];
 		if($tc['TotalCost'] <= $bg['Budget']){
 			
 			$qry="update jobcode set budget=budget-".$tc['TotalCost']." where JCId=".$tc['JobCode'];
@@ -59,7 +58,8 @@ if($_POST['request']=='status'){
 			$op="<span class='label label-success'><span class='glyphicon glyphicon-ok-circle'></span>		Approved: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
 		}
 		else{
-			$op="<span class='label label-danger' title='". $status['Reason']."' style='cursor:pointer'><span class='glyphicon glyphicon-remove-circle'></span>		Denied:: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
+			$op="<form action='EditPurchaseReq.php' method='post'><span class='label label-danger' title='". $status['Reason']."' style='cursor:pointer'><span class='glyphicon glyphicon-remove-circle'></span>		Denied: ".$status['Reason']." on: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
+			$op=$op."<div style='padding-top:10px;'><button type='submit' class='btn btn-default btn-info' id='edit' >Edit Requisition</button></div> <input type='text' hidden value='".$status['Id']."' name='reqd'></form>";
 		}
 		echo $op;
 }
