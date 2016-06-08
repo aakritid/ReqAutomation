@@ -15,6 +15,7 @@ if (!$conn) {
     die('Could not connect: ' . mysqli_error($conn));
 }
 
+
 $qry="select count(*) from requistion where requistion.Id not in (select ReqId from approval)";
 $result = $conn->query($qry);
 $reqs=$result->fetch_assoc();
