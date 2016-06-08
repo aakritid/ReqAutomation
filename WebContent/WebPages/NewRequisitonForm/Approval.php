@@ -194,7 +194,7 @@ $records=$reqs['count(*)'];
 	  <div class="row">
       <div class="modal-body">
         <div class='container from-inline  col-sm-12' style="padding:30px"><label for='DReason'>Confirm Approval of Requisition? </label></div>
-		<div id="load" style="display:none">
+		<div id="load" class="col-sm-8 pull-right" style="display:none">
 		<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
 		</div>
       </div>

@@ -85,8 +85,8 @@ $records=$reqs['count(*)'];
         <p ></p>
       </div>
       <div class="modal-footer">
-		<h3 id='status'></h3>
-	   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<h4 id='status'></h4>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
 

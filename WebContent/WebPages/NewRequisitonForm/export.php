@@ -52,10 +52,6 @@ $qry="select * from shippingaddr where AddrId=".$ship['AddrId'];
 $result = $conn->query($qry);
 $addr=$result->fetch_assoc();
 
-$qry="select ItemId from itemmap where ReqId=".$reqid;
-$result = $conn->query($qry);
-
-
 $bdg="";	
 switch($prdts['Budgeted']){
 	case 0: $budg="YES";
