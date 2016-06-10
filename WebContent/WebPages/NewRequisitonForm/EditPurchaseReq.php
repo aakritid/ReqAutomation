@@ -547,7 +547,7 @@ $addr=$result->fetch_assoc();
 			        <input type="text" class="form-control digit" id="phoneNum" name="phoneNum" value='<?php echo $requester['Phno']; ?>'/></td>
 			        <td class="col-sm-2"><label for="faxNum">Fax Number:</label> 
 			        <input type="text" class="form-control digit" id="faxNum" name="faxNum" value='<?php echo $requester['Fno']; ?>'/></td>
-			        <td id="datediv" class="col-sm-4 form-control " >
+			        <td id="datediv"  >
                 <label for="datepicker">Date Needed:<span class="reqd">*</span></label>
                     <div class="input-group date" data-provide="datepicker">
     <input type="text" class="form-control required" id="datepicker" name="daten" value='<?php echo $ship['Date']; ?>'></div></td>

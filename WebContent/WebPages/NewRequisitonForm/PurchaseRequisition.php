@@ -489,14 +489,14 @@ $_SESSION['ReqstId']=$user['id'];
 						</div> 
 						<div id="nbudgtdiv"><label for="explain">Explanation:</label><input type="text" class="form-control" id="explain" name="explain"/></div></td>
 			      </tr>
-			      <tr>
+			       <tr>
 			         <td class="col-sm-2"><label for="phoneNum">Phone Number:</label> 
 			        <input type="text" class="form-control digit" id="phoneNum" name="phoneNum"/></td>
 			        <td class="col-sm-2"><label for="faxNum">Fax Number:</label> 
 			        <input type="text" class="form-control digit" id="faxNum" name="faxNum"/></td>
-			        <td id="datediv" class="col-sm-4 form-control " >
+			        <td id="datediv"  >
                 <label for="datepicker">Date Needed:<span class="reqd">*</span></label>
-                    <div class="input-group date" data-provide="datepicker">
+                    <div class="input-group date " data-provide="datepicker">
     <input type="text" class="form-control required" id="datepicker" name="daten"></div></td>
 			         <td rowspan ="2" class="col-sm-4"> 
 					  <div class="row-sm-2 radio">
@@ -507,8 +507,8 @@ $_SESSION['ReqstId']=$user['id'];
 						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="other">Other</label><input type="text" class="form-control" name="otherval"/>
 						</div>
 					 </td>
-				</tr>
-			      <tr>
+				</tr> 
+			     <tr>
 			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Email:<span class="reqd">*</span></label> 
 			        <input type="email" class="form-control required" id="email" name="email"/></td>
 			        <td class="col-sm-4"><label for="shipMethod" >Shipping Method:<span class="reqd">*</span></label> 
@@ -523,7 +523,7 @@ $_SESSION['ReqstId']=$user['id'];
 							<option value="Your Truck">Your Truck</option>
 						</select>
 					</div>
-			       			        
+			       	</td>		        
 			      </tr>
 			    </tbody>
 			  </table>
