@@ -54,6 +54,10 @@ $qry="select `First Name`, `Last Name` from approval join users on approval.Appr
 $result = $conn->query($qry);
 $approver=$result->fetch_assoc();
 
+$qry="select Email from users where Type=4";
+$result = $conn->query($qry);
+$buyer=$result->fetch_assoc();
+
 $bdg="";	
 switch($prdts['Budgeted']){
 	case 0: $budg="YES";
@@ -158,4 +162,4 @@ $nmessage .= $content."\r\n\r\n";
 $nmessage .= "--".$uid."--";
 
 
-mail("aakritid@pariusa.com", "Purchase Requisition - ".$reqno, $nmessage, $header);
+mail($buyer['Email'], "Purchase Requisition - ".$reqno, $nmessage, $header);
