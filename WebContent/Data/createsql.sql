@@ -10,10 +10,14 @@ FIELDS TERMINATED BY ';'
 LINES TERMINATED BY ',,,,,\r\n'
 (VendorName, VendorAddress);
 */
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Database: `purchasereq`
---
-
+-- Host: 127.0.0.1
+-- Generation Time: Jun 10, 2016 at 09:16 PM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 5.5.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,29 +42,34 @@ CREATE TABLE `approval` (
   `ReqId` int(11) NOT NULL,
   `AppDen` tinyint(1) NOT NULL,
   `Reason` text NOT NULL,
-  `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Approver` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `approval`
 --
 
-INSERT INTO `approval` (`ReqId`, `AppDen`, `Reason`, `Date`) VALUES
-(13, 1, 'Extra', '2016-06-07 10:52:57'),
-(5, 0, '', '2016-06-07 11:26:32'),
-(16, 0, '', '2016-06-07 11:32:41'),
-(8, 0, '', '2016-06-07 11:35:00'),
-(21, 0, '', '2016-06-07 13:09:06'),
-(14, 1, 'Denied', '2016-06-07 13:11:18'),
-(10, 0, '', '2016-06-07 15:06:30'),
-(15, 0, '', '2016-06-07 15:21:44'),
-(28, 0, '', '2016-06-07 15:25:30'),
-(25, 0, '', '2016-06-07 15:30:12'),
-(24, 1, '', '2016-06-07 15:58:36'),
-(23, 0, '', '2016-06-08 09:46:30'),
-(18, 0, '', '2016-06-08 09:48:15'),
-(20, 0, '', '2016-06-08 13:24:56'),
-(29, 0, '', '2016-06-08 13:52:23');
+INSERT INTO `approval` (`ReqId`, `AppDen`, `Reason`, `Date`, `Approver`) VALUES
+(13, 1, 'Extra', '2016-06-10 13:17:22', 1),
+(5, 0, '', '2016-06-10 13:17:22', 1),
+(8, 0, '', '2016-06-10 13:17:22', 1),
+(21, 0, '', '2016-06-10 13:17:22', 1),
+(14, 1, 'Denied', '2016-06-10 13:17:22', 1),
+(10, 0, '', '2016-06-10 13:17:22', 1),
+(15, 0, '', '2016-06-10 13:17:22', 1),
+(28, 0, '', '2016-06-10 13:17:22', 1),
+(25, 0, '', '2016-06-10 13:17:22', 1),
+(24, 1, '', '2016-06-10 13:17:22', 1),
+(23, 0, '', '2016-06-10 13:17:22', 1),
+(18, 0, '', '2016-06-10 13:17:22', 1),
+(20, 0, '', '2016-06-10 13:17:22', 1),
+(29, 0, '', '2016-06-10 13:17:22', 1),
+(30, 0, '', '2016-06-10 13:56:40', 1),
+(27, 0, '', '2016-06-10 14:13:51', 1),
+(31, 0, '', '2016-06-10 14:15:46', 1),
+(16, 0, '', '2016-06-10 14:17:03', 7),
+(2, 0, '', '2016-06-10 14:51:15', 1);
 
 -- --------------------------------------------------------
 
@@ -117,7 +126,9 @@ INSERT INTO `itemdescr` (`itemid`, `ItemNo`, `Descr`, `Quantity`, `UnitDesc`, `U
 (41, '342342', 'frgerg', 50, 'gdf', '30', '$1500.00'),
 (42, '65422', 'DDFDE Tapes', 10, '3 pack', '40', '$400.00'),
 (43, '2323221', 'adasdaksjj', 4, '3 pack', '240', '$960.00'),
-(44, '76544', 'trvfdgdf', 5, '1 pack', '120', '$600.00');
+(44, '76544', 'trvfdgdf', 5, '1 pack', '120', '$600.00'),
+(45, '6534', 'ffewtrrwert', 20, 'trete', '55', '$1100.00'),
+(46, '4323', 'dfwrerfwe', 50, 'ereewrw', '45', '$2250.00');
 
 -- --------------------------------------------------------
 
@@ -169,7 +180,9 @@ INSERT INTO `itemmap` (`ReqId`, `ItemId`) VALUES
 (29, 41),
 (30, 42),
 (31, 43),
-(31, 44);
+(31, 44),
+(32, 45),
+(33, 46);
 
 -- --------------------------------------------------------
 
@@ -196,13 +209,13 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `Las
 (1, 'US13003 - Tigershark Rework', 'INDIA Rework related to manufacturing issues (100/0)', '0.00', '0.00', 0, '0.00', '0.00'),
 (2, 'US13004 - Tigershark MECR''s', 'INC  all new changes should have own job code', '0.00', '0.00', 0, '0.00', '0.00'),
 (3, 'US14005 - Tigershark Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '131.00', '369.00', 0, '500.00', '10500.00'),
-(4, 'US14006 - Tigershark Spares', 'INC', '1862.00', '668.00', 0, '2400.00', '2400.00'),
+(4, 'US14006 - Tigershark Spares', 'INC', '1742.00', '788.00', 4, '2400.00', '2400.00'),
 (5, 'US14044AA - TS OP97 India Procurement', 'INDIA  Additional Material or Personnel Support Required', '4400.00', '0.00', 0, '4400.00', '4400.00'),
-(6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '12375.00', '126.00', 0, '12501.00', '12501.00'),
+(6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '10689.00', '1812.00', 7, '12501.00', '12501.00'),
 (7, 'US14044AC - TS OP97 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '26052.25', '23947.75', 0, '50000.00', '50000.00'),
-(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '1020.00', '3480.00', 0, '4500.00', '4500.00'),
+(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '4200.00', '5080.00', 7, '5000.00', '9500.00'),
 (9, 'US14044BB - TS OP97 Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '7000.00', '0.00', 0, '7000.00', '7000.00'),
-(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '4883.00', '3764.00', 0, '8000.00', '14000.00'),
+(10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '2633.00', '6014.00', 0, '8000.00', '14000.00'),
 (11, 'US14044BD - TS OP97 Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
 (12, 'US14044BE - TS OP97 Inc Prod Support', 'INC  Portion of production support on CPO', '6405.00', '1095.00', 0, '7500.00', '7500.00'),
 (13, 'US14052 - Tigershark Warranty - Inc', 'INC Warranty (Support labor  Application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
@@ -460,7 +473,7 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `Las
 (265, 'US15003BB - MAG Block Project Mgmt', 'INC  Code for Project Mgmt Hours', '0.00', '0.00', 0, '0.00', '0.00'),
 (266, 'US15003BC - MAG Block Inc Warranty', 'INC  Warranty (support labor  application software help)', '0.00', '0.00', 0, '0.00', '0.00'),
 (267, 'US15003BD - MAG Block Inc Install', 'INC  Portion of LABOR only  at customer site (see budget)', '0.00', '0.00', 0, '0.00', '0.00'),
-(268, 'US15003BE - MAG Block Inc Prod Support', 'INC  Portion of production support on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
+(268, 'US15003BE - MAG Block Inc Prod Support', 'INC  Portion of production support on CPO', '3500.00', '0.00', 7, '3500.00', '6000.00'),
 (269, 'US15003BF - MAG Block Inc Training', 'INC  Portion of training on CPO', '0.00', '0.00', 0, '0.00', '0.00'),
 (270, 'US15004AA - MAG Head India Procurement', 'INDIA  Additional Material or Personnel Support required', '0.00', '0.00', 0, '0.00', '0.00'),
 (271, 'US15004AB - MAG Head India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '0.00', '0.00', 0, '0.00', '0.00'),
@@ -509,7 +522,7 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `Las
 (314, 'SRV15003 - ZF Service 2015-16', 'INC Service Calls Billable to Customer', '0.00', '0.00', 0, '0.00', '0.00'),
 (315, 'US11018 - Warranty - Support ZF', 'INDIA - No longer in service?', '0.00', '0.00', 0, '0.00', '0.00'),
 (316, 'US15013 - ZF Pallet Rework 2015', 'INC scope related to the pallet rework CPO', '0.00', '0.00', 0, '0.00', '0.00'),
-(317, 'US132432', 'Stff', '0.00', '0.00', 0, '0.00', '0.00');
+(322, 'US1324322', 'INC', '6000.00', '0.00', 4, '6000.00', '18500.00');
 
 -- --------------------------------------------------------
 
@@ -561,7 +574,9 @@ INSERT INTO `purdets` (`id`, `ReqsId`, `JobCode`, `VendorId`, `ShipId`, `Budgete
 (28, 32, 7, 5, 31, 0, '4543', '', 1, ''),
 (29, 33, 8, 9, 32, 0, '754643', '', 1, ''),
 (30, 34, 8, 31, 33, 0, '65477432', '', 1, ''),
-(31, 35, 6, 406, 34, 1, '0', 'Extra', 1, '');
+(31, 35, 6, 406, 34, 1, '0', 'Extra', 1, ''),
+(32, 36, 15, 41, 35, 0, '8764645', '', 1, ''),
+(33, 37, 8, 5, 36, 0, '554322', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -575,41 +590,44 @@ CREATE TABLE `requester` (
   `Name` text NOT NULL,
   `Phno` varchar(20) NOT NULL,
   `Fno` varchar(20) NOT NULL,
-  `Email` varchar(30) NOT NULL
+  `Email` varchar(30) NOT NULL,
+  `UserId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `requester`
 --
 
-INSERT INTO `requester` (`id`, `ReqsId`, `Name`, `Phno`, `Fno`, `Email`) VALUES
-(2, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@usc.edu'),
-(6, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritidubey@outlook.com'),
-(8, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(9, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(11, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'abcd@1234.com'),
-(12, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(13, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com'),
-(14, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(15, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544342', 'aakritid@pariusa.com'),
-(16, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@pariusa.com'),
-(17, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com'),
-(18, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(19, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(20, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(22, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(23, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(24, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
-(25, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
-(26, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(27, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(28, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
-(29, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com'),
-(31, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu'),
-(32, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com'),
-(33, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu'),
-(34, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com'),
-(35, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com');
+INSERT INTO `requester` (`id`, `ReqsId`, `Name`, `Phno`, `Fno`, `Email`, `UserId`) VALUES
+(2, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@usc.edu', 2),
+(6, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritidubey@outlook.com', 2),
+(8, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
+(9, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
+(11, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'abcd@1234.com', 2),
+(12, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
+(13, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
+(14, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(15, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544342', 'aakritid@pariusa.com', 2),
+(16, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@pariusa.com', 2),
+(17, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com', 2),
+(18, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(19, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(20, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(22, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(23, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(24, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
+(25, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
+(26, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(27, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(28, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
+(29, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(31, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu', 2),
+(32, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
+(33, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu', 2),
+(34, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com', 2),
+(35, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
+(36, '', 'ABC PQR', '3234415067', '', 'aakritid@pariusa.com', 7),
+(37, '', 'Admin User', '', '', 'aakritid@pariusa.com', 1);
 
 -- --------------------------------------------------------
 
@@ -656,7 +674,9 @@ INSERT INTO `requistion` (`Id`, `ReqNo`, `RefQuote`, `TotalCost`, `Date`) VALUES
 (28, 'P0000028', '5435', '15423.75', '2016-06-07 18:55:52'),
 (29, 'P0000029', '5635543', '1500.00', '2016-06-07 19:02:11'),
 (30, 'P0000030', '54364232', '400.00', '2016-06-08 16:17:16'),
-(31, 'P0000031', '42345521', '1560.00', '2016-06-08 17:19:33');
+(31, 'P0000031', '42345521', '1560.00', '2016-06-08 17:19:33'),
+(32, 'P0000032', '6654332', '1100.00', '2016-06-10 17:44:05'),
+(33, 'P0000033', '654322', '2250.00', '2016-06-10 18:36:10');
 
 -- --------------------------------------------------------
 
@@ -703,7 +723,9 @@ INSERT INTO `shipdets` (`shipid`, `Attn`, `Date`, `Method`, `AddrId`) VALUES
 (31, 'cvsdvds', '06/23/2016', 'UPS', 1),
 (32, 'Mr XYZA', '06/28/2016', 'Freight', 5),
 (33, 'Mr ABC', '05/26/2016', 'UPS', 1),
-(34, 'Mr XYZA', '05/31/2016', 'UPS', 1);
+(34, 'Mr XYZA', '05/31/2016', 'UPS', 1),
+(35, 'Mr PQR', '06/18/2016', 'UPS', 1),
+(36, 'LMN PQR', '06/29/2016', 'UPS', 1);
 
 -- --------------------------------------------------------
 
@@ -743,7 +765,7 @@ CREATE TABLE `users` (
   `LoginId` varchar(10) NOT NULL,
   `LoginPwd` varchar(20) NOT NULL,
   `Email` varchar(40) NOT NULL,
-  `Type` int(11) NOT NULL
+  `Type` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -756,7 +778,8 @@ INSERT INTO `users` (`id`, `First Name`, `Last Name`, `LoginId`, `LoginPwd`, `Em
 (3, 'Proj', 'Engg', 'projeng', 'abcd123', 'aakritid@pariusa.com', 2),
 (4, 'Proj', 'Manager', 'projman', 'abcd123', 'aakritid@pariusa.com', 3),
 (5, 'Buyer', '', 'buyer', 'abcd123', 'aakritid@pariusa.com', 4),
-(6, 'Management', '', 'manage', 'abcd123', 'aakritid@pariusa.com', 5);
+(6, 'Management', '', 'manage', 'abcd123', 'aakritid@pariusa.com', 5),
+(7, 'ABC', 'PQR', 'abcdid', 'abcd123', 'aakritid@pariusa.com', 3);
 
 -- --------------------------------------------------------
 
@@ -1325,7 +1348,8 @@ INSERT INTO `vendor` (`VendorCode`, `VendorName`, `VendorAddress`) VALUES
 -- Indexes for table `approval`
 --
 ALTER TABLE `approval`
-  ADD KEY `ReqId` (`ReqId`);
+  ADD KEY `ReqId` (`ReqId`),
+  ADD KEY `Approver` (`Approver`);
 
 --
 -- Indexes for table `itemdescr`
@@ -1359,7 +1383,8 @@ ALTER TABLE `purdets`
 -- Indexes for table `requester`
 --
 ALTER TABLE `requester`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `UserId` (`UserId`);
 
 --
 -- Indexes for table `requistion`
@@ -1407,27 +1432,27 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `itemdescr`
 --
 ALTER TABLE `itemdescr`
-  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `jobcode`
 --
 ALTER TABLE `jobcode`
-  MODIFY `JCId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
+  MODIFY `JCId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
 --
 -- AUTO_INCREMENT for table `purdets`
 --
 ALTER TABLE `purdets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `requester`
 --
 ALTER TABLE `requester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `shipdets`
 --
 ALTER TABLE `shipdets`
-  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `shippingaddr`
 --
@@ -1437,7 +1462,7 @@ ALTER TABLE `shippingaddr`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `usertypes`
 --
@@ -1456,7 +1481,8 @@ ALTER TABLE `vendor`
 -- Constraints for table `approval`
 --
 ALTER TABLE `approval`
-  ADD CONSTRAINT `approval_ibfk_1` FOREIGN KEY (`ReqId`) REFERENCES `purdets` (`id`);
+  ADD CONSTRAINT `approval_ibfk_1` FOREIGN KEY (`ReqId`) REFERENCES `purdets` (`id`),
+  ADD CONSTRAINT `approval_ibfk_2` FOREIGN KEY (`Approver`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `itemmap`
@@ -1472,6 +1498,12 @@ ALTER TABLE `purdets`
   ADD CONSTRAINT `purdets_ibfk_1` FOREIGN KEY (`ReqsId`) REFERENCES `requester` (`id`),
   ADD CONSTRAINT `purdets_ibfk_2` FOREIGN KEY (`JobCode`) REFERENCES `jobcode` (`JCId`),
   ADD CONSTRAINT `purdets_ibfk_3` FOREIGN KEY (`ShipId`) REFERENCES `shipdets` (`shipid`);
+
+--
+-- Constraints for table `requester`
+--
+ALTER TABLE `requester`
+  ADD CONSTRAINT `requester_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `requistion`
