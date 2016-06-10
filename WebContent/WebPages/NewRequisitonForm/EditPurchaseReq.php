@@ -38,6 +38,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 }
  $conn->close();
  $_SESSION['ReqsName']=$user['First Name']." ".$user['Last Name'];
+ $_SESSION['ReqstId']=$user['id'];
 ?>
 <!DOCTYPE html>
 <html>

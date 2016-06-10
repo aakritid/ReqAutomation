@@ -23,11 +23,14 @@ if($_POST['request']=='process'){
 		if($tc['TotalCost'] <= $bg['Budget']){
 			
 			$qry="update jobcode set budget=budget-".$tc['TotalCost']." where JCId=".$tc['JobCode'];
-			$conn->query($qry);
+			if($conn->query($qry)==FALSE)
+				echo $conn->err;
 			$qry="update jobcode set spent=spent+".$tc['TotalCost']." where JCId=".$tc['JobCode'];
-			$conn->query($qry);
-			$qry="insert into approval (ReqId, AppDen) values (".$reqid.",0)";
-			$conn->query($qry);
+			if($conn->query($qry)==FALSE)
+				echo $conn->err;
+			$qry="insert into approval (ReqId, AppDen, Approver) values (".$reqid.",0,".$_SESSION['ReqstId'].")";
+			if($conn->query($qry)==FALSE)
+				echo $qry;
 			(include 'export.php');
 			echo (0);
 		}
@@ -47,18 +50,20 @@ if($_POST['request']=='process'){
 }
 
 if($_POST['request']=='status'){
-		$qry1="SELECT * FROM requistion left join approval on requistion.id=approval.ReqId where requistion.ReqNo='".$_POST['reqno']."'";
+		$qry1="SELECT * FROM requistion left join approval on requistion.id=approval.ReqId join users on approval.Approver=users.id where requistion.ReqNo='".$_POST['reqno']."'";
 		$result1=$conn->query($qry1);
 		$status=$result1->fetch_assoc();
-		$op='';
+		
+		//$qry1="SELECT First Name, Last Name from approval join  where "
+		//$op='';
 		if($status['AppDen']==NULL){
 			$op="<span class='label label-warning'><span class='glyphicon  glyphicon-exclamation-sign'></span>Pending</span>";
 		}
 		else if($status['AppDen']==0){
-			$op="<span class='label label-success'><span class='glyphicon glyphicon-ok-circle'></span>		Approved: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
+			$op="<span class='label label-success'><span class='glyphicon glyphicon-ok-circle'></span>		Approved By: ".$status['First Name']."  ".$status['Last Name'].", On:". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
 		}
 		else{
-			$op="<form action='EditPurchaseReq.php' method='post'><span class='label label-danger' title='". $status['Reason']."' style='cursor:pointer'><span class='glyphicon glyphicon-remove-circle'></span>		Denied: ".$status['Reason']." on: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
+			$op="<form action='EditPurchaseReq.php' method='post'><span class='label label-danger' title='". $status['Reason']."' style='cursor:pointer'><span class='glyphicon glyphicon-remove-circle'></span>		Denied: ".$status['Reason'].", By: ".$status['First Name']." ".$status['Last Name'].", On: ". date_format(date_create($status['Date']),'F j, Y, g:i a')."</span>";
 			$op=$op."<div style='padding-top:10px;'><button type='submit' class='btn btn-default btn-info' id='edit' >Edit Requisition</button></div> <input type='text' hidden value='".$status['Id']."' name='reqd'></form>";
 		}
 		echo $op;

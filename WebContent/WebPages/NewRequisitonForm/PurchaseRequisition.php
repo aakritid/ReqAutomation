@@ -274,6 +274,7 @@ $result = $conn->query($qry);
 $rights=$result->fetch_assoc();
 
 $_SESSION['ReqsName']=$user['First Name']." ".$user['Last Name'];
+$_SESSION['ReqstId']=$user['id'];
 ?>
 <div id="vendModal" class="modal fade">
   <div class="modal-dialog">

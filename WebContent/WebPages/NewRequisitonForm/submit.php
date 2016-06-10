@@ -20,7 +20,7 @@ $active=$_SESSION["active"];
 	if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error; echo '\nError in insert in shipdets: '.$qry;
 	}
-	$qry= "insert into requester (ReqsId, Name, Phno, Fno, Email) values ('aakritid','Aakriti Dubey','".$_SESSION["phoneNum"]."', '".$_SESSION["faxNum"]."','".$_SESSION["email"]."')";
+	$qry= "insert into requester (UserId, Name, Phno, Fno, Email) values (".$_SESSION['ReqstId'].",'".$_SESSION['ReqsName']."','".$_SESSION["phoneNum"]."', '".$_SESSION["faxNum"]."','".$_SESSION["email"]."')";
 	if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error;echo '\n Error in insert in requester: '.$qry;
 	}
