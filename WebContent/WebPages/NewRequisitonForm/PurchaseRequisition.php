@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "pari123#";
@@ -202,13 +203,14 @@ function addjc(){
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					if(xmlhttp.responseText==1){
+					if(xmlhttp.responseText==11){
 						jc=document.getElementById("jcode").value;
 						var	venS = document.getElementById('ddown');
 						var option = document.createElement('option');
 						option.text=jc;
 						option.selected="selected";
 						venS.appendChild(option);
+						document.getElementById("jcBudg").innerHTML = "<label>Remaining Budget: $"+budg+"</label>";
 						  $('#jcModal').modal("hide");
 					}
 					else 
@@ -270,6 +272,8 @@ $user=$result->fetch_assoc();
 $qry="select * from usertypes where id=".$user['Type'];
 $result = $conn->query($qry);
 $rights=$result->fetch_assoc();
+
+$_SESSION['ReqsName']=$user['First Name']." ".$user['Last Name'];
 ?>
 <div id="vendModal" class="modal fade">
   <div class="modal-dialog">
@@ -326,7 +330,13 @@ $rights=$result->fetch_assoc();
 		<div  class="form-inline selectContainer">
 						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
-							
+							<?php
+							$query="SELECT * from users";
+							$result = $conn->query($query);
+							while ($row = $result->fetch_assoc()) {
+								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";
+					}
+					?>
 						</select>
 					</div></div>
 		</div>

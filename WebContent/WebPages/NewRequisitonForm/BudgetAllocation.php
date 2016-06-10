@@ -70,18 +70,20 @@ function budget(type,str){
 	if(type=="set"){
 		str=document.getElementById('ddown').value;
 		var nb=document.getElementById('nbudg').value;
+		var pm=document.getElementById('npm').value;
 		$.ajax({
 		type: "POST",
 		url: "Budget.php",
 		cache: false,
-		data:  {'type': type, 'jc': str, 'newBudg': nb},
+		data:  {'type': type, 'jc': str, 'newBudg': nb, 'newPm':pm},
 		success: function(html) {
-			if(html==1){
+			if(html==11 || html==1){
 				$('#resVal').addClass("alert-success");
 			document.getElementById('resVal').innerHTML="<h4>Success!</h4>Budget Set Successfully!";
 			}
 			else{
 				$('#resVal').addClass("alert-danger");
+				
 			document.getElementById('resVal').innerHTML="<h4>Error!</h4>Budget Set Failed.";
 			}
 		}

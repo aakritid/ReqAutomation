@@ -1,5 +1,43 @@
 <?php
 session_start();
+$servername = "localhost";
+$username = "root";
+$password = "pari123#";
+
+$conn = new mysqli($servername, $username, $password,"purchasereq");
+if (!$conn) {
+    die('Could not connect: ' . mysqli_error($conn));
+}
+
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header("WWW-Authenticate: Basic realm=\"Private Area\"");
+        header("HTTP/1.0 401 Unauthorized");
+        print "Sorry - you need valid credentials to be granted access!\n";
+        exit;
+} else {
+		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+		$result = $conn->query($qry);
+		$user=$result->fetch_assoc();
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+           header("WWW-Authenticate: Basic realm=\"Private Area\"");
+            header("HTTP/1.0 401 Unauthorized");
+            print "You Are not authorized to view the page!";
+            exit;						
+        }
+		else {
+			$qry1="Select * from usertypes where id=".$user['Type'];
+			$result = $conn->query($qry1);
+			$auth=$result->fetch_assoc();
+			 if ($auth['CVReqs']==0){
+				 header("WWW-Authenticate: Basic realm=\"Private Area\"");
+				header("HTTP/1.0 401 Unauthorized");
+				print "You Are not authorized to view the page!";
+				exit;
+			 }
+		}
+}
+ $conn->close();
+ $_SESSION['ReqsName']=$user['First Name']." ".$user['Last Name'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -173,6 +211,7 @@ function addjc(){
 						option.text=jc;
 						option.selected="selected";
 						venS.appendChild(option);
+						document.getElementById("jcBudg").innerHTML = "<label>Remaining Budget: $"+budg+"</label>";
 						  $('#jcModal').modal("hide");
 					}
 					else 
@@ -229,7 +268,14 @@ function addShip(){
 (include 'header.php');
 $reqid=$_POST['reqd'];
 $_SESSION['reqd']=$reqid;
-//$reqid=13;
+
+$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+$result = $conn->query($qry);
+$user=$result->fetch_assoc();
+
+$qry="select * from usertypes where id=".$user['Type'];
+$result = $conn->query($qry);
+$rights=$result->fetch_assoc();
 
 $qry="select * from requistion where Id=".$reqid;
 $result = $conn->query($qry);
@@ -328,7 +374,13 @@ $addr=$result->fetch_assoc();
 		<div  class="form-inline selectContainer">
 						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
-							
+							<?php
+							$query="SELECT * from users";
+							$result = $conn->query($query);
+							while ($row = $result->fetch_assoc()) {
+								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";
+					}
+					?>
 						</select>
 					</div></div>
 		</div>
@@ -400,13 +452,19 @@ $addr=$result->fetch_assoc();
       <form class="detForm" name="pDetails" action="EditItems.php" method="post" role="form">
       <div class="container">
       <div class="container" id="initial" style="padding: 10px;">
-      <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName">Aakriti Dubey</label></div>
+      <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName"><?php echo $_SESSION['ReqsName'];?></label></div>
       <div  class="col-sm-5 form-inline form-group pull-right">
         <label class="col-sm-3 control-label" for="ddown">Job Code:<span class="reqd">*</span></label>
         <div id="jobCodeDiv" class="form-inline selectContainer">
             <select class="form-control required" name="JobCode" id="ddown" onchange="jobCodeChange(this.value)">
                 <option value="">Job Code</option>
+				<?php
+					if($rights['JCCreate']!=0){
+				?>
 				<option value="new">New Job Code</option>
+				<?php
+					}
+				?>
 				<?php
 					$query="SELECT jobcode FROM jobcode";
 					$result = $conn->query($query);

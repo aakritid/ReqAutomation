@@ -144,7 +144,7 @@ $('#resModal').on('hidden.bs.modal', function () {
     </div>
   </div>
 	<div class="container" id="initial" style="padding: 10px;">
-	<div class="col-sm-4"><label for="requester">Requested By: <?php echo $user['First Name']." ".$user['Last Name']?> </label></div>
+	<div class="col-sm-4"><label for="requester">Requested By: <?php echo $_SESSION['ReqsName']?> </label></div>
 	 <div class="col-sm-4 pull-right"><label for="jobCode1">Job Code:</label><label id="jobCode1"><?php echo $_SESSION["JobCode"]?></label></div>
 		</div>
 	 <table class="table table-bordered" style="padding:10px">

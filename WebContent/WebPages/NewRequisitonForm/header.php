@@ -15,15 +15,20 @@ if (!$conn) {
     die('Could not connect: ' . mysqli_error($conn));
 }
 
-$qry="select Type from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
 $result = $conn->query($qry);
 $user=$result->fetch_assoc();
 
 $qry1="Select * from usertypes where id=".$user['Type'];
 $result = $conn->query($qry1);
 $auth=$result->fetch_assoc();
-		
-$qry="select count(*) from requistion where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel'];
+$qry='';
+
+if($auth['id']==5 || $auth['id']==6)		
+	$qry="select count(*) from requistion where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel'];
+else if($auth['id']==2 || $auth['id']==3)
+	$qry="select count(*) from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel'];	
+
 $result = $conn->query($qry);
 $reqs=$result->fetch_assoc();
 $unapproved=$reqs['count(*)'];
@@ -40,12 +45,13 @@ $unapproved=$reqs['count(*)'];
       <li id='l3'><a href="Approval.php" <?php if($auth['Approval']==0){ ?> class='btn disabled' <?php } ?>>Approve Requests  <?php if($unapproved>0){ ?><span class="badge"><?php echo $unapproved; ?></span> <?php } ?></a></li> 
 	  <li id='l4'><a href="BudgetAllocation.php" <?php if($auth['BudgAlloc']==0){ ?> class='btn disabled' <?php } ?> >Budget Allocation</a></li> 
 	  <li id='l5' class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+		<a href="#" <?php if($auth['Report']==0){ ?> class='btn disabled' <?php } ?> <?php if($auth['Report']==1){ ?> class="dropdown-toggle" <?php } ?>  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
 		<ul class="dropdown-menu">
             <li><a class="btn" href="budgetexport.php"><span class="glyphicon glyphicon-download-alt"></span>Budget Report</a></li>
             <li><a class="btn" href="ReqReport.php"><span class="glyphicon glyphicon-download-alt"></span>Requisition Report</a></li>
 		 </ul>
 		</li> 
       </ul>
+	  
   </div>
 </nav>

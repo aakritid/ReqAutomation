@@ -18,7 +18,20 @@ $conn = new mysqli($servername, $username, $password,"purchasereq");
 if (!$conn) {
     die('Could not connect: ' . mysqli_error($conn));
 }
-$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id";
+
+$query="SELECT * FROM users join usertypes on usertypes.id=users.Type where users.LoginId='".$_SERVER['PHP_AUTH_USER']."'";
+$result = $conn->query($query);
+$rights=$result->fetch_array(MYSQLI_BOTH);
+$level=$rights[6];
+$qry='';
+
+if($level==5 || $level==6)
+	$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id";
+
+else if($level==3){
+	$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id";
+	$qry=$qry." where jobcode.JobCode IN (select JobCode from jobcode where PM=".$rights[0].")";
+}
 $result = $conn->query($qry);
 
 $objPHPExcel->setActiveSheetIndex(0);

@@ -139,9 +139,14 @@ session_start();
 
 $qry="select * from usertypes where id=".$user['Type'];
 $result = $conn->query($qry);
-$rights=$result->fetch_assoc();
+$auth=$result->fetch_assoc();
+$qry='';
 
-$qry="select count(*) from requistion where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$rights['CostLevel'];
+if($auth['id']==5 || $auth['id']==6)		
+	$qry="select count(*) from requistion where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel'];
+else if($auth['id']==2 || $auth['id']==3)
+	$qry="select count(*) from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel'];	
+
 $result = $conn->query($qry);
 $reqs=$result->fetch_assoc();
 $records=$reqs['count(*)'];
@@ -258,8 +263,11 @@ $records=$reqs['count(*)'];
 			 
 		<tbody id="reqTable">
 		  <?php
-		  $qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND requistion.TotalCost<=".$rights['CostLevel'];
-			$result = $conn->query($qry);
+		  if($auth['id']==5 || $auth['id']==6)
+				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel'];
+		else if($auth['id']==2 || $auth['id']==3)
+				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel'];	
+		   $result = $conn->query($qry);
 			
 		   for($reqs=1; $reqs<=$records; $reqs++){
 			   $reqsi=$result->fetch_assoc();
