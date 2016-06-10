@@ -54,8 +54,6 @@ if($_POST['request']=='status'){
 		$result1=$conn->query($qry1);
 		$status=$result1->fetch_assoc();
 		
-		//$qry1="SELECT First Name, Last Name from approval join  where "
-		//$op='';
 		if($status['AppDen']==NULL){
 			$op="<span class='label label-warning'><span class='glyphicon  glyphicon-exclamation-sign'></span>Pending</span>";
 		}
