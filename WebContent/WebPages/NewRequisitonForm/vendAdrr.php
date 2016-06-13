@@ -66,7 +66,6 @@ else if($type=="setJc"){
 		$query1="UPDATE users set Type=3 where id=".$pm;
 	}
 	if ($conn->query($query) !== TRUE) {
-		//echo $query;
 		echo $conn->error;
 	}
 	else

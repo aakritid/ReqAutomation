@@ -45,7 +45,7 @@ $unapproved=$reqs['count(*)'];
       <li id='l1' class="active"><a href="PurchaseRequisition.php">New Requisition</a></li>
       <li id='l2'><a href="ViewSubmissions.php">Submitted Requisitions</a></li>
       <li id='l3'><a href="Approval.php" <?php if($auth['Approval']==0){ ?> class='btn disabled' <?php } ?>>Approve Requests  <?php if($unapproved>0){ ?><span class="badge"><?php echo $unapproved; ?></span> <?php } ?></a></li> 
-	  <li id='l4'><a href="BudgetAllocation.php" <?php if($auth['BudgAlloc']==0){ ?> class='btn disabled' <?php } ?> >Budget Allocation</a></li> 
+	  <li id='l4'><a href="BudgetAllocation.php" <?php if($auth['BudgAlloc']==0){ ?> class='btn disabled' <?php } ?> >Project Management</a></li> 
 	  <li id='l5' class="dropdown">
 		<a href="#" <?php if($auth['Report']==0){ ?> class='btn disabled' <?php } ?> <?php if($auth['Report']==1){ ?> class="dropdown-toggle" <?php } ?>  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
 		<ul class="dropdown-menu">

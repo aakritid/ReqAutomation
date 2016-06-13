@@ -93,19 +93,7 @@ function budget(type,str){
 	}
 	
 }
-function getRep(){
-	$.ajax({
-		type: "POST",
-		url: "budgetexport.php",
-		cache: false,
-		
-		success: function(html) {
-			//document.getElementById('contents').innerHTML=html;			
-		}
-		});
-		return false;	
-	
-}
+
  $(function () {
 	 $("#l1").removeClass("active");
 	$("#l4").addClass("active");
@@ -158,7 +146,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 						<select class="form-control" name="JobCode" id="ddown" onchange="budget('get',this.value)">
 							<option value="">Job Code</option>
 							<?php
-								$query="SELECT jobcode FROM jobcode";
+								$query="SELECT jobcode FROM jobcode order by jobcode ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['jobcode'] . "'>" . $row['jobcode'] . "</option>";
