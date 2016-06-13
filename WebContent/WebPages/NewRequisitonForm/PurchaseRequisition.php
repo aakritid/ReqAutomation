@@ -93,6 +93,7 @@ $('form.detForm').on('submit', function(event) {
 });
 
 function vendorAddr(str){
+	
 	if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
@@ -102,6 +103,7 @@ function vendorAddr(str){
         }
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				
 				if(xmlhttp.responseText!="new"){
                 document.getElementById("vendorAddress").value = xmlhttp.responseText;
 				}
@@ -111,6 +113,7 @@ function vendorAddr(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=get&q="+str,true);
         xmlhttp.send();
 }
@@ -135,6 +138,7 @@ function jobCodeChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getBudg&q="+str,true);
         xmlhttp.send();
 }
@@ -156,6 +160,7 @@ function shipChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getShip&q="+str,true);
         xmlhttp.send();
 }

@@ -113,6 +113,7 @@ function vendorAddr(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=get&q="+str,true);
         xmlhttp.send();
 }
@@ -137,6 +138,7 @@ function jobCodeChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getBudg&q="+str,true);
         xmlhttp.send();
 }
@@ -158,6 +160,7 @@ function shipChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getShip&q="+str,true);
         xmlhttp.send();
 }
