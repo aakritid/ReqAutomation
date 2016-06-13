@@ -423,7 +423,7 @@ $_SESSION['ReqstId']=$user['id'];
 					}
 				?>
 				<?php
-					$query="SELECT jobcode FROM jobcode";
+					$query="SELECT jobcode FROM jobcode order by jobcode ASC";
 					$result = $conn->query($query);
 					while ($row = $result->fetch_assoc()) {
 						echo "<option value='" . $row['jobcode'] . "'>" . $row['jobcode'] . "</option>";
@@ -445,7 +445,7 @@ $_SESSION['ReqstId']=$user['id'];
 							<option value="">Suggested Vendor</option>
 							<option value="new">New Vendor</option>
 							<?php
-								$query="SELECT * FROM vendor";
+								$query="SELECT * FROM vendor order by VendorName ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['VendorName'] . "'>" . $row['VendorName'] . "</option>";
@@ -462,7 +462,7 @@ $_SESSION['ReqstId']=$user['id'];
 							<option value="">Shipping Address</option>
 							<option value="new">New Address</option>
 							<?php
-								$query="SELECT * FROM shippingaddr";
+								$query="SELECT * FROM shippingaddr order by Name ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['AddrId'] . "'>" . $row['Name'] . "</option>";
@@ -509,7 +509,7 @@ $_SESSION['ReqstId']=$user['id'];
 					 </td>
 				</tr> 
 			     <tr>
-			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Email:<span class="reqd">*</span></label> 
+			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Vendor Email:<span class="reqd">*</span></label> 
 			        <input type="email" class="form-control required" id="email" name="email"/></td>
 			        <td class="col-sm-4"><label for="shipMethod" >Shipping Method:<span class="reqd">*</span></label> 
 					<div id="smdiv" class="form-inline selectContainer">

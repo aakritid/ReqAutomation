@@ -264,9 +264,9 @@ $records=$reqs['count(*)'];
 		<tbody id="reqTable">
 		  <?php
 		  if($auth['id']==5 || $auth['id']==6)
-				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel'];
+				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$_SESSION['ReqstId'];
 		else if($auth['id']==2 || $auth['id']==3)
-				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel'];	
+				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$_SESSION['ReqstId'];	
 		   $result = $conn->query($qry);
 			
 		   for($reqs=1; $reqs<=$records; $reqs++){

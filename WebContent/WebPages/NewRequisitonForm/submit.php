@@ -74,6 +74,8 @@ $active=$_SESSION["active"];
 				$unpr=$_SESSION["row".$rows][4];
 				$tot=$_SESSION["row".$rows][5];
 				
+				$desc=str_replace("'","\\'",$desc);
+				$desc=str_replace('"','\\"',$desc);
 				$qry="insert into itemdescr (ItemNo, Descr, Quantity, UnitDesc,UnitPrice, Total) values ('".$itno."', '".$desc."' , ".$qnt.", '".$un."' , ". $unpr.", '".$tot."')";
 				
 				if ($conn->query($qry) !== TRUE) {
