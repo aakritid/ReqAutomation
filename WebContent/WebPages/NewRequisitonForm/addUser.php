@@ -139,7 +139,7 @@ $('#resModal').on('hidden.bs.modal', function () {
   <ul class="nav nav-tabs">
     <li class="active"><a href="addUser.php">Add New User</a></li>
     <li><a href="updateUser.php">Update User Details</a></li>
-    <li ><a href="#">Manage User Types</a></li>
+    <li ><a href="manageTypes.php">Manage User Types</a></li>
   </ul>
 	</div>
 

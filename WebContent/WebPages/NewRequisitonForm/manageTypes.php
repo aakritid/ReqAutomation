@@ -1,4 +1,4 @@
- <?php
+<?php
 session_start();
 $servername = "localhost";
 $username = "root";
@@ -56,10 +56,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
   }
   </style>
   <script>
-  function isJson(string) {
- json_decode(string);
- return (json_last_error() == JSON_ERROR_NONE);
-}
+
   $(function () {
 	 $("#l1").removeClass("active");
 	$("#l6").addClass("active");
@@ -73,25 +70,30 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	});
 	  
 $('#resModal').on('hidden.bs.modal', function () {
-	window.location="updateUser.php";
+	window.location="manageTypes.php";
 });
 });
-  function getUser(id){
-	$.ajax({
+  function getUserTypes(id){
+	  $.ajax({
 		type: "POST",
 		url: "users.php",
 		cache: false,
-		data:  {'type': "get", 'id': id},
+		data:  {'type': "getType", 'id': id},
 		datatype: "json",
 		success: function(response, textStatus, jqXHR) {
-			document.getElementById("fname").value=response.FName;
-			document.getElementById("lname").value=response.LName;
-			document.getElementById("lid").value=response.LoginId;
-			document.getElementById("pwd").value=response.Password;
-			document.getElementById("eid").value=response.Email;
-			$('#cprow').css("display","none");
-			$('#etype').val(response.Type);
+			document.getElementById("tname").value=response.Type;
+			document.getElementById("costl").value=response.Cost;
+			$('#jcreate').val(response.Jcreate);
+			$('#appr').val(response.Approval);
+			$('#mprj').val(response.Projm);
+			$('#vrep').val(response.Report);
+			$('#org').val(response.Setup);
+			$('#req').val(response.Reqs);
+		
 			$('#disp').css("display","block");
+		},
+		error: function(response, textStatus, jqXHR){
+			alert(response+"\n"+textStatus+"\n"+ jqXHR);
 		}
 		
 	}); 
@@ -99,22 +101,22 @@ $('#resModal').on('hidden.bs.modal', function () {
 	
 	
 	}
-function chpwd(){
-	  $('#cprow').css("display","block");
-  }
+
 function saveDet(){
 	var id=document.getElementById("ddown").value;
-	var fn=document.getElementById("fname").value;
-	var ln=	document.getElementById("lname").value;
-	var lid=document.getElementById("lid").value;
-	var pwd=document.getElementById("pwd").value;
-	var eid=document.getElementById("eid").value;
-	var typ=document.getElementById("etype").value;
+	var typ=document.getElementById("tname").value;
+	var jc=	document.getElementById("jcreate").value;
+	var app=document.getElementById("appr").value;
+	var mp=document.getElementById("mprj").value;
+	var vr=document.getElementById("vrep").value;
+	var or=document.getElementById("org").value;
+	var req=document.getElementById("req").value;
+	var cost=document.getElementById("costl").value;
 	$.ajax({
 		type: "POST",
 		url: "users.php",
 		cache: false,
-		data:  {'type': "set", 'fnm': fn, 'lnm': ln, 'lid':lid, 'pwd': pwd, 'email': eid, 'auth': typ, 'id': id},
+		data:  {'type': "setTypes", 'utype': typ, 'jcreate': jc, 'approve':app, 'manage': mp, 'report': vr, 'organize': or, 'req':req, 'cost':cost, 'id': id},
 		success: function(response) {
 			if(response==1){
 				$('#resVal').addClass("alert-success");
@@ -131,7 +133,7 @@ function saveDet(){
 	}); 
 	return false;	
 	
-}		
+}	
   
   </script>
  </head>
@@ -164,21 +166,20 @@ function saveDet(){
   <h3>Organization Setup</h3>
   <ul class="nav nav-tabs">
     <li ><a href="addUser.php">Add New User</a></li>
-    <li class="active"><a href="updateUser.php">Update User Details</a></li>
-    <li ><a href="manageTypes.php">Manage User Types</a></li>
+    <li ><a href="updateUser.php">Update User Details</a></li>
+    <li class="active"><a href="manageTypes.php">Manage User Types</a></li>
   </ul>
 	</div>
-	
-	<div class='row container' style="padding-top:20px;">
-					<label class="control-label col-sm-1" for="ddown">User:<span class="reqd">*</span></label>
-					<div id="jobCodeDiv" class="pull-left form-inline selectContainer">
-						<select class="form-control" name="JobCode" id="ddown" onchange="getUser(this.value)">
-							<option value="">Select User</option>
+<div class='row container' style="padding-top:20px;">
+					<label class="control-label col-sm-2" for="ddown">User Type:<span class="reqd">*</span></label>
+					<div id="typeDiv" class="pull-left form-inline selectContainer">
+						<select class="form-control" name="utypes" id="ddown" onchange="getUserTypes(this.value)">
+							<option value="">Select User Type</option>
 							<?php
-								$query="SELECT * FROM users order by `First Name` ASC";
+								$query="SELECT * FROM usertypes order by `Type` ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
-									echo "<option value='" . $row['id'] . "'>" . $row['First Name']." ".$row['Last Name'] . "</option>";
+									echo "<option value='" . $row['id'] . "'>" . $row['Type']. "</option>";
 								}
 							?>						
 						</select>
@@ -187,42 +188,74 @@ function saveDet(){
 	<form>
 	<div id="disp" class="container" style="padding-top:20px; display:none;">
 	<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="fname">First Name:<span class="reqd">*</span> </label><input id="fname" type="text" class="form-control required" placeholder="First Name" /> </div>
-		</div>
-		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="lname">Last Name:<span class="reqd">*</span> </label><input id="lname" class="form-control required" placeholder="Last Name" /> </div>
-		</div>
-		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="lid">LoginId :<span class="reqd">*</span> </label><input id="lid" type="text" class="form-control required" placeholder="Login Id" /> </div>
-		</div>
-		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="pwd">Password :<span class="reqd">*</span> </label><input id="pwd" type="password" class="form-control required" placeholder="Password" onchange="chpwd()"/> </div>
-		</div>
-		<div id="cprow" class="row" style="display:none;">
-		<div class="col-md-10 form-group"> <label class="" for="cpwd">Confirm Password :<span class="reqd">*</span> </label><input id="cpwd" type="password" class="cpwd form-control required" placeholder="Confirm Password" /> </div>
-		</div>
-		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="eid">Email Id :<span class="reqd">*</span> </label><input id="eid" type="email" class="form-control required" placeholder="Email Id" /> </div>
-		</div>
-		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="etyp">Authority Level:<span class="reqd">*</span> </label>
-		<div  class="form-inline selectContainer">
-						<select id="etype" class="form-control required">
-							
-							<?php
-							$query="SELECT * from usertypes";
-							$result = $conn->query($query);
-							while ($row = $result->fetch_assoc()) {
-								
-								echo "<option value='" . $row['id'] . "'>" . $row['Type'] . "</option>";
-					}
-					?>
+		<div class="col-md-10 form-group"> <label class="" for="tname">Type Name:<span class="reqd">*</span> </label><input id="tname" type="text" class="form-control required" placeholder="Type Name" /> </div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="lname">Create New Job Code:<span class="reqd">*</span> </label>
+			<div  class="form-inline selectContainer">
+						<select id="jcreate" class="form-control required">
+							<option value="0">No</option>
+							<option value="1">Yes</option>
 						</select>
-					</div></div>
+			</div>
 		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="appr">Approval Rights :<span class="reqd">*</span> </label>
+		<div  class="form-inline selectContainer">
+						<select id="appr" class="form-control required">
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+			</div>
+	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="mprj">Manage Projects :<span class="reqd">*</span> </label>
+			<div  class="form-inline selectContainer">
+							<select id="mprj" class="form-control required">
+								<option value="0">No</option>
+								<option value="1">Yes</option>
+							</select>
+			</div>
+		</div>
+	</div>
+	<div id="cprow" class="row" style="display:none;">
+		<div class="col-md-10 form-group"> <label class="" for="vrep">View Reports :<span class="reqd">*</span></label>
+			<div  class="form-inline selectContainer">
+						<select id="vrep" class="form-control required">
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="org">Organization Setup :<span class="reqd">*</span> </label>
+			<div  class="form-inline selectContainer">
+						<select id="org" class="form-control required">
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="req">Create/View Requisitions:<span class="reqd">*</span> </label>
+			<div  class="form-inline selectContainer">
+				<select id="req" class="form-control required">
+					<option value="0">No</option>
+					<option value="1">Yes</option>		
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="costl">Approval Cost Limit($) :<span class="reqd">*</span> </label><input id="costl" type="text" class="form-control required number" placeholder="Cost Level" /> </div>
+	</div>
 		<div class="row">
 		<button type="Submit" class="btn btn-info  col-md-10" onclick="return saveDet();">Save Changes</button>
-		<button type="Submit" class="btn  col-md-10" onclick="">Delete User</button>
+		
 	</div>
 	</div>
 	
@@ -232,4 +265,4 @@ function saveDet(){
 $conn->close();
 ?>
 </body>
-</html>
+</html>	

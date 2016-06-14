@@ -18,7 +18,6 @@ if($_POST['type']=='add'){
 	$auth=$_POST['auth'];
 	
 	$qry="Insert into users (`First Name`, `Last Name`, `LoginId`, `LoginPwd`, `Email`, `Type`) VALUES ('".$fnm."', '".$lnm."', '".$lid."', '".$pwd."', '".$email."', ".$auth.")";
-	//echo $qry;
 	if($conn->query($qry)!= TRUE)
 		echo 0;
 	else
@@ -54,4 +53,37 @@ if($_POST['type']=='set'){
 	
 }
 
+
+
+if($_POST['type']=='getType'){
+	header('Content-Type: application/json');
+	
+	$id=$_POST['id'];
+	$qry="select * from usertypes where id=".$id;
+	$res=$conn->query($qry);
+	$val=$res->fetch_array(MYSQLI_BOTH);
+	
+	$op='{ "Type":"'.$val[1].'", "Jcreate":"'.$val[2].'", "Approval": "'.$val[3].'", "Projm" :"'.$val[4].'", "Report": "'.$val[5].'", "Setup":"'.$val[6].'", "Reqs": "'.$val[7].'", "Cost": "'.$val[8].'"}';
+	
+	echo $op;
+	
+}
+if($_POST['type']=='setTypes'){
+	
+	$typ=$_POST['utype'];
+	$jc=$_POST['jcreate'];
+	$app=$_POST['approve'];
+	$mp=$_POST['manage'];
+	$vr=$_POST['report'];
+	$or=$_POST['organize'];
+	$req=$_POST['req'];
+	$cost=$_POST['cost'];
+	$id=$_POST['id'];
+	
+	$qry="UPDATE `usertypes` SET  `Type` = '".$typ."', `JCCreate` = ".$jc.", `Approval` = ".$app.", `BudgAlloc` = ".$mp.", `Report` = ".$vr.", `Setup` = ".$or.", `CVReqs` = ".$req.", `CostLevel` = ".$cost." WHERE `id` =".$id;
+	if($conn->query($qry)!== TRUE)
+		echo 0;
+	else echo 1;
+	
+}
 $conn->close();
