@@ -56,10 +56,18 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
   }
   </style>
   <script>
-  function isJson(string) {
- json_decode(string);
- return (json_last_error() == JSON_ERROR_NONE);
-}
+  jQuery.validator.addMethod( 'passwordMatch', function(value, element) {
+    
+    var password = $("#pwd").val();
+    var confirmPassword = $("#cpwd").val();
+
+    if (password != confirmPassword ) {
+        return false;
+    } else {
+        return true;
+    }
+
+}, "Your Passwords Must Match");
   $(function () {
 	 $("#l1").removeClass("active");
 	$("#l6").addClass("active");
@@ -69,40 +77,22 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
         {
             required: true
         })
-      });  
-	});
-	  
-$('#resModal').on('hidden.bs.modal', function () {
-	window.location="updateUser.php";
-});
-});
-  function getUser(id){
-	$.ajax({
-		type: "POST",
-		url: "users.php",
-		cache: false,
-		data:  {'type': "get", 'id': id},
-		datatype: "json",
-		success: function(response, textStatus, jqXHR) {
-			document.getElementById("fname").value=response.FName;
-			document.getElementById("lname").value=response.LName;
-			document.getElementById("lid").value=response.LoginId;
-			document.getElementById("pwd").value=response.Password;
-			document.getElementById("eid").value=response.Email;
-			$('#cprow').css("display","none");
-			$('#etype').val(response.Type);
-			$('#disp').css("display","block");
-		}
-		
-	}); 
-	return false;	
-	
-	
-	}
-function chpwd(){
-	  $('#cprow').css("display","block");
-  }
-function saveDet(){
+      });
+		$('#eid').rules("add",
+		{
+			email: true
+		});		  
+	  if($('#cpwd').hasClass("required")){
+		  $('.cpwd').rules("add",
+			{
+				passwordMatch: true
+			});	
+			$("#cpwd").rules("messages",
+					 {
+						  passwordMatch: "Your Passwords Must Match"
+			});
+	  }		 
+	if($('form.userForm').valid()){
 	var id=document.getElementById("ddown").value;
 	var fn=document.getElementById("fname").value;
 	var ln=	document.getElementById("lname").value;
@@ -129,7 +119,45 @@ function saveDet(){
 		}
 		
 	}); 
+	return false;
+	}
+
+	});
+	  
+$('#resModal').on('hidden.bs.modal', function () {
+	window.location="updateUser.php";
+});
+});
+  function getUser(id){
+	$.ajax({
+		type: "POST",
+		url: "users.php",
+		cache: false,
+		data:  {'type': "get", 'id': id},
+		datatype: "json",
+		success: function(response, textStatus, jqXHR) {
+			document.getElementById("fname").value=response.FName;
+			document.getElementById("lname").value=response.LName;
+			document.getElementById("lid").value=response.LoginId;
+			document.getElementById("pwd").value=response.Password;
+			document.getElementById("eid").value=response.Email;
+			$('#cprow').css("display","none");
+			$('#cpwd').removeClass("required");
+			$('#etype').val(response.Type);
+			$('#disp').css("display","block");
+		}
+		
+	}); 
 	return false;	
+	
+	
+	}
+function chpwd(){
+	  $('#cprow').css("display","block");
+	  $('#cpwd').addClass("required");
+  }
+function saveDet(){
+	 $('form.userForm').validate();
 	
 }		
   
@@ -184,29 +212,29 @@ function saveDet(){
 						</select>
 	</div>
 	</div>
-	<form>
+	<form class="userForm">
 	<div id="disp" class="container" style="padding-top:20px; display:none;">
 	<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="fname">First Name:<span class="reqd">*</span> </label><input id="fname" type="text" class="form-control required" placeholder="First Name" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="fname">First Name:<span class="reqd">*</span> </label><input id="fname" name="fname" type="text" class="form-control required" placeholder="First Name" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="lname">Last Name:<span class="reqd">*</span> </label><input id="lname" class="form-control required" placeholder="Last Name" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="lname">Last Name:<span class="reqd">*</span> </label><input id="lname" name="lname" class="form-control required" placeholder="Last Name" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="lid">LoginId :<span class="reqd">*</span> </label><input id="lid" type="text" class="form-control required" placeholder="Login Id" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="lid">LoginId :<span class="reqd">*</span> </label><input id="lid" name="lid" type="text" class="form-control required" placeholder="Login Id" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="pwd">Password :<span class="reqd">*</span> </label><input id="pwd" type="password" class="form-control required" placeholder="Password" onchange="chpwd()"/> </div>
+		<div class="col-md-10 form-group"> <label class="" for="pwd">Password :<span class="reqd">*</span> </label><input id="pwd" name="pwd" type="password" class="form-control required" placeholder="Password" onchange="chpwd();"/> </div>
 		</div>
-		<div id="cprow" class="row" style="display:none;">
-		<div class="col-md-10 form-group"> <label class="" for="cpwd">Confirm Password :<span class="reqd">*</span> </label><input id="cpwd" type="password" class="cpwd form-control required" placeholder="Confirm Password" /> </div>
+		<div class="row" id="cprow" style="display:none;">
+		<div class="col-md-10 form-group"> <label class="" for="cpwd">Confirm Password :<span class="reqd">*</span> </label><input id="cpwd" name="cpwd" type="password" class="cpwd form-control " placeholder="Confirm Password" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="eid">Email Id :<span class="reqd">*</span> </label><input id="eid" type="email" class="form-control required" placeholder="Email Id" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="eid">Email Id :<span class="reqd">*</span> </label><input id="eid" type="email" name="email" class="form-control required" placeholder="Email Id" /> </div>
 		</div>
 		<div class="row">
 		<div class="col-md-10 form-group"> <label class="" for="etyp">Authority Level:<span class="reqd">*</span> </label>
-		<div  class="form-inline selectContainer">
+	<div  class="form-inline selectContainer">
 						<select id="etype" class="form-control required">
 							
 							<?php

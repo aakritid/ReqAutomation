@@ -57,6 +57,18 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
   }
   </style>
   <script>
+  jQuery.validator.addMethod( 'passwordMatch', function(value, element) {
+    
+    var password = $("#pwd").val();
+    var confirmPassword = $("#cpwd").val();
+
+    if (password != confirmPassword ) {
+        return false;
+    } else {
+        return true;
+    }
+
+}, "Your Passwords Must Match");
   $(function () {
 	 $("#l1").removeClass("active");
 	$("#l6").addClass("active");
@@ -66,7 +78,49 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
         {
             required: true
         })
-      });  
+      }); 
+	  $('#eid').rules("add",
+		{
+			email: true
+		});	
+		$('.cpwd').rules("add",
+		{
+			passwordMatch: true
+		});	
+		$("#cpwd").rules("messages",
+				 {
+                      passwordMatch: "Your Passwords Must Match"
+				 });
+
+		if($('form.userForm').valid()){
+			var pwd=document.getElementById("pwd").value;
+			var fnm=document.getElementById("fname").value;
+			var lnm=document.getElementById("lname").value;
+			var lid=document.getElementById("lid").value;
+			var email=document.getElementById("eid").value;
+			var auth=document.getElementById("etype").value;
+				$.ajax({
+				type: "POST",
+				url: "users.php",
+				cache: false,
+				data:  {'type': "add", 'fnm': fnm, 'lnm': lnm, 'lid':lid, 'pwd': pwd, 'email': email, 'auth': auth},
+				success: function(html) {
+					if(html==1){
+						$('#resVal').addClass("alert-success");
+						document.getElementById('resVal').innerHTML="<h4>Success!</h4>New User Added Successfully!";
+						$("#resModal").modal();
+					}
+					else{
+						$('#resVal').addClass("alert-danger");				
+						document.getElementById('resVal').innerHTML="<h4>Error!</h4>Failed To Add.";
+						$("#resModal").modal();
+					}
+					
+				}
+				});
+				
+				return false;
+			}
 	});
 	  
 $('#resModal').on('hidden.bs.modal', function () {
@@ -76,6 +130,8 @@ $('#resModal').on('hidden.bs.modal', function () {
   function addUser(){
 	  $('form.userForm').validate();
 	
+	/*if($('form.userForm').valid()){
+	alert("yes");/*
 	var pwd=document.getElementById("pwd").value;
 	var fnm=document.getElementById("fname").value;
 	var lnm=document.getElementById("lname").value;
@@ -104,6 +160,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 		});
 		
 		return false;
+	}*/
 		
   }
   
@@ -145,22 +202,22 @@ $('#resModal').on('hidden.bs.modal', function () {
 
 <form class="userForm" method="post" >
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="fname">First Name:<span class="reqd">*</span> </label><input id="fname" type="text" class="form-control required" placeholder="First Name" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="fname">First Name:<span class="reqd">*</span> </label><input id="fname" name="fname" type="text" class="form-control required" placeholder="First Name" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="lname">Last Name:<span class="reqd">*</span> </label><input id="lname" class="form-control required" placeholder="Last Name" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="lname">Last Name:<span class="reqd">*</span> </label><input id="lname" name="lname" class="form-control required" placeholder="Last Name" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="lid">LoginId :<span class="reqd">*</span> </label><input id="lid" type="text" class="form-control required" placeholder="Login Id" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="lid">LoginId :<span class="reqd">*</span> </label><input id="lid" name="lid" type="text" class="form-control required" placeholder="Login Id" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="pwd">Password :<span class="reqd">*</span> </label><input id="pwd" type="password" class="form-control required" placeholder="Password"/> </div>
+		<div class="col-md-10 form-group"> <label class="" for="pwd">Password :<span class="reqd">*</span> </label><input id="pwd" name="pwd" type="password" class="form-control required" placeholder="Password"/> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="cpwd">Confirm Password :<span class="reqd">*</span> </label><input id="cpwd" type="password" class="cpwd form-control required" placeholder="Confirm Password" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="cpwd">Confirm Password :<span class="reqd">*</span> </label><input id="cpwd" name="cpwd" type="password" class="cpwd form-control required" placeholder="Confirm Password" /> </div>
 		</div>
 		<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="eid">Email Id :<span class="reqd">*</span> </label><input id="eid" type="email" class="form-control required" placeholder="Email Id" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="eid">Email Id :<span class="reqd">*</span> </label><input id="eid" type="email" name="email" class="form-control required" placeholder="Email Id" /> </div>
 		</div>
 		<div class="row">
 		<div class="col-md-10 form-group"> <label class="" for="etyp">Authority Level:<span class="reqd">*</span> </label>

@@ -67,6 +67,12 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
             required: true
         })
       });  
+	  $('.number').each(function() {
+        $(this).rules("add", 
+        {
+            number: true
+        })
+      });  
 	});
 	  
 $('#resModal').on('hidden.bs.modal', function () {
@@ -103,6 +109,9 @@ $('#resModal').on('hidden.bs.modal', function () {
 	}
 
 function saveDet(){
+	 $('form.userForm').validate();
+	
+	if($('form.userForm').valid()){
 	var id=document.getElementById("ddown").value;
 	var typ=document.getElementById("tname").value;
 	var jc=	document.getElementById("jcreate").value;
@@ -132,6 +141,7 @@ function saveDet(){
 		
 	}); 
 	return false;	
+	}
 	
 }	
   
@@ -185,10 +195,10 @@ function saveDet(){
 						</select>
 	</div>
 	</div>
-	<form>
+	<form class="userForm">
 	<div id="disp" class="container" style="padding-top:20px; display:none;">
 	<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="tname">Type Name:<span class="reqd">*</span> </label><input id="tname" type="text" class="form-control required" placeholder="Type Name" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="tname">Type Name:<span class="reqd">*</span> </label><input id="tname" name="tname" type="text" class="form-control required" placeholder="Type Name" /> </div>
 	</div>
 	<div class="row">
 		<div class="col-md-10 form-group"> <label class="" for="lname">Create New Job Code:<span class="reqd">*</span> </label>
@@ -251,7 +261,7 @@ function saveDet(){
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="costl">Approval Cost Limit($) :<span class="reqd">*</span> </label><input id="costl" type="text" class="form-control required number" placeholder="Cost Level" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="costl">Approval Cost Limit($) :<span class="reqd">*</span> </label><input id="costl" name="costl" type="text" class="form-control required number" placeholder="Cost Level" /> </div>
 	</div>
 		<div class="row">
 		<button type="Submit" class="btn btn-info  col-md-10" onclick="return saveDet();">Save Changes</button>
