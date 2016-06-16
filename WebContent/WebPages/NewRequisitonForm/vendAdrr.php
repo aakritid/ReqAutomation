@@ -50,8 +50,10 @@ else if($type=="setJc"){
 	$budget=$_GET['budget'];
 	$pm=$_GET['pm'];
 	
+	$query1="";
 	if($budget=="" && $pm!=""){
 		$query="INSERT INTO jobcode (JobCode, Descr, PM) values ('".$jc."','".$desc."',".$pm.")";
+		$query1="UPDATE users set Type=3 where id=".$pm;
 	}
 	else if ($budget!="" && $pm==""){
 		$query="INSERT INTO jobcode (JobCode, Descr, Budget) values ('".$jc."','".$desc."',".$budget.")";
@@ -61,13 +63,21 @@ else if($type=="setJc"){
 	}
 	else{
 		$query="INSERT INTO jobcode (JobCode, Descr, Budget, PM) values ('".$jc."','".$desc."',".$budget.",".$pm.")";
+		$query1="UPDATE users set Type=3 where id=".$pm;
 	}
 	if ($conn->query($query) !== TRUE) {
-		echo $query;
 		echo $conn->error;
 	}
 	else
 		echo 1;
+	if($query1!=""){
+		if ($conn->query($query1) !== TRUE) {
+			//echo $query;
+			echo $conn->error;
+		}
+		else
+			echo 1;
+	}
 	
 }
 

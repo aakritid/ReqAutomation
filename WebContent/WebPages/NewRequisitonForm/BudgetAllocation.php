@@ -1,3 +1,40 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "pari123#";
+
+$conn = new mysqli($servername, $username, $password,"purchasereq");
+if (!$conn) {
+    die('Could not connect: ' . mysqli_error($conn));
+}
+
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header("WWW-Authenticate: Basic realm=\"Private Area\"");
+        header("HTTP/1.0 401 Unauthorized");
+        print "Sorry - you need valid credentials to be granted access!\n";
+        exit;
+} else {
+		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+		$result = $conn->query($qry);
+		$user=$result->fetch_assoc();
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+           header("WWW-Authenticate: Basic realm=\"Private Area\"");
+            header("HTTP/1.0 401 Unauthorized");
+            print "You Are not authorized to view the page!";
+            exit;						
+        }
+		else {
+			$qry1="Select * from usertypes where id=".$user['Type'];
+			$result = $conn->query($qry1);
+			$auth=$result->fetch_assoc();
+			 if ($auth['BudgAlloc']==0){
+				print "You Are not authorized to view the page!";
+				exit;
+			 }
+		}
+}
+ $conn->close();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,18 +70,20 @@ function budget(type,str){
 	if(type=="set"){
 		str=document.getElementById('ddown').value;
 		var nb=document.getElementById('nbudg').value;
+		var pm=document.getElementById('npm').value;
 		$.ajax({
 		type: "POST",
 		url: "Budget.php",
 		cache: false,
-		data:  {'type': type, 'jc': str, 'newBudg': nb},
+		data:  {'type': type, 'jc': str, 'newBudg': nb, 'newPm':pm},
 		success: function(html) {
-			if(html==1){
+			if(html==11 || html==1){
 				$('#resVal').addClass("alert-success");
 			document.getElementById('resVal').innerHTML="<h4>Success!</h4>Budget Set Successfully!";
 			}
 			else{
 				$('#resVal').addClass("alert-danger");
+				
 			document.getElementById('resVal').innerHTML="<h4>Error!</h4>Budget Set Failed.";
 			}
 		}
@@ -54,19 +93,7 @@ function budget(type,str){
 	}
 	
 }
-function getRep(){
-	$.ajax({
-		type: "POST",
-		url: "budgetexport.php",
-		cache: false,
-		
-		success: function(html) {
-			//document.getElementById('contents').innerHTML=html;			
-		}
-		});
-		return false;	
-	
-}
+
  $(function () {
 	 $("#l1").removeClass("active");
 	$("#l4").addClass("active");
@@ -119,7 +146,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 						<select class="form-control" name="JobCode" id="ddown" onchange="budget('get',this.value)">
 							<option value="">Job Code</option>
 							<?php
-								$query="SELECT jobcode FROM jobcode";
+								$query="SELECT jobcode FROM jobcode order by jobcode ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['jobcode'] . "'>" . $row['jobcode'] . "</option>";

@@ -1,5 +1,44 @@
 <?php
 session_start();
+$servername = "localhost";
+$username = "root";
+$password = "pari123#";
+
+$conn = new mysqli($servername, $username, $password,"purchasereq");
+if (!$conn) {
+    die('Could not connect: ' . mysqli_error($conn));
+}
+
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header("WWW-Authenticate: Basic realm=\"Private Area\"");
+        header("HTTP/1.0 401 Unauthorized");
+        print "Sorry - you need valid credentials to be granted access!\n";
+        exit;
+} else {
+		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+		$result = $conn->query($qry);
+		$user=$result->fetch_assoc();
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+           header("WWW-Authenticate: Basic realm=\"Private Area\"");
+            header("HTTP/1.0 401 Unauthorized");
+            print "You Are not authorized to view the page!";
+            exit;						
+        }
+		else {
+			$qry1="Select * from usertypes where id=".$user['Type'];
+			$result = $conn->query($qry1);
+			$auth=$result->fetch_assoc();
+			 if ($auth['CVReqs']==0){
+				 header("WWW-Authenticate: Basic realm=\"Private Area\"");
+				header("HTTP/1.0 401 Unauthorized");
+				print "You Are not authorized to view the page!";
+				exit;
+			 }
+		}
+}
+ $conn->close();
+ $_SESSION['ReqsName']=$user['First Name']." ".$user['Last Name'];
+ $_SESSION['ReqstId']=$user['id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,6 +113,7 @@ function vendorAddr(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=get&q="+str,true);
         xmlhttp.send();
 }
@@ -98,6 +138,7 @@ function jobCodeChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getBudg&q="+str,true);
         xmlhttp.send();
 }
@@ -119,6 +160,7 @@ function shipChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getShip&q="+str,true);
         xmlhttp.send();
 }
@@ -173,6 +215,7 @@ function addjc(){
 						option.text=jc;
 						option.selected="selected";
 						venS.appendChild(option);
+						document.getElementById("jcBudg").innerHTML = "<label>Remaining Budget: $"+budg+"</label>";
 						  $('#jcModal').modal("hide");
 					}
 					else 
@@ -229,7 +272,14 @@ function addShip(){
 (include 'header.php');
 $reqid=$_POST['reqd'];
 $_SESSION['reqd']=$reqid;
-//$reqid=13;
+
+$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+$result = $conn->query($qry);
+$user=$result->fetch_assoc();
+
+$qry="select * from usertypes where id=".$user['Type'];
+$result = $conn->query($qry);
+$rights=$result->fetch_assoc();
 
 $qry="select * from requistion where Id=".$reqid;
 $result = $conn->query($qry);
@@ -328,7 +378,13 @@ $addr=$result->fetch_assoc();
 		<div  class="form-inline selectContainer">
 						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
-							
+							<?php
+							$query="SELECT * from users";
+							$result = $conn->query($query);
+							while ($row = $result->fetch_assoc()) {
+								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";
+					}
+					?>
 						</select>
 					</div></div>
 		</div>
@@ -400,15 +456,21 @@ $addr=$result->fetch_assoc();
       <form class="detForm" name="pDetails" action="EditItems.php" method="post" role="form">
       <div class="container">
       <div class="container" id="initial" style="padding: 10px;">
-      <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName">Aakriti Dubey</label></div>
+      <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName"><?php echo $_SESSION['ReqsName'];?></label></div>
       <div  class="col-sm-5 form-inline form-group pull-right">
         <label class="col-sm-3 control-label" for="ddown">Job Code:<span class="reqd">*</span></label>
         <div id="jobCodeDiv" class="form-inline selectContainer">
             <select class="form-control required" name="JobCode" id="ddown" onchange="jobCodeChange(this.value)">
                 <option value="">Job Code</option>
+				<?php
+					if($rights['JCCreate']!=0){
+				?>
 				<option value="new">New Job Code</option>
 				<?php
-					$query="SELECT jobcode FROM jobcode";
+					}
+				?>
+				<?php
+					$query="SELECT jobcode FROM jobcode order by jobcode ASC";
 					$result = $conn->query($query);
 					while ($row = $result->fetch_assoc()) {
 						if($jcd==$row['jobcode'])
@@ -433,7 +495,7 @@ $addr=$result->fetch_assoc();
 							<option value="">Suggested Vendor</option>
 							<option value="new">New Vendor</option>
 							<?php
-								$query="SELECT * FROM vendor";
+								$query="SELECT * FROM vendor order by VendorName ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									if($vendor['VendorName']==$row['VendorName'])
@@ -453,7 +515,7 @@ $addr=$result->fetch_assoc();
 							<option value="">Shipping Address</option>
 							<option value="new">New Address</option>
 							<?php
-								$query="SELECT * FROM shippingaddr";
+								$query="SELECT * FROM shippingaddr order by Name ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									if($ship['AddrId']== $row['AddrId'])
@@ -488,7 +550,7 @@ $addr=$result->fetch_assoc();
 			        <input type="text" class="form-control digit" id="phoneNum" name="phoneNum" value='<?php echo $requester['Phno']; ?>'/></td>
 			        <td class="col-sm-2"><label for="faxNum">Fax Number:</label> 
 			        <input type="text" class="form-control digit" id="faxNum" name="faxNum" value='<?php echo $requester['Fno']; ?>'/></td>
-			        <td id="datediv" class="col-sm-4 form-control " >
+			        <td id="datediv"  >
                 <label for="datepicker">Date Needed:<span class="reqd">*</span></label>
                     <div class="input-group date" data-provide="datepicker">
     <input type="text" class="form-control required" id="datepicker" name="daten" value='<?php echo $ship['Date']; ?>'></div></td>
@@ -503,7 +565,7 @@ $addr=$result->fetch_assoc();
 					 </td>
 				</tr>
 			      <tr>
-			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Email:<span class="reqd">*</span></label> 
+			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Vendor Email:<span class="reqd">*</span></label> 
 			        <input type="email" class="form-control required" id="email" name="email" value='<?php echo $requester['Email']; ?>' /></td>
 			        <td class="col-sm-4"><label for="shipMethod" >Shipping Method:<span class="reqd">*</span></label> 
 					<div id="smdiv" class="form-inline selectContainer">

@@ -20,7 +20,7 @@ $active=$_SESSION["active"];
 	if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error; echo '\nError in insert in shipdets: '.$qry;
 	}
-	$qry= "insert into requester (ReqsId, Name, Phno, Fno, Email) values ('aakritid','Aakriti Dubey','".$_SESSION["phoneNum"]."', '".$_SESSION["faxNum"]."','".$_SESSION["email"]."')";
+	$qry= "insert into requester (UserId, Name, Phno, Fno, Email) values (".$_SESSION['ReqstId'].",'".$_SESSION['ReqsName']."','".$_SESSION["phoneNum"]."', '".$_SESSION["faxNum"]."','".$_SESSION["email"]."')";
 	if ($conn->query($qry) !== TRUE) {
 		$err=1; $errmsg=$conn->error;echo '\n Error in insert in requester: '.$qry;
 	}
@@ -73,6 +73,11 @@ $active=$_SESSION["active"];
 				$un=$_SESSION["row".$rows][3];
 				$unpr=$_SESSION["row".$rows][4];
 				$tot=$_SESSION["row".$rows][5];
+				
+				$desc=str_replace("'","\\'",$desc);
+				$desc=str_replace('"','\\"',$desc);
+				$un=str_replace("'","\\'",$un);
+				$un=str_replace('"','\\"',$un);
 				
 				$qry="insert into itemdescr (ItemNo, Descr, Quantity, UnitDesc,UnitPrice, Total) values ('".$itno."', '".$desc."' , ".$qnt.", '".$un."' , ". $unpr.", '".$tot."')";
 				

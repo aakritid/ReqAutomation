@@ -1,3 +1,43 @@
+<?php
+session_start();
+$servername = "localhost";
+$username = "root";
+$password = "pari123#";
+
+$conn = new mysqli($servername, $username, $password,"purchasereq");
+if (!$conn) {
+    die('Could not connect: ' . mysqli_error($conn));
+}
+
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header("WWW-Authenticate: Basic realm=\"Private Area\"");
+        header("HTTP/1.0 401 Unauthorized");
+        print "Sorry - you need valid credentials to be granted access!\n";
+        exit;
+} else {
+		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+		$result = $conn->query($qry);
+		$user=$result->fetch_assoc();
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+           header("WWW-Authenticate: Basic realm=\"Private Area\"");
+            header("HTTP/1.0 401 Unauthorized");
+            print "You Are not authorized to view the page!";
+            exit;						
+        }
+		else {
+			$qry1="Select * from usertypes where id=".$user['Type'];
+			$result = $conn->query($qry1);
+			$auth=$result->fetch_assoc();
+			 if ($auth['CVReqs']==0){
+				 header("WWW-Authenticate: Basic realm=\"Private Area\"");
+				header("HTTP/1.0 401 Unauthorized");
+				print "You Are not authorized to view the page!";
+				exit;
+			 }
+		}
+}
+ $conn->close();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +93,7 @@ $('form.detForm').on('submit', function(event) {
 });
 
 function vendorAddr(str){
+	
 	if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
@@ -62,6 +103,7 @@ function vendorAddr(str){
         }
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				
 				if(xmlhttp.responseText!="new"){
                 document.getElementById("vendorAddress").value = xmlhttp.responseText;
 				}
@@ -71,6 +113,7 @@ function vendorAddr(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=get&q="+str,true);
         xmlhttp.send();
 }
@@ -95,6 +138,7 @@ function jobCodeChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getBudg&q="+str,true);
         xmlhttp.send();
 }
@@ -116,6 +160,7 @@ function shipChange(str){
 			}
 			
         };
+		str=str.replace("&","%26");
         xmlhttp.open("GET","vendAdrr.php?type=getShip&q="+str,true);
         xmlhttp.send();
 }
@@ -163,13 +208,14 @@ function addjc(){
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					if(xmlhttp.responseText==1){
+					if(xmlhttp.responseText==11){
 						jc=document.getElementById("jcode").value;
 						var	venS = document.getElementById('ddown');
 						var option = document.createElement('option');
 						option.text=jc;
 						option.selected="selected";
 						venS.appendChild(option);
+						document.getElementById("jcBudg").innerHTML = "<label>Remaining Budget: $"+budg+"</label>";
 						  $('#jcModal').modal("hide");
 					}
 					else 
@@ -224,6 +270,16 @@ function addShip(){
 <body>
 <?php
 (include 'header.php');
+$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+$result = $conn->query($qry);
+$user=$result->fetch_assoc();
+
+$qry="select * from usertypes where id=".$user['Type'];
+$result = $conn->query($qry);
+$rights=$result->fetch_assoc();
+
+$_SESSION['ReqsName']=$user['First Name']." ".$user['Last Name'];
+$_SESSION['ReqstId']=$user['id'];
 ?>
 <div id="vendModal" class="modal fade">
   <div class="modal-dialog">
@@ -280,7 +336,13 @@ function addShip(){
 		<div  class="form-inline selectContainer">
 						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
-							
+							<?php
+							$query="SELECT * from users";
+							$result = $conn->query($query);
+							while ($row = $result->fetch_assoc()) {
+								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";
+					}
+					?>
 						</select>
 					</div></div>
 		</div>
@@ -352,15 +414,21 @@ function addShip(){
       <form class="detForm" name="pDetails" action="Items.php" method="post" role="form">
       <div class="container">
       <div class="container" id="initial" style="padding: 10px;">
-      <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName">Aakriti Dubey</label></div>
+      <div class="col-sm-4"><label for="requester">Requested By:</label><label id="requesterName"><?php echo $user['First Name']." ".$user['Last Name']?></label></div>
       <div  class="col-sm-5 form-inline form-group pull-right">
         <label class="col-sm-3 control-label" for="ddown">Job Code:<span class="reqd">*</span></label>
         <div id="jobCodeDiv" class="form-inline selectContainer">
             <select class="form-control required" name="JobCode" id="ddown" onchange="jobCodeChange(this.value)">
                 <option value="">Job Code</option>
+				<?php
+					if($rights['JCCreate']!=0){
+				?>
 				<option value="new">New Job Code</option>
 				<?php
-					$query="SELECT jobcode FROM jobcode";
+					}
+				?>
+				<?php
+					$query="SELECT jobcode FROM jobcode order by jobcode ASC";
 					$result = $conn->query($query);
 					while ($row = $result->fetch_assoc()) {
 						echo "<option value='" . $row['jobcode'] . "'>" . $row['jobcode'] . "</option>";
@@ -382,7 +450,7 @@ function addShip(){
 							<option value="">Suggested Vendor</option>
 							<option value="new">New Vendor</option>
 							<?php
-								$query="SELECT * FROM vendor";
+								$query="SELECT * FROM vendor order by VendorName ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['VendorName'] . "'>" . $row['VendorName'] . "</option>";
@@ -399,7 +467,7 @@ function addShip(){
 							<option value="">Shipping Address</option>
 							<option value="new">New Address</option>
 							<?php
-								$query="SELECT * FROM shippingaddr";
+								$query="SELECT * FROM shippingaddr order by Name ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['AddrId'] . "'>" . $row['Name'] . "</option>";
@@ -426,14 +494,14 @@ function addShip(){
 						</div> 
 						<div id="nbudgtdiv"><label for="explain">Explanation:</label><input type="text" class="form-control" id="explain" name="explain"/></div></td>
 			      </tr>
-			      <tr>
+			       <tr>
 			         <td class="col-sm-2"><label for="phoneNum">Phone Number:</label> 
 			        <input type="text" class="form-control digit" id="phoneNum" name="phoneNum"/></td>
 			        <td class="col-sm-2"><label for="faxNum">Fax Number:</label> 
 			        <input type="text" class="form-control digit" id="faxNum" name="faxNum"/></td>
-			        <td id="datediv" class="col-sm-4 form-control " >
+			        <td id="datediv"  >
                 <label for="datepicker">Date Needed:<span class="reqd">*</span></label>
-                    <div class="input-group date" data-provide="datepicker">
+                    <div class="input-group date " data-provide="datepicker">
     <input type="text" class="form-control required" id="datepicker" name="daten"></div></td>
 			         <td rowspan ="2" class="col-sm-4"> 
 					  <div class="row-sm-2 radio">
@@ -444,9 +512,9 @@ function addShip(){
 						<div class="row-sm-2 radio"><label><input type="radio" name="scope" value="other">Other</label><input type="text" class="form-control" name="otherval"/>
 						</div>
 					 </td>
-				</tr>
-			      <tr>
-			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Email:<span class="reqd">*</span></label> 
+				</tr> 
+			     <tr>
+			        <td id="emaildiv" colspan="2" class="col-sm-4"><label for="email">Vendor Email:<span class="reqd">*</span></label> 
 			        <input type="email" class="form-control required" id="email" name="email"/></td>
 			        <td class="col-sm-4"><label for="shipMethod" >Shipping Method:<span class="reqd">*</span></label> 
 					<div id="smdiv" class="form-inline selectContainer">
@@ -460,7 +528,7 @@ function addShip(){
 							<option value="Your Truck">Your Truck</option>
 						</select>
 					</div>
-			       			        
+			       	</td>		        
 			      </tr>
 			    </tbody>
 			  </table>

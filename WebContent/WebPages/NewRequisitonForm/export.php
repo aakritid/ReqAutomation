@@ -12,8 +12,6 @@ $objPHPExcel = $objReader->load("..\..\Templates\Req-Template.xls");
 
 $reqid=$_SESSION['SReq'];
 
-
-
 $qry="select * from requistion where Id=".$reqid;
 $result = $conn->query($qry);
 $reqs=$result->fetch_assoc();
@@ -52,6 +50,14 @@ $qry="select * from shippingaddr where AddrId=".$ship['AddrId'];
 $result = $conn->query($qry);
 $addr=$result->fetch_assoc();
 
+$qry="select `First Name`, `Last Name` from approval join users on approval.Approver=users.id where approval.ReqId=".$reqid;
+$result = $conn->query($qry);
+$approver=$result->fetch_assoc();
+
+$qry="select Email from users where Type=4";
+$result = $conn->query($qry);
+$buyer=$result->fetch_assoc();
+
 $bdg="";	
 switch($prdts['Budgeted']){
 	case 0: $budg="YES";
@@ -86,6 +92,7 @@ $faxno=$requester['Fno'];
 $email=$requester['Email'];
 $date=$ship['Date'];
 $smeth=$ship['Method'];
+$appname=$approver['First Name']." ".$approver['Last Name'];
 
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A1',$dt)
@@ -104,7 +111,8 @@ $objPHPExcel->getActiveSheet()->setCellValue('A1',$dt)
 							->setCellValue('B25',$email)
 							->setCellValue('B27',$date)
 							->setCellValue('B29',$smeth)
-							->setCellValue('B31',$scope);
+							->setCellValue('B31',$scope)
+							->setCellValue('B33',$appname);
 
 $objPHPExcel->setActiveSheetIndex(1);
 $objPHPExcel->getActiveSheet()->setCellValue('B2',$reqs['RefQuote'])
@@ -154,4 +162,4 @@ $nmessage .= $content."\r\n\r\n";
 $nmessage .= "--".$uid."--";
 
 
-mail("aakritid@pariusa.com", "Purchase Requisition - ".$reqno, $nmessage, $header);
+mail($buyer['Email'], "Purchase Requisition - ".$reqno, $nmessage, $header);
