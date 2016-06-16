@@ -129,40 +129,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 });
   function addUser(){
 	  $('form.userForm').validate();
-	
-	/*if($('form.userForm').valid()){
-	alert("yes");/*
-	var pwd=document.getElementById("pwd").value;
-	var fnm=document.getElementById("fname").value;
-	var lnm=document.getElementById("lname").value;
-	var lid=document.getElementById("lid").value;
-	var email=document.getElementById("eid").value;
-	var auth=document.getElementById("etype").value;
-		$.ajax({
-		type: "POST",
-		url: "users.php",
-		cache: false,
-		data:  {'type': "add", 'fnm': fnm, 'lnm': lnm, 'lid':lid, 'pwd': pwd, 'email': email, 'auth': auth},
-		success: function(html) {
-			alert(html);
-			if(html==1){
-				$('#resVal').addClass("alert-success");
-				document.getElementById('resVal').innerHTML="<h4>Success!</h4>New User Added Successfully!";
-				$("#resModal").modal();
-			}
-			else{
-				$('#resVal').addClass("alert-danger");				
-				document.getElementById('resVal').innerHTML="<h4>Error!</h4>Failed To Add.";
-				$("#resModal").modal();
-			}
-			
-		}
-		});
-		
-		return false;
-	}*/
-		
-  }
+	}
   
   </script>
  </head>
@@ -196,6 +163,7 @@ $('#resModal').on('hidden.bs.modal', function () {
   <ul class="nav nav-tabs">
     <li class="active"><a href="addUser.php">Add New User</a></li>
     <li><a href="updateUser.php">Update User Details</a></li>
+	<li ><a href="createTypes.php">Add User Type</a></li>
     <li ><a href="manageTypes.php">Manage User Types</a></li>
   </ul>
 	</div>

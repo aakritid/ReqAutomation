@@ -76,43 +76,14 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	});
 	  
 $('#resModal').on('hidden.bs.modal', function () {
-	window.location="manageTypes.php";
+	window.location="createTypes.php";
 });
 });
-  function getUserTypes(id){
-	  $.ajax({
-		type: "POST",
-		url: "users.php",
-		cache: false,
-		data:  {'type': "getType", 'id': id},
-		datatype: "json",
-		success: function(response, textStatus, jqXHR) {
-			document.getElementById("tname").value=response.Type;
-			document.getElementById("costl").value=response.Cost;
-			$('#jcreate').val(response.Jcreate);
-			$('#appr').val(response.Approval);
-			$('#mprj').val(response.Projm);
-			$('#vrep').val(response.Report);
-			$('#org').val(response.Setup);
-			$('#req').val(response.Reqs);
-		
-			$('#disp').css("display","block");
-		},
-		error: function(response, textStatus, jqXHR){
-			alert(response+"\n"+textStatus+"\n"+ jqXHR);
-		}
-		
-	}); 
-	return false;	
-	
-	
-	}
 
 function saveDet(){
 	 $('form.userForm').validate();
 	
 	if($('form.userForm').valid()){
-	var id=document.getElementById("ddown").value;
 	var typ=document.getElementById("tname").value;
 	var jc=	document.getElementById("jcreate").value;
 	var app=document.getElementById("appr").value;
@@ -125,16 +96,16 @@ function saveDet(){
 		type: "POST",
 		url: "users.php",
 		cache: false,
-		data:  {'type': "setTypes", 'utype': typ, 'jcreate': jc, 'approve':app, 'manage': mp, 'report': vr, 'organize': or, 'req':req, 'cost':cost, 'id': id},
+		data:  {'type': "addTypes", 'utype': typ, 'jcreate': jc, 'approve':app, 'manage': mp, 'report': vr, 'organize': or, 'req':req, 'cost':cost},
 		success: function(response) {
 			if(response==1){
 				$('#resVal').addClass("alert-success");
-				document.getElementById('resVal').innerHTML="<h4>Success!</h4>Changes Saved!";
+				document.getElementById('resVal').innerHTML="<h4>Success!</h4>User Type Added!";
 				$("#resModal").modal();
 			}
 			else{
 				$('#resVal').addClass("alert-danger");				
-				document.getElementById('resVal').innerHTML="<h4>Error!</h4>Failed To Save Changes.";
+				document.getElementById('resVal').innerHTML="<h4>Error!</h4>Failed To Add.";
 				$("#resModal").modal();
 			}
 		}
@@ -143,6 +114,13 @@ function saveDet(){
 	return false;	
 	}
 	
+}
+
+function apprights(){
+	if(document.getElementById("appr").value==1)
+		$("#costl").addClass("required number");
+	else
+		$("#costl").removeClass("required number");
 }	
   
   </script>
@@ -177,28 +155,13 @@ function saveDet(){
   <ul class="nav nav-tabs">
     <li ><a href="addUser.php">Add New User</a></li>
     <li ><a href="updateUser.php">Update User Details</a></li>
-	<li ><a href="createTypes.php">Add User Type</a></li>
-    <li class="active"><a href="manageTypes.php">Manage User Types</a></li>
+	<li class="active"><a href="createTypes.php">Add User Type</a></li>
+    <li ><a href="manageTypes.php">Manage User Types</a></li>
   </ul>
 	</div>
-<div class='row container' style="padding-top:20px;">
-					<label class="control-label col-sm-2" for="ddown">User Type:<span class="reqd">*</span></label>
-					<div id="typeDiv" class="pull-left form-inline selectContainer">
-						<select class="form-control" name="utypes" id="ddown" onchange="getUserTypes(this.value)">
-							<option value="">Select User Type</option>
-							<?php
-								$query="SELECT * FROM usertypes order by `Type` ASC";
-								$result = $conn->query($query);
-								while ($row = $result->fetch_assoc()) {
-									echo "<option value='" . $row['id'] . "'>" . $row['Type']. "</option>";
-								}
-							?>						
-						</select>
-	</div>
-	</div>
+
 	<form class="userForm">
-	<div id="disp" class="container" style="padding-top:20px; display:none;">
-	<div class="row">
+	<div class="row"  style="padding-top:20px;">
 		<div class="col-md-10 form-group"> <label class="" for="tname">Type Name:<span class="reqd">*</span> </label><input id="tname" name="tname" type="text" class="form-control required" placeholder="Type Name" /> </div>
 	</div>
 	<div class="row">
@@ -214,7 +177,7 @@ function saveDet(){
 	<div class="row">
 		<div class="col-md-10 form-group"> <label class="" for="appr">Approval Rights :<span class="reqd">*</span> </label>
 		<div  class="form-inline selectContainer">
-						<select id="appr" class="form-control required">
+						<select id="appr" class="form-control required" onchange="apprights();">
 							<option value="0">No</option>
 							<option value="1">Yes</option>
 						</select>
@@ -262,13 +225,13 @@ function saveDet(){
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-10 form-group"> <label class="" for="costl">Approval Cost Limit($) :<span class="reqd">*</span> </label><input id="costl" name="costl" type="text" class="form-control required number" placeholder="Cost Level" /> </div>
+		<div class="col-md-10 form-group"> <label class="" for="costl">Approval Cost Limit($) :<span class="reqd">*</span> </label><input id="costl" name="costl" type="text" class="form-control " placeholder="Cost Level" /> </div>
 	</div>
 		<div class="row">
-		<button type="Submit" class="btn btn-info  col-md-10" onclick="return saveDet();">Save Changes</button>
+		<button type="Submit" class="btn btn-info  col-md-10" onclick="return saveDet();">Add Type</button>
 		
 	</div>
-	</div>
+	
 	
 	</form>
 </div>

@@ -86,4 +86,22 @@ if($_POST['type']=='setTypes'){
 	else echo 1;
 	
 }
+
+if($_POST['type']=='addTypes'){
+	
+	$typ=$_POST['utype'];
+	$jc=$_POST['jcreate'];
+	$app=$_POST['approve'];
+	$mp=$_POST['manage'];
+	$vr=$_POST['report'];
+	$or=$_POST['organize'];
+	$req=$_POST['req'];
+	$cost=$_POST['cost'];
+	
+	$qry="INSERT INTO `usertypes` ( `Type`, `JCCreate`, `Approval`, `BudgAlloc`, `Report`, `Setup`, `CVReqs`, `CostLevel`) VALUES ('".$typ."', ".$jc.", ".$app.", ".$mp.", ".$vr.", ".$or.", ".$req.", ".$cost.")";
+	if($conn->query($qry)!== TRUE)
+		echo 0;
+	else echo 1;
+	
+}
 $conn->close();

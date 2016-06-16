@@ -193,6 +193,7 @@ function saveDet(){
   <ul class="nav nav-tabs">
     <li ><a href="addUser.php">Add New User</a></li>
     <li class="active"><a href="updateUser.php">Update User Details</a></li>
+	<li ><a href="createTypes.php">Add User Type</a></li>
     <li ><a href="manageTypes.php">Manage User Types</a></li>
   </ul>
 	</div>
