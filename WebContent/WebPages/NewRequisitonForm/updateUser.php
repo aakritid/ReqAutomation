@@ -251,7 +251,7 @@ function saveDet(){
 		</div>
 		<div class="row">
 		<button type="Submit" class="btn btn-info  col-md-10" onclick="return saveDet();">Save Changes</button>
-		<button type="Submit" class="btn  col-md-10" onclick="">Delete User</button>
+		<button type="Submit" class="btn  col-md-10" onclick="">Deactivate User</button>
 	</div>
 	</div>
 	
