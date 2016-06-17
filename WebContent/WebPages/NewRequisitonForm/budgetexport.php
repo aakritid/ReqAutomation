@@ -37,10 +37,13 @@ $row=4;
 	while($itemslist=$result->fetch_assoc()){
 		$objPHPExcel->getActiveSheet()->setCellValue('A'.$row,$itemslist['JobCode'])
 									->setCellValue('B'.$row,$itemslist['Descr'])
-									->setCellValue('C'.$row,$itemslist['TotalAlloc'])
-									->setCellValue('D'.$row,$itemslist['Spent'])
-									->setCellValue('E'.$row,$itemslist['LastSet'])
-									->setCellValue('F'.$row,$itemslist['Budget']);
+									->setCellValue('C'.$row,$itemslist['Original'])
+									->setCellValue('D'.$row,$itemslist['Rev1'])
+									->setCellValue('E'.$row,$itemslist['Rev2'])
+									->setCellValue('F'.$row,$itemslist['Rev3'])
+									->setCellValue('G'.$row,$itemslist['TotalAlloc'])
+									->setCellValue('H'.$row,$itemslist['Spent'])
+									->setCellValue('I'.$row,$itemslist['Budget']);
 		
 		$row++;
 		}

@@ -55,6 +55,8 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	 return true;
  }
 function budget(type,str){
+	
+	str=str.replace("&","%26");
 	if(type=="get"){
 	 $.ajax({
 		type: "POST",
@@ -62,7 +64,11 @@ function budget(type,str){
 		cache: false,
 		data:  {'type': type, 'jc': str},
 		success: function(html) {
-			document.getElementById('contents').innerHTML=html;			
+			if(html.trim()=="new")
+				$('#jcModal').modal();	
+			
+			else
+				document.getElementById('contents').innerHTML=html;	
 		}
 		});
 		return false;	
@@ -93,6 +99,40 @@ function budget(type,str){
 	}
 	
 }
+function addjc(){
+	var jc=document.getElementById("jcode").value;
+	var desc=document.getElementById("jcdesc").value;
+	var budg=document.getElementById("budge").value;
+	var pm=document.getElementById("jcdd").value;
+		if(jc!="" && desc !=""){
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest();
+			} else {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					if(xmlhttp.responseText==11 || xmlhttp.responseText==1){
+						jc=document.getElementById("jcode").value;
+						var	venS = document.getElementById('ddown');
+						var option = document.createElement('option');
+						option.text=jc;
+						option.selected="selected";
+						venS.appendChild(option);
+						budget("get",jc);
+						$('#jcModal').modal("hide");
+					}
+					else 
+						alert(xmlhttp.responseText);
+				}
+				
+			};
+			
+			xmlhttp.open("GET","vendAdrr.php?type=setJc&jc="+jc+"&desc="+desc+"&budget="+budg+"&pm="+pm,true);
+			xmlhttp.send();
+		}
+}	
+
 
  $(function () {
 	 $("#l1").removeClass("active");
@@ -129,6 +169,53 @@ $('#resModal').on('hidden.bs.modal', function () {
 
   </div>
 </div>
+<div id="jcModal" class="modal fade">
+  <div class="modal-dialog">
+
+    
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Job Code</h4>
+      </div>
+      <div class="modal-body" id='datamodal'>
+		<form>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="jcode">Job Code:<span class="reqd">*</span> </label><input id="jcode" type="text" class="form-control" placeholder="Job Code" /> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="jcdesc">Description:<span class="reqd">*</span> </label><textarea id="jcdesc" rows="4" class="form-control" placeholder="Description"></textarea> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="budge">Budget ($) :</label><input id="budge" type="text" class="form-control" placeholder="Budget" /> </div>
+		</div>
+		<div class="row">
+		<div class="col-md-10 form-group"> <label class="" for="jcpm">Project Manager:</label>
+		<div  class="form-inline selectContainer">
+						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
+							<option value="">Select</option>
+							<?php
+							$query="SELECT * from users";
+							$result = $conn->query($query);
+							while ($row = $result->fetch_assoc()) {
+								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";
+					}
+					?>
+						</select>
+					</div></div>
+		</div>
+	   </form>
+      </div>
+      <div class="modal-footer">
+	  
+	   <button type="button" class="btn btn-primary" onclick="addjc()">Add</button>
+		 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <div class="container">
 		<table class="col-lg-8 table table-sm table-bordered" style="padding:10px" >
@@ -145,6 +232,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 					<div id="jobCodeDiv" class=" form-inline selectContainer">
 						<select class="form-control" name="JobCode" id="ddown" onchange="budget('get',this.value)">
 							<option value="">Job Code</option>
+							<option value="new">Create New Job Code</option>
 							<?php
 								$query="SELECT jobcode FROM jobcode order by jobcode ASC";
 								$result = $conn->query($query);

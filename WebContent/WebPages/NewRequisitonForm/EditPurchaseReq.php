@@ -208,7 +208,7 @@ function addjc(){
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					if(xmlhttp.responseText==1){
+					if(xmlhttp.responseText==1 || xmlhttp.responseText==11){
 						jc=document.getElementById("jcode").value;
 						var	venS = document.getElementById('ddown');
 						var option = document.createElement('option');

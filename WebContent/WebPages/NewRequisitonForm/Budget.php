@@ -13,7 +13,9 @@ $type=$_POST['type'];
 
 if($type=='get'){
 	$jc=$_POST['jc'];
-	if($jc!=""){
+	if($jc=="new")
+		echo "new";
+	else if($jc!=""){
 		
 		$op="";
 		$query="SELECT * from users";
@@ -23,7 +25,7 @@ if($type=='get'){
 		}
 		$query="SELECT * FROM `jobcode` WHERE JobCode='".$jc."'";
 		$result = $conn->query($query);
-		$budg=$result->fetch_assoc();
+		$budg=$result->fetch_array(MYSQLI_BOTH);
 		$pm= "N/A";
 		if($budg['PM']!="" && $budg['PM']!=0){
 			$query="SELECT * FROM `users` WHERE id=".$budg['PM'];
@@ -31,10 +33,12 @@ if($type=='get'){
 			$res=$result->fetch_assoc();
 			$pm=$res['First Name']." ".$res['Last Name'];
 		}
+		$rev=$budg['RevNo'];
+			$alloc=$budg[$rev];
 				echo "<div class='container form-group'>";
 				echo  "<label class='control-label col-sm-2' for='decripb'>Description: </label><label class='control-label col-sm-10' id='descipb'>".$budg['Descr']."</label>";
 				echo	"</div>	<div class='container form-group'>";
-					echo "<label class='control-label col-sm-2' for='origB'>Allocated Budget: </label><label class='control-label col-sm-2' id='origB'>$".number_format($budg['LastSet'], 2, '.', ',')."</label>";
+					echo "<label class='control-label col-sm-2' for='origB'>Allocated Budget: </label><label class='control-label col-sm-2' id='origB'>$".number_format($alloc, 2, '.', ',')."</label>";
 				echo	"</div>	<div class='container form-group'>";
 				echo "<label class='control-label col-sm-2' for='cbudg'>Remaining Budget: </label><label class='control-label col-sm-2' id='cbudg'>$".number_format($budg['Budget'], 2, '.', ',')."</label>";
 				echo	"</div>	<div class='container form-group'>";
@@ -54,8 +58,17 @@ if($type=='set'){
 		$val=$_POST["newBudg"];
 		$jc= $_POST["jc"];
 		$pm= $_POST['newPm'];
+		$query="select * from jobcode where JobCode='".$jc."'";
+		$result=$conn->query($query);
+		$res=$result->fetch_assoc();
+		$revn=$res['RevNo'];
+		if($revn<10)
+			$revn++;
+		
+		$col=$result->fetch_field_direct($revn);		
+		
 		if($val!=""){
-			$query="update jobcode set LastSet=".$val.", Budget=".$val.", TotalAlloc= TotalAlloc+".$val." where JobCode='".$jc."'";
+			$query="update jobcode set ".$col->name."=".$val.", Budget=".$val.", TotalAlloc= TotalAlloc+".$val.", RevNo=".$revn." where JobCode='".$jc."'";
 			if ($conn->query($query)== TRUE)
 				echo 1;
 			else 
