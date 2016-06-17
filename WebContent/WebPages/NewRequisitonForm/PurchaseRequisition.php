@@ -200,6 +200,7 @@ function addjc(){
 	var desc=document.getElementById("jcdesc").value;
 	var budg=document.getElementById("budge").value;
 	var pm=document.getElementById("jcdd").value;
+	
 		if(jc!="" && desc !=""){
 			if (window.XMLHttpRequest) {
 				xmlhttp = new XMLHttpRequest();
@@ -208,14 +209,19 @@ function addjc(){
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					if(xmlhttp.responseText==11){
+					if(xmlhttp.responseText==11 || xmlhttp.responseText==1){
 						jc=document.getElementById("jcode").value;
 						var	venS = document.getElementById('ddown');
 						var option = document.createElement('option');
+						if(budg=="")
+							val=0.0;
+						else
+							val=budg;
+						var showval= 
 						option.text=jc;
 						option.selected="selected";
 						venS.appendChild(option);
-						document.getElementById("jcBudg").innerHTML = "<label>Remaining Budget: $"+budg+"</label>";
+						document.getElementById("jcBudg").innerHTML = "<label>Remaining Budget: $"+val+"</label>";
 						  $('#jcModal').modal("hide");
 					}
 					else 

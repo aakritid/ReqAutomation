@@ -312,7 +312,7 @@ $reqs=$result->fetch_assoc();
 		</div>
 		<div class="form-inline col-sm-8 pull-left"><label for="refQuote">Reference Quote:<span class="reqd">*</span></label><input class="form-control required digits" name="refQuote" type="text" placeholder="Reference Quote" id="refQuote" value='<?php echo $reqs['RefQuote']; ?>'/></div>
 			 <div class="col-sm-3 pull-right"><label for="totalCost" id='tcval'>Total Cost: $</label><label id="totalCost"><?php echo $reqs['TotalCost']; ?></label></div>
-			 <input type="text" name="totalCost1" id="tc1" hidden />
+			 <input type="text" name="totalCost1" id="tc1" hidden value='<?php echo $reqs['TotalCost']; ?>'/>
 			 <input type="text" name="vald" id="valid" hidden value='<?php echo $rowcount; ?>'/>
 			 </div>
 		<div><input type="text" id="vals" name="vals" hidden value='<?php echo $rowcount; ?>' />

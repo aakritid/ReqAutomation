@@ -56,13 +56,13 @@ else if($type=="setJc"){
 		$query1="UPDATE users set Type=3 where id=".$pm;
 	}
 	else if ($budget!="" && $pm==""){
-		$query="INSERT INTO jobcode (JobCode, Descr, Budget) values ('".$jc."','".$desc."',".$budget.")";
+		$query="INSERT INTO jobcode (JobCode, Descr, Budget, Original, RevNo) values ('".$jc."','".$desc."',".$budget.",".$budget.",7)";
 	}
 	else if ($budget=="" && $pm==""){
 		$query="INSERT INTO jobcode (JobCode, Descr) values ('".$jc."','".$desc."')";
 	}
 	else{
-		$query="INSERT INTO jobcode (JobCode, Descr, Budget, PM) values ('".$jc."','".$desc."',".$budget.",".$pm.")";
+		$query="INSERT INTO jobcode (JobCode, Descr, Budget, PM, Original, RevNo) values ('".$jc."','".$desc."',".$budget.",".$pm.",".$budget.",7)";
 		$query1="UPDATE users set Type=3 where id=".$pm;
 	}
 	if ($conn->query($query) !== TRUE) {
