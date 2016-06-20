@@ -379,7 +379,7 @@ $addr=$result->fetch_assoc();
 						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
 							<?php
-							$query="SELECT * from users";
+							$query="SELECT * from users where Active=1";
 							$result = $conn->query($query);
 							while ($row = $result->fetch_assoc()) {
 								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";

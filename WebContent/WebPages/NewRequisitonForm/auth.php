@@ -16,7 +16,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
         print "Sorry - you need valid credentials to be granted access!\n";
         exit;
 } else {
-		$qry="select LoginPwd from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
+		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
 		$result = $conn->query($qry);
 		$user=$result->fetch_assoc();
         if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd']) || $user['Active'] != 1) {

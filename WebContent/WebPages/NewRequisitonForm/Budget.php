@@ -18,7 +18,7 @@ if($type=='get'){
 	else if($jc!=""){
 		
 		$op="";
-		$query="SELECT * from users";
+		$query="SELECT * from users where Active=1";
 		$result = $conn->query($query);
 		while ($row = $result->fetch_assoc()) {
 			$op.= "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";
@@ -34,6 +34,12 @@ if($type=='get'){
 			$pm=$res['First Name']." ".$res['Last Name'];
 		}
 		$rev=$budg['RevNo'];
+		$check=$budg['SelfApp'];
+		if($check==0)
+			$inp="<input id='selfa' name='selfa' type='checkbox' >";
+		else
+			$inp="<input id='selfa' name='selfa' type='checkbox' checked>";
+		$op2="<div class='row container form-group  form-inline '><label class='control-label col-sm-2'>Allow Self Approve: </label>".$inp." </div>";
 			$alloc=$budg[$rev];
 				echo "<div class='container form-group'>";
 				echo  "<label class='control-label col-sm-2' for='decripb'>Description: </label><label class='control-label col-sm-10' id='descipb'>".$budg['Descr']."</label>";
@@ -50,7 +56,7 @@ if($type=='get'){
 				echo	"<label class='control-label col-sm-2' for='npm'>New Project Manager: </label>";
 				echo 	"<select class='form-control col sm-4' name='nPM' id='npm'>";
 				echo	"<option value=''>Select</option>".$op."</select>";
-				echo	"</div></div>";
+				echo	"</div>".$op2."</div>";
 	}
 }
 
@@ -58,6 +64,8 @@ if($type=='set'){
 		$val=$_POST["newBudg"];
 		$jc= $_POST["jc"];
 		$pm= $_POST['newPm'];
+		$sa= $_POST['selfA'];
+		
 		$query="select * from jobcode where JobCode='".$jc."'";
 		$result=$conn->query($query);
 		$res=$result->fetch_assoc();
@@ -68,7 +76,7 @@ if($type=='set'){
 		$col=$result->fetch_field_direct($revn);		
 		
 		if($val!=""){
-			$query="update jobcode set ".$col->name."=".$val.", Budget=".$val.", TotalAlloc= TotalAlloc+".$val.", RevNo=".$revn." where JobCode='".$jc."'";
+			$query="update jobcode set ".$col->name."=".$val.", Budget=".$val.", TotalAlloc= TotalAlloc+".$val.", RevNo=".$revn.", SelfApp=".$sa." where JobCode='".$jc."'";
 			if ($conn->query($query)== TRUE)
 				echo 1;
 			else 
@@ -79,7 +87,7 @@ if($type=='set'){
 			$result = $conn->query($query);
 			$res=$result->fetch_assoc();
 			
-			$query="update jobcode set PM=".$pm. " where JobCode='".$jc."'";
+			$query="update jobcode set PM=".$pm. ", SelfApp=".$sa." where JobCode='".$jc."'";
 			if ($conn->query($query)== TRUE)
 				echo 1;
 			else 
@@ -98,6 +106,14 @@ if($type=='set'){
 				}
 			}
 		}
+		if($val=="" && $pm==""){
+			$query="update jobcode set SelfApp=".$sa." where JobCode='".$jc."'";
+			if ($conn->query($query)== TRUE)
+				echo 1;
+			else 
+				echo $conn->error;
+		}
+		
 }
 $conn->close();
 
