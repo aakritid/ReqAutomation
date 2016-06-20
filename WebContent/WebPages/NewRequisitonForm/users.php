@@ -32,7 +32,7 @@ if($_POST['type']=='get'){
 	$res=$conn->query($qry);
 	$val=$res->fetch_array(MYSQLI_BOTH);
 	
-	$op='{ "FName":"'.$val['First Name'].'", "LName":"'.$val['Last Name'].'", "LoginId": "'.$val['LoginId'].'", "Password" :"'.$val['LoginPwd'].'", "Type": "'.$val['Type'].'", "Email":"'.$val['Email'].'"}';
+	$op='{ "FName":"'.$val['First Name'].'", "LName":"'.$val['Last Name'].'", "LoginId": "'.$val['LoginId'].'", "Password" :"'.$val['LoginPwd'].'", "Type": "'.$val['Type'].'", "Active": "'.$val['Active'].'", "Email":"'.$val['Email'].'"}';
 	
 	echo $op;
 	
@@ -53,7 +53,21 @@ if($_POST['type']=='set'){
 	
 }
 
+if($_POST['type']=='deact'){
+	$id=$_POST['id'];
+	$qry="UPDATE `users` SET Active=0 where id=".$id;
+	if($conn->query($qry)!== TRUE)
+		echo 0;
+	else echo 1;
+}
 
+if($_POST['type']=='react'){
+	$id=$_POST['id'];
+	$qry="UPDATE `users` SET Active=1 where id=".$id;
+	if($conn->query($qry)!== TRUE)
+		echo 0;
+	else echo 1;
+}
 
 if($_POST['type']=='getType'){
 	header('Content-Type: application/json');
@@ -104,4 +118,6 @@ if($_POST['type']=='addTypes'){
 	else echo 1;
 	
 }
+
+
 $conn->close();

@@ -17,12 +17,21 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
 		$result = $conn->query($qry);
 		$user=$result->fetch_assoc();
-        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd']) || $user['Active'] != 1) {
            header("WWW-Authenticate: Basic realm=\"Private Area\"");
             header("HTTP/1.0 401 Unauthorized");
             print "You Are not authorized to view the page!";
             exit;						
         }
+		else {
+			$qry1="Select * from usertypes where id=".$user['Type'];
+			$result = $conn->query($qry1);
+			$auth=$result->fetch_assoc();
+			 if ($auth['Approval']==0){
+				print "You Are not authorized to view the page!";
+				exit;
+			 }
+		}
 		
 }
  $conn->close();

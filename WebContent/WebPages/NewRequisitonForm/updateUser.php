@@ -18,7 +18,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
 		$result = $conn->query($qry);
 		$user=$result->fetch_assoc();
-        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd']) || $user['Active'] != 1) {
            header("WWW-Authenticate: Basic realm=\"Private Area\"");
             header("HTTP/1.0 401 Unauthorized");
             print "You Are not authorized to view the page!";
@@ -141,6 +141,15 @@ $('#resModal').on('hidden.bs.modal', function () {
 			document.getElementById("lid").value=response.LoginId;
 			document.getElementById("pwd").value=response.Password;
 			document.getElementById("eid").value=response.Email;
+			var act=response.Active;
+			if(act==0){
+				$('#deac').css("display","none");
+				$('#reac').css("display","block");
+			}
+			else{
+				$('#reac').css("display","none");
+				$('#deac').css("display","block");
+			}
 			$('#cprow').css("display","none");
 			$('#cpwd').removeClass("required");
 			$('#etype').val(response.Type);
@@ -159,7 +168,55 @@ function chpwd(){
 function saveDet(){
 	 $('form.userForm').validate();
 	
-}		
+}	
+function deact(){
+	var id=document.getElementById("ddown").value;
+	$.ajax({
+		type: "POST",
+		url: "users.php",
+		cache: false,
+		data:  {'type': "deact", 'id': id},
+		success: function(response) {
+			if(response==1){
+				$('#resVal').addClass("alert-success");
+				document.getElementById('resVal').innerHTML="<h4>User Deactivated!</h4>";
+				$("#resModal").modal();
+			}
+			else{
+				$('#resVal').addClass("alert-danger");				
+				document.getElementById('resVal').innerHTML="<h4>Failed To Deactivate User.</h4>";
+				$("#resModal").modal();
+			}
+		}
+		
+	}); 
+	return false;
+	
+}	
+function react(){
+	var id=document.getElementById("ddown").value;
+	$.ajax({
+		type: "POST",
+		url: "users.php",
+		cache: false,
+		data:  {'type': "react", 'id': id},
+		success: function(response) {
+			if(response==1){
+				$('#resVal').addClass("alert-success");
+				document.getElementById('resVal').innerHTML="<h4>User Reactivated!</h4>";
+				$("#resModal").modal();
+			}
+			else{
+				$('#resVal').addClass("alert-danger");				
+				document.getElementById('resVal').innerHTML="<h4>Failed To Reactivate User.</h4>";
+				$("#resModal").modal();
+			}
+		}
+		
+	}); 
+	return false;
+	
+}	
   
   </script>
  </head>
@@ -204,12 +261,21 @@ function saveDet(){
 						<select class="form-control" name="JobCode" id="ddown" onchange="getUser(this.value)">
 							<option value="">Select User</option>
 							<?php
-								$query="SELECT * FROM users order by `First Name` ASC";
+								$query="SELECT * FROM users  where Active=1 order by `First Name` ASC";
 								$result = $conn->query($query);
 								while ($row = $result->fetch_assoc()) {
 									echo "<option value='" . $row['id'] . "'>" . $row['First Name']." ".$row['Last Name'] . "</option>";
 								}
-							?>						
+							?>		
+							<option value=""></option>	
+							<option value="">---Inactive Users----</option>	
+							<?php
+								$query="SELECT * FROM users  where Active=0 order by `First Name` ASC";
+								$result = $conn->query($query);
+								while ($row = $result->fetch_assoc()) {
+									echo "<option value='" . $row['id'] . "'>" . $row['First Name']." ".$row['Last Name'] . "</option>";
+								}
+							?>	
 						</select>
 	</div>
 	</div>
@@ -251,7 +317,8 @@ function saveDet(){
 		</div>
 		<div class="row">
 		<button type="Submit" class="btn btn-info  col-md-10" onclick="return saveDet();">Save Changes</button>
-		<button type="Submit" class="btn  col-md-10" onclick="">Deactivate User</button>
+		<button id="deac" type="Submit" class="btn  col-md-10" onclick="return deact();">Deactivate User</button>
+		<button id="reac" type="Submit" class="btn  col-md-10" onclick="return react();">Reactivate User</button>
 	</div>
 	</div>
 	
