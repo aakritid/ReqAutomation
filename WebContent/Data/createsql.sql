@@ -1,33 +1,14 @@
-/*LOAD DATA INFILE 'C:\job_codes.csv' 
-INTO TABLE jobcode 
-FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n'
-(JobCode, Descr, @ignore);
-
-LOAD DATA INFILE 'C:\vendors.csv' 
-INTO TABLE vendors 
-FIELDS TERMINATED BY ';' 
-LINES TERMINATED BY ',,,,,\r\n'
-(VendorName, VendorAddress);
-*/
-
 -- phpMyAdmin SQL Dump
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2016 at 09:22 PM
+-- Generation Time: Jun 23, 2016 at 06:42 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `purchasereq`
@@ -48,37 +29,6 @@ CREATE TABLE `approval` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `approval`
---
-
-INSERT INTO `approval` (`ReqId`, `AppDen`, `Reason`, `Date`, `Approver`) VALUES
-(13, 1, 'Extra', '2016-06-10 13:17:22', 1),
-(5, 0, '', '2016-06-10 13:17:22', 1),
-(8, 0, '', '2016-06-10 13:17:22', 1),
-(21, 0, '', '2016-06-10 13:17:22', 1),
-(14, 1, 'Denied', '2016-06-10 13:17:22', 1),
-(10, 0, '', '2016-06-10 13:17:22', 1),
-(15, 0, '', '2016-06-10 13:17:22', 1),
-(28, 0, '', '2016-06-10 13:17:22', 1),
-(25, 0, '', '2016-06-10 13:17:22', 1),
-(24, 1, '', '2016-06-10 13:17:22', 1),
-(23, 0, '', '2016-06-10 13:17:22', 1),
-(18, 0, '', '2016-06-10 13:17:22', 1),
-(20, 0, '', '2016-06-10 13:17:22', 1),
-(29, 0, '', '2016-06-10 13:17:22', 1),
-(30, 0, '', '2016-06-10 13:56:40', 1),
-(27, 0, '', '2016-06-10 14:13:51', 1),
-(31, 0, '', '2016-06-10 14:15:46', 1),
-(16, 0, '', '2016-06-10 14:17:03', 7),
-(2, 0, '', '2016-06-10 14:51:15', 1),
-(36, 0, '', '2016-06-13 11:57:12', 1),
-(39, 0, '', '2016-06-14 15:56:10', 1),
-(7, 0, '', '2016-06-16 15:20:50', 1),
-(40, 0, '', '2016-06-17 10:45:50', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `itemdescr`
 --
 
@@ -93,71 +43,6 @@ CREATE TABLE `itemdescr` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `itemdescr`
---
-
-INSERT INTO `itemdescr` (`itemid`, `ItemNo`, `Descr`, `Quantity`, `UnitDesc`, `UnitPrice`, `Total`) VALUES
-(2, '54345', 'fgfdgdfg', 3, 'gsdfd', '40.00', '$120.00'),
-(6, '54325', 'fgdgf', 453, 'ggdfg', '4.00', '$1812.00'),
-(8, '5543', 'gerfe', 342, 'ggr', '2.00', '$684.00'),
-(9, '4543', 'gfsdfad', 32, 'fvgdfg', '33.00', '$1056.00'),
-(11, '32423', 'gfdgd', 34, 'fdgfd', '12.00', '$408.00'),
-(12, '34323', 'fdsfs', 2, '12 pack', '65.00', '$130.00'),
-(13, '342', 'fdgfd', 43, 'ffdgs', '23.00', '$989.00'),
-(14, '34233', 'fsfds', 3, 'fdfd', '123.00', '$369.00'),
-(15, '5435', 'hhdufgsu', 2, 'sdfsd', '12.00', '$24.00'),
-(16, '4535', 'sfsdbvbd', 12, 'fsdfs', '30.00', '$360.00'),
-(17, '453', 'sdfsdf', 12, 'ewrew', '230.00', '$2760.00'),
-(18, '5435', 'fvsdfds', 7, '1 pack', '123.00', '$861.00'),
-(19, '5653', 'AI BOLTS', 4, '12 pack', '35.00', '$140.00'),
-(20, '65422', 'DDFDE Tapes', 10, '3 pack', '40.00', '$400.00'),
-(21, '2323221', 'adasdaksjj', 4, '3 pack', '240.00', '$960.00'),
-(22, '22324', 'fdsdsgs', 3, '44 pack', '123.00', '$369.00'),
-(23, '6547', 'rertryre', 1, '12 pack', '58.00', '$57.50'),
-(24, '34234', 'rterte', 1, 'rtre', '126.00', '$125.50'),
-(27, '543', 'bgbf', 3, 'fdgfd', '36.00', '$106.50'),
-(28, '765', 'gfhgf', 5, 'gfhf', '85.00', '$425.00'),
-(29, '543', 'dfdsf', 35, 'sdfds', '250.00', '$8750.00'),
-(30, '3423', 'fgdsdfd', 2, 'dfsd', '300.00', '$600.00'),
-(31, '452334', 'fsd', 3, 'ffds', '120.00', '$360.00'),
-(32, '432fd', 'dwerwe', 4, '1 pack', '120.00', '$480.00'),
-(33, '543543', 'fdfsdfdssgf', 30, 'fdgfgd', '37.00', '$1095.00'),
-(34, '654345', 'dfdbbgbdfg', 4, 'fdgfd', '76.00', '$302.00'),
-(35, '83424', 'ytrerer', 1, 'bght', '450.00', '$450.00'),
-(36, '543d', 'abcd', 6, 'hgfhg', '120.00', '$720.00'),
-(37, '654gfd', 'fdsfdsf', 4, 'fdsfsd', '55.00', '$220.00'),
-(39, '432', 'gdf', 5, 'rter', '450.00', '$2250.00'),
-(40, '5435', 'gerg', 45, 'dfgfd', '343.00', '$15423.75'),
-(41, '342342', 'frgerg', 50, 'gdf', '30.00', '$1500.00'),
-(42, '65422', 'DDFDE Tapes', 10, '3 pack', '40.00', '$400.00'),
-(43, '2323221', 'adasdaksjj', 4, '3 pack', '240.00', '$960.00'),
-(44, '76544', 'trvfdgdf', 5, '1 pack', '120.00', '$600.00'),
-(45, '6534', 'ffewtrrwert', 20, 'trete', '55.00', '$1100.00'),
-(46, '4323', 'dfwrerfwe', 50, 'ereewrw', '45.00', '$2250.00'),
-(55, 'S-5996P', '3/16" UPSable Bubble wrap strong 24" x 300'' Roll-perforated every 12" each', 10, 'each', '74.00', '$740.00'),
-(56, 's-1712', ' 6x9 4mm reclosable bag', 1, 'each', '67.00', '$67.00'),
-(57, 's-1306', '12x15 4mm reclosable bag', 1, 'each', '80.00', '$80.00'),
-(58, 's-1021', '8" cable ties', 1, 'each', '28.00', '$28.00'),
-(59, 's-6706', 'natural cable tie kit 1M', 1, 'each', '38.00', '$38.00'),
-(60, 'Op520ug machine joining tray', 'Lot of (7) underguarding joining rays for rework and paint for op520', 1, 'each', '665.00', '$665.00'),
-(61, 'Tax', 'Tax @ 13%', 1, 'each', '86.45', '$86.45'),
-(62, 'PAZ29B105025', 'Coolant tray # PAZ29B105025- modified as directed and rev 01 print received Friday afternoon 4-29-16 at 1:56pm, dated 5-1-16, including leak test & repainting.', 1, 'each', '650.00', '$650.00'),
-(63, 'BT#165890000209', 'Oil board stencil with 3" tall lettering', 1, 'each', '26.91', '$26.91'),
-(64, 'BT#165890000210', 'Oil board stencil with 3" tall lettering', 1, 'each', '26.91', '$26.91'),
-(65, 'BT#165890000211', 'Oil board stencil with 3" tall lettering', 1, 'each', '26.91', '$26.91'),
-(66, 'BT#165890000212', 'Oil board stencil with 3" tall lettering', 1, 'each', '26.91', '$26.91'),
-(67, 'BT#165890000213', 'Oil board stencil with 3" tall lettering', 1, 'each', '26.91', '$26.91'),
-(68, 'BT#165890000217', 'Oil board stencil with 3" tall lettering', 1, 'each', '26.91', '$26.91'),
-(69, 'BT#165890000218', 'Oil board stencil with 3" tall lettering', 1, 'each', '26.91', '$26.91'),
-(70, 'PAZ29B016105', 'Resting Pad - PAZ29B016105', 8, 'each', '75.00', '$600.00'),
-(71, 'PAZ29B105018', 'Nylon Block 2 - PAZ29B105018', 4, 'each', '135.00', '$540.00'),
-(72, 'WK4.4T-*RS4.4T/S1587', 'Cables type: sensor required cable length: 10', 3, 'ea', '12.74', '$38.22'),
-(73, 'WK4.4T-*RS4.4T/S1587', 'Cables type: sensor required cable length: 10', 2, 'ea', '12.74', '$25.48'),
-(74, '6547-ZZ1', 'Spares', 4, 'ea', '65.00', '$260.00');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `itemmap`
 --
 
@@ -169,67 +54,6 @@ CREATE TABLE `itemmap` (
 --
 -- Dumping data for table `itemmap`
 --
-
-INSERT INTO `itemmap` (`ReqId`, `ItemId`) VALUES
-(2, 2),
-(4, 6),
-(5, 8),
-(6, 9),
-(7, 11),
-(8, 12),
-(9, 13),
-(10, 14),
-(11, 15),
-(11, 16),
-(12, 17),
-(12, 18),
-(13, 19),
-(13, 20),
-(14, 21),
-(15, 22),
-(15, 23),
-(16, 24),
-(18, 27),
-(18, 28),
-(19, 29),
-(20, 30),
-(20, 31),
-(21, 32),
-(22, 33),
-(23, 34),
-(23, 35),
-(24, 36),
-(25, 37),
-(27, 39),
-(28, 40),
-(29, 41),
-(30, 42),
-(31, 43),
-(31, 44),
-(32, 45),
-(33, 46),
-(36, 55),
-(36, 56),
-(36, 57),
-(36, 58),
-(36, 59),
-(37, 60),
-(37, 61),
-(38, 62),
-(39, 63),
-(39, 64),
-(39, 65),
-(39, 66),
-(39, 67),
-(39, 68),
-(39, 69),
-(40, 70),
-(40, 71),
-(41, 72),
-(41, 73),
-(42, 74);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `jobcode`
@@ -572,17 +396,7 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `Tot
 (313, 'SRV14002 - ZF Support for Mule Build', 'INC - PO 470000330 Test Run Expenses', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (314, 'SRV15003 - ZF Service 2015-16', 'INC Service Calls Billable to Customer', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (315, 'US11018 - Warranty - Support ZF', 'INDIA - No longer in service?', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
-(316, 'US15013 - ZF Pallet Rework 2015', 'INC scope related to the pallet rework CPO', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
-(322, 'US1324322', 'INC', '6000.00', '0.00', 4, '18500.00', '6000.00', '0.00', '0.00', '0.00', 6, 0),
-(323, 'US5646788', 'Ferrari work.', '7000.00', '0.00', 0, '7000.00', '6750.00', '7000.00', '0.00', '0.00', 8, 0),
-(324, 'US67873', 'jhjkdfhsd', '3500.00', '0.00', 0, '0.00', '3500.00', '0.00', '0.00', '0.00', 7, 0),
-(325, 'US7784392', 'New', '5000.00', '0.00', 0, '0.00', '5000.00', '0.00', '0.00', '0.00', 7, 0),
-(326, 'US673842', 'Sample', '2500.00', '0.00', 0, '0.00', '2500.00', '0.00', '0.00', '0.00', 7, 0),
-(327, 'US678439', 'Sample2', '4500.00', '0.00', 0, '0.00', '4500.00', '0.00', '0.00', '0.00', 7, 0),
-(328, 'US789453', 'Sample3', '0.00', '0.00', 0, '0.00', '0.00', '0.00', '0.00', '0.00', 7, 0),
-(329, 'US99321', 'Sample4', '0.00', '0.00', 0, '0.00', '0.00', '0.00', '0.00', '0.00', 6, 0),
-(330, 'US454332', 'Sample5', '0.00', '0.00', 0, '0.00', '0.00', '0.00', '0.00', '0.00', 6, 0),
-(331, 'US6782232', 'Sample', '0.00', '0.00', 0, '0.00', '0.00', '0.00', '0.00', '0.00', 6, 0);
+(316, 'US15013 - ZF Pallet Rework 2015', 'INC scope related to the pallet rework CPO', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0);
 
 -- --------------------------------------------------------
 
@@ -603,47 +417,6 @@ CREATE TABLE `purdets` (
   `Other` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `purdets`
---
-
-INSERT INTO `purdets` (`id`, `ReqsId`, `JobCode`, `VendorId`, `ShipId`, `Budgeted`, `BCS`, `Expl`, `Scope`, `Other`) VALUES
-(2, 2, 4, 6, 2, 0, '765543', '', 1, ''),
-(4, 6, 3, 119, 6, 1, '0', 'Extra', 0, ''),
-(5, 8, 17, 180, 8, 0, '554322', '', 1, ''),
-(6, 9, 17, 241, 9, 1, '0', 'LKJHGH', 0, ''),
-(7, 11, 4, 7, 11, 0, '34324', '', 0, ''),
-(8, 12, 4, 260, 12, 0, '3432322', '', 0, ''),
-(9, 13, 3, 402, 13, 0, '12345', '', 1, ''),
-(10, 14, 3, 12, 14, 0, '554322', '', 1, ''),
-(11, 15, 3, 33, 15, 1, '0', 'Extra', 1, ''),
-(12, 16, 7, 437, 16, 0, '665453', '', 0, ''),
-(13, 17, 8, 31, 17, 0, '65477432', '', 1, ''),
-(14, 18, 6, 406, 18, 1, '0', 'Extra', 1, ''),
-(15, 19, 10, 5, 19, 1, '0', 'Extra', 1, ''),
-(16, 20, 6, 157, 20, 0, '12345', '', 1, ''),
-(18, 22, 7, 118, 22, 0, '74324', '', 1, ''),
-(19, 23, 7, 55, 23, 0, '464353', '', 1, ''),
-(20, 24, 7, 12, 24, 0, '34523', '', 1, ''),
-(21, 25, 7, 8, 25, 0, '5543223', '', 1, ''),
-(22, 26, 12, 131, 26, 0, '987576', '', 1, ''),
-(23, 27, 17, 5, 27, 0, '7643423', '', 1, ''),
-(24, 28, 8, 5, 28, 0, '8567540', '', 1, ''),
-(25, 29, 10, 4, 29, 1, '0', 'Extra', 1, ''),
-(27, 31, 10, 12, 30, 0, '34234', '', 0, ''),
-(28, 32, 7, 5, 31, 0, '4543', '', 1, ''),
-(29, 33, 8, 9, 32, 0, '754643', '', 1, ''),
-(30, 34, 8, 31, 33, 0, '65477432', '', 1, ''),
-(31, 35, 6, 406, 34, 1, '0', 'Extra', 1, ''),
-(32, 36, 15, 41, 35, 0, '8764645', '', 1, ''),
-(33, 37, 8, 5, 36, 0, '554322', '', 0, ''),
-(36, 40, 84, 474, 39, 0, '553', '', 0, ''),
-(37, 41, 130, 490, 40, 0, '678', '', 0, ''),
-(38, 42, 84, 172, 41, 0, '654', '', 0, ''),
-(39, 43, 84, 363, 42, 0, '987', '', 0, ''),
-(40, 44, 84, 172, 43, 0, '6554', '', 0, ''),
-(41, 45, 116, 472, 44, 0, '553', '', 0, ''),
-(42, 46, 4, 8, 45, 0, '6522', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -661,49 +434,6 @@ CREATE TABLE `requester` (
   `UserId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `requester`
---
-
-INSERT INTO `requester` (`id`, `ReqsId`, `Name`, `Phno`, `Fno`, `Email`, `UserId`) VALUES
-(2, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@usc.edu', 2),
-(6, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritidubey@outlook.com', 2),
-(8, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
-(9, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
-(11, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'abcd@1234.com', 2),
-(12, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
-(13, 'aakritid', 'Aakriti Dubey', '3234415068', '', 'aakritid@pariusa.com', 2),
-(14, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(15, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544342', 'aakritid@pariusa.com', 2),
-(16, 'aakritid', 'Aakriti Dubey', '3234415068', '3216544321', 'aakritid@pariusa.com', 2),
-(17, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com', 2),
-(18, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(19, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(20, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(22, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(23, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(24, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
-(25, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
-(26, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(27, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(28, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
-(29, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(31, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu', 2),
-(32, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@pariusa.com', 2),
-(33, 'aakritid', 'Aakriti Dubey', '', '', 'aakritid@usc.edu', 2),
-(34, 'aakritid', 'Aakriti Dubey', '3234415067', '3216544321', 'aakritid@pariusa.com', 2),
-(35, 'aakritid', 'Aakriti Dubey', '3234415067', '', 'aakritid@pariusa.com', 2),
-(36, '', 'ABC PQR', '3234415067', '', 'aakritid@pariusa.com', 7),
-(37, '', 'Admin User', '', '', 'aakritid@pariusa.com', 1),
-(40, '', 'General User', '', '', 'dsada@dfsd.com', 2),
-(41, '', 'Admin User', '5197376091', '', 'victor@victormachine.ca', 1),
-(42, '', 'General User', '', '', 'fa@fab.com', 2),
-(43, '', 'General User', '', '', 'abc@pt.com', 2),
-(44, '', 'General User', '', '', 'fc@fc.com', 2),
-(45, '', 'General User', '', '', 'turck@tc.com', 2),
-(46, '', 'Project Manager', '', '', 'abcd@1234.com', 4);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `requistion`
@@ -719,50 +449,6 @@ CREATE TABLE `requistion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `requistion`
---
-
-INSERT INTO `requistion` (`Id`, `ReqNo`, `RefQuote`, `TotalCost`, `Date`, `SelfApp`) VALUES
-(2, 'P0000002', '3432432', '120.00', '2016-05-16 15:32:32', 0),
-(4, 'P0000004', '4234', '1812.00', '2016-05-16 16:11:11', 0),
-(5, 'P0000005', '5432', '684.00', '2016-05-16 16:31:22', 0),
-(6, 'P0000006', '452342', '1056.00', '2016-05-16 16:32:11', 0),
-(7, 'P0000007', '4234', '408.00', '2016-05-16 16:47:00', 0),
-(8, 'P0000008', '5654332', '130.00', '2016-05-16 17:03:03', 0),
-(9, 'P0000009', '432432', '989.00', '2016-05-16 17:06:11', 0),
-(10, 'P0000010', '452342', '369.00', '2016-05-16 17:11:11', 0),
-(11, 'P0000011', '45432231', '384.00', '2016-05-16 17:17:17', 0),
-(12, 'P0000012', '4434521', '3621.00', '2016-05-16 17:42:36', 0),
-(13, 'P0000013', '54364232', '540.00', '2016-06-20 18:30:59', 1),
-(14, 'P0000014', '42345521', '960.00', '2016-05-17 17:00:01', 0),
-(15, 'P0000015', '765768', '427.00', '2016-05-23 13:42:30', 0),
-(16, 'P0000016', '54366343', '126.00', '2016-05-23 13:47:18', 0),
-(18, 'P0000018', '776554', '531.50', '2016-05-23 16:02:02', 0),
-(19, 'P0000019', '35324121', '8750.00', '2016-05-24 15:17:03', 0),
-(20, 'P0000020', '6534343', '960.00', '2016-05-24 15:21:05', 0),
-(21, 'P0000021', '65332345', '480.00', '2016-05-24 15:32:00', 0),
-(22, 'P0000022', '764543211', '1095.00', '2016-05-31 18:57:37', 0),
-(23, 'P0000023', '76434235', '752.00', '2016-06-02 13:18:43', 0),
-(24, 'P0000024', '87754343', '720.00', '2016-06-20 18:30:59', 1),
-(25, 'P0000025', '6353', '220.00', '2016-06-06 18:30:20', 0),
-(27, 'P0000027', '54353245', '2250.00', '2016-06-07 18:28:21', 0),
-(28, 'P0000028', '5435', '15423.75', '2016-06-07 18:55:52', 0),
-(29, 'P0000029', '5635543', '1500.00', '2016-06-20 18:30:59', 1),
-(30, 'P0000030', '54364232', '400.00', '2016-06-20 18:30:59', 1),
-(31, 'P0000031', '42345521', '1560.00', '2016-06-08 17:19:33', 0),
-(32, 'P0000032', '6654332', '1100.00', '2016-06-10 17:44:05', 0),
-(33, 'P0000033', '654322', '2250.00', '2016-06-20 18:30:59', 1),
-(36, 'P0000036', '5432', '953.00', '2016-06-20 18:30:59', 1),
-(37, 'P0000037', '4325', '751.45', '2016-06-13 17:26:38', 0),
-(38, 'P0000038', '247', '650.00', '2016-06-20 18:30:59', 1),
-(39, 'P0000039', '554', '188.37', '2016-06-20 18:30:59', 1),
-(40, 'P0000040', '629', '1140.00', '2016-06-20 18:30:59', 1),
-(41, 'P0000041', '437', '63.70', '2016-06-20 18:30:59', 1),
-(42, 'P0000042', '6643', '260.00', '2016-06-20 19:19:19', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `shipdets`
 --
 
@@ -774,49 +460,6 @@ CREATE TABLE `shipdets` (
   `AddrId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `shipdets`
---
-
-INSERT INTO `shipdets` (`shipid`, `Attn`, `Date`, `Method`, `AddrId`) VALUES
-(2, 'Mr XYZ', '05/26/2016', 'FedEx', 1),
-(6, 'Mr ABC', '06/08/2016', 'USPS', 1),
-(8, 'Mr ABC', '05/27/2016', 'UTI', 1),
-(9, 'Mr ABC', '05/31/2016', 'UTI', 1),
-(11, 'Mr XYZ', '05/25/2016', 'UPS', 1),
-(12, 'Mr PQR', '06/16/2016', 'UTI', 1),
-(13, 'Mr ABC', '05/25/2016', 'FedEx', 1),
-(14, 'Mr XYZ', '05/30/2016', 'Freight', 1),
-(15, 'Mr XYZA', '05/30/2016', 'USPS', 1),
-(16, 'Mr XYZ', '05/27/2016', 'UPS', 1),
-(17, 'Mr ABC', '05/26/2016', 'UPS', 1),
-(18, 'Mr XYZA', '05/31/2016', 'UPS', 1),
-(19, 'Mr XYZA', '05/25/2016', 'Freight', 1),
-(20, 'Mr XYZ', '05/27/2016', 'FedEx', 1),
-(22, 'Mr XYZA', '05/28/2016', 'FedEx', 1),
-(23, 'Mr ABC ', '05/27/2016', 'UPS', 1),
-(24, 'Mr XYZ', '05/31/2016', 'USPS', 1),
-(25, 'Mr XYZ', '06/15/2016', 'Freight', 1),
-(26, 'Mr XYZA', '06/08/2016', 'Freight', 1),
-(27, 'Mr LMN', '06/16/2016', 'Freight', 1),
-(28, 'Mr XYZ', '06/10/2016', 'Freight', 1),
-(29, 'Mr ABC', '06/17/2016', 'UTI', 5),
-(30, 'Mr dkfjd', '06/28/2016', 'UPS', 1),
-(31, 'cvsdvds', '06/23/2016', 'UPS', 1),
-(32, 'Mr XYZA', '06/28/2016', 'Freight', 5),
-(33, 'Mr ABC', '05/26/2016', 'UPS', 1),
-(34, 'Mr XYZA', '05/31/2016', 'UPS', 1),
-(35, 'Mr PQR', '06/18/2016', 'UPS', 1),
-(36, 'LMN PQR', '06/29/2016', 'UPS', 1),
-(39, 'Accounts Receivable', '06/22/2016', 'Your Truck', 7),
-(40, 'Victor Jovanovic', '06/16/2016', 'FedEx', 8),
-(41, 'PARI', '06/23/2016', 'Your Truck', 7),
-(42, 'PARI', '06/21/2016', 'Your Truck', 1),
-(43, 'PARI', '06/16/2016', 'Your Truck', 1),
-(44, 'PARI', '06/17/2016', 'Your Truck', 1),
-(45, 'Attention', '06/28/2016', 'UPS', 5);
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `shippingaddr`
@@ -831,19 +474,6 @@ CREATE TABLE `shippingaddr` (
   `Country` varchar(30) NOT NULL,
   `ZipCode` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `shippingaddr`
---
-
-INSERT INTO `shippingaddr` (`AddrId`, `Name`, `Address`, `City`, `State`, `Country`, `ZipCode`) VALUES
-(1, 'PARI Robotics Inc, Rochester Hills', '2930 Technology Drive', 'Rochester Hills', 'MI', 'USA', '48309'),
-(5, 'PARI Inc', '1984 ABC Dr', 'Madison Heigths', 'MI', 'USA', '48072'),
-(6, 'Residence', '1910 Golfview Dr', 'Troy', 'MI', 'USA', '48084'),
-(7, 'PARI Robotics inc', '1001 W 13 Mile Road', 'Madison Heights', 'MI', 'USA', '48071'),
-(8, 'Ford Essex Engine Plant', '1 Quality Way', 'Windsor', 'ON', 'Canada', 'N9A 6X3');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
@@ -865,19 +495,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `First Name`, `Last Name`, `LoginId`, `LoginPwd`, `Email`, `Type`, `Active`) VALUES
-(1, 'Admin', 'User', 'admin', 'abcd', 'aakritid@pariusa.com', 6, 1),
-(2, 'General', 'User', 'general', 'abcd123', 'aakritid@pariusa.com', 1, 1),
-(3, 'Project', 'Engg', 'projeng', 'abcd123', 'aakritid@pariusa.com', 2, 1),
-(4, 'Project', 'Manager', 'projman', 'abcd123', 'aakritid@pariusa.com', 3, 1),
-(5, 'Buyer', '', 'buyer', 'abcd123', 'aakritid@pariusa.com', 4, 1),
-(6, 'Management', 'User', 'manage', 'abcd123', 'aakritid@pariusa.com', 5, 1),
-(7, 'ABC', 'PQR', 'abcdid', 'abcd123', 'aakritid@pariusa.com', 3, 1),
-(8, 'Gen', 'user', 'general1', 'genpwd', 'abcd@pariusa.com', 1, 0),
-(11, 'Aakriti', 'Dubey', 'aakritid', 'ad9833#', 'aakritid@pariusa.com', 1, 1),
-(14, 'ABC', 'LMN', 'abcdlmn', 'abcd123', 'abcdlmn@pariusa.com', 1, 1),
-(15, 'fgfd', 'kjjkh', 'bhjbj', 'abc4', 'jhewjkrhw@jfr.com', 1, 1),
-(16, 'dsff', 'kjk', 'jkknjk', 'abcd', 'jdkskj@fkljd.com', 1, 1),
-(17, 'XYZ', 'LMN', 'xyzlmn', 'abcd', 'xyzlmn@pariusa.com', 2, 1);
+(1, 'Admin', 'User', 'admin', 'admin', 'admin@pariusa.com', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -906,9 +524,8 @@ INSERT INTO `usertypes` (`id`, `Type`, `JCCreate`, `Approval`, `BudgAlloc`, `Rep
 (2, 'Project Engineer', 0, 1, 0, 0, 0, 1, '5500.00'),
 (3, 'Project Manager', 0, 1, 0, 1, 0, 1, '10000.00'),
 (4, 'Buyer', 0, 0, 0, 0, 0, 1, '0.00'),
-(5, 'Management', 1, 1, 1, 1, 0, 1, '5500.00'),
-(6, 'Administrator', 1, 1, 1, 1, 1, 1, '500000.00'),
-(7, 'HR', 0, 0, 0, 0, 0, 1, '0.00');
+(5, 'Management', 1, 1, 1, 1, 0, 1, '50000.00'),
+(6, 'Administrator', 1, 1, 1, 1, 1, 1, '100000.00');
 
 -- --------------------------------------------------------
 
@@ -1435,9 +1052,7 @@ INSERT INTO `vendor` (`VendorCode`, `VendorName`, `VendorAddress`) VALUES
 (506, 'Workshop Media (ACH)', 'Workshop Media Group 590 Hemingway Rd Lake Orion, MI  48362 '),
 (507, 'XRI TESTING (ACH)', 'X-Ray Industries, Inc. 1961 Thunderbird Troy, MI 48084 '),
 (508, 'YourBigSign.com', 'YourBigSign.com 3440 Fenton Rd, Hartland, Hartland, MI 48353 '),
-(509, 'Zorotools.com', 'Zoro Tools, Inc. 1000 Ashbury Drive, Suite 1 Buffalo Grove, IL  60089 '),
-(511, 'ABC', '1234 PQR DrTroy, MI'),
-(512, 'JKL', '1 JKL Dr Chicago, IL');
+(509, 'Zorotools.com', 'Zoro Tools, Inc. 1000 Ashbury Drive, Suite 1 Buffalo Grove, IL  60089 ');
 
 --
 -- Indexes for dumped tables
@@ -1531,47 +1146,47 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `itemdescr`
 --
 ALTER TABLE `itemdescr`
-  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `jobcode`
 --
 ALTER TABLE `jobcode`
-  MODIFY `JCId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=332;
+  MODIFY `JCId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=317;
 --
 -- AUTO_INCREMENT for table `purdets`
 --
 ALTER TABLE `purdets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `requester`
 --
 ALTER TABLE `requester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `shipdets`
 --
 ALTER TABLE `shipdets`
-  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `shippingaddr`
 --
 ALTER TABLE `shippingaddr`
-  MODIFY `AddrId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `AddrId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `usertypes`
 --
 ALTER TABLE `usertypes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
-  MODIFY `VendorCode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=513;
+  MODIFY `VendorCode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=510;
 --
 -- Constraints for dumped tables
 --
@@ -1621,7 +1236,3 @@ ALTER TABLE `shipdets`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`Type`) REFERENCES `usertypes` (`id`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
