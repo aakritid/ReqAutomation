@@ -37,7 +37,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  
+   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
   <script>
   function submitData(){
 	 
@@ -64,6 +64,14 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 $('#resModal').on('hidden.bs.modal', function () {
 	window.location="PurchaseRequisition.php";
 });
+
+$(document).ajaxStart(function(){
+        $("#load").css("display", "block");
+    });
+    $(document).ajaxComplete(function(){
+        $("#load").css("display", "none");
+    });
+
 });
   </script>
 </head>
@@ -81,6 +89,9 @@ $('#resModal').on('hidden.bs.modal', function () {
       </div>
       <div class="modal-body" id='datamodal'>
         <p class="" id="resVal"></p>
+		<div id="load" class="col-sm-8 pull-right" style="display:none">
+		<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+		</div>
       </div>
       <div class="modal-footer">
 	      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
