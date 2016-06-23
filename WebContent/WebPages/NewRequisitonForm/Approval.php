@@ -17,12 +17,21 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
 		$result = $conn->query($qry);
 		$user=$result->fetch_assoc();
-        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd']) || $user['Active'] != 1) {
            header("WWW-Authenticate: Basic realm=\"Private Area\"");
             header("HTTP/1.0 401 Unauthorized");
             print "You Are not authorized to view the page!";
             exit;						
         }
+		else {
+			$qry1="Select * from usertypes where id=".$user['Type'];
+			$result = $conn->query($qry1);
+			$auth=$result->fetch_assoc();
+			 if ($auth['Approval']==0){
+				print "You Are not authorized to view the page!";
+				exit;
+			 }
+		}
 		
 }
  $conn->close();
@@ -143,10 +152,11 @@ $auth=$result->fetch_assoc();
 $qry='';
 
 if($auth['id']==5 || $auth['id']==6)		
-	$qry="select count(*) from requistion join purdets on requistion.Id=purdets.id join requester on purdets.ReqsId=requester.id where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$_SESSION['ReqstId'];
+{	$qry="select count(*) from requistion join purdets on requistion.Id=purdets.id join requester on purdets.ReqsId=requester.id where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel']."  AND ((requester.UserId<>".$_SESSION['ReqstId'].") OR (requester.UserId=".$_SESSION['ReqstId']." AND requistion.SelfApp=1))";
+	}
 else if($auth['id']==2 || $auth['id']==3)
-	$qry="select count(*) from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$_SESSION['ReqstId'];	
-
+{	$qry="select count(*) from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel']." AND ((requester.UserId<>".$_SESSION['ReqstId'].") OR (requester.UserId=".$_SESSION['ReqstId']." AND requistion.SelfApp=1))";
+	}
 $result = $conn->query($qry);
 $reqs=$result->fetch_assoc();
 $records=$reqs['count(*)'];
@@ -264,9 +274,10 @@ $records=$reqs['count(*)'];
 		<tbody id="reqTable">
 		  <?php
 		  if($auth['id']==5 || $auth['id']==6)
-				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$_SESSION['ReqstId'];
-		else if($auth['id']==2 || $auth['id']==3)
-				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$_SESSION['ReqstId'];	
+		  {	$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel']." AND ((requester.UserId<>".$_SESSION['ReqstId'].") OR (requester.UserId=".$_SESSION['ReqstId']." AND requistion.SelfApp=1))";
+			 }
+		  else if($auth['id']==2 || $auth['id']==3)
+				$qry="select requistion.ReqNo,requester.Name, jobcode.JobCode, requistion.TotalCost, DATE_FORMAT(requistion.Date,'%d %b %Y %h:%i %p') from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel']." AND ((requester.UserId<>".$_SESSION['ReqstId'].") OR (requester.UserId=".$_SESSION['ReqstId']." AND requistion.SelfApp=1))";
 		   $result = $conn->query($qry);
 			
 		   for($reqs=1; $reqs<=$records; $reqs++){

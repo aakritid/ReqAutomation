@@ -106,6 +106,7 @@ $active=$_SESSION["active"];
 			echo 'Error in commit';
 		echo $err;
 	}
+(include 'emailapp.php');
 $conn->close();
 
 ?>

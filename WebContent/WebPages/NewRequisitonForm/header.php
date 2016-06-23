@@ -26,9 +26,9 @@ $qry='';
 $unapproved=0;
 
 if($auth['id']==5 || $auth['id']==6)		
-	$qry="select count(*) from requistion join purdets on requistion.Id=purdets.id join requester on purdets.ReqsId=requester.id where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$user['id'];
+	$qry="select count(*) from requistion join purdets on requistion.Id=purdets.id join requester on purdets.ReqsId=requester.id where requistion.Id not in (select ReqId from approval) AND requistion.TotalCost<=".$auth['CostLevel']." AND ((requester.UserId<>".$_SESSION['ReqstId'].") OR (requester.UserId=".$_SESSION['ReqstId']." AND requistion.SelfApp=1))";
 else if($auth['id']==2 || $auth['id']==3)
-	$qry="select count(*) from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel']." AND requester.UserId<>".$user['id'];	
+	$qry="select count(*) from purdets INNER join requistion on requistion.Id=purdets.id INNER JOIN jobcode on purdets.JobCode=jobcode.JCId INNER join requester on purdets.ReqsId=requester.id where purdets.id not in (select ReqId from approval) AND jobcode.JobCode IN (select JobCode from jobcode where PM=".$user['id'].") AND requistion.TotalCost<=".$auth['CostLevel']." AND ((requester.UserId<>".$_SESSION['ReqstId'].") OR (requester.UserId=".$_SESSION['ReqstId']." AND requistion.SelfApp=1))";
 
 if($auth['Approval']!=0){
 $result = $conn->query($qry);

@@ -17,7 +17,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
 		$result = $conn->query($qry);
 		$user=$result->fetch_assoc();
-        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd']) || $user['Active'] != 1) {
            header("WWW-Authenticate: Basic realm=\"Private Area\"");
             header("HTTP/1.0 401 Unauthorized");
             print "You Are not authorized to view the page!";
@@ -77,25 +77,30 @@ function budget(type,str){
 		str=document.getElementById('ddown').value;
 		var nb=document.getElementById('nbudg').value;
 		var pm=document.getElementById('npm').value;
+		var sa=document.getElementById('selfa').checked;
+		if(sa==true)
+			sa=1;
+		else
+			sa=0;
 		$.ajax({
 		type: "POST",
 		url: "Budget.php",
 		cache: false,
-		data:  {'type': type, 'jc': str, 'newBudg': nb, 'newPm':pm},
+		data:  {'type': type, 'jc': str, 'newBudg': nb, 'newPm':pm, 'selfA':sa},
 		success: function(html) {
 			if(html==11 || html==1){
 				$('#resVal').addClass("alert-success");
-			document.getElementById('resVal').innerHTML="<h4>Success!</h4>Budget Set Successfully!";
+			document.getElementById('resVal').innerHTML="<h4>Success!</h4>Project Changes Set Successfully!";
 			}
 			else{
 				$('#resVal').addClass("alert-danger");
 				
-			document.getElementById('resVal').innerHTML="<h4>Error!</h4>Budget Set Failed.";
+			document.getElementById('resVal').innerHTML="<h4>Error!</h4>Failed to Save Changes.";
 			}
 		}
 		});
 		$('#resModal').modal();
-		return false;	
+		return false;
 	}
 	
 }
@@ -195,7 +200,7 @@ $('#resModal').on('hidden.bs.modal', function () {
 						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
 							<?php
-							$query="SELECT * from users";
+							$query="SELECT * from users where Active=1";
 							$result = $conn->query($query);
 							while ($row = $result->fetch_assoc()) {
 								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";

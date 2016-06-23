@@ -18,7 +18,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$qry="select * from users where LoginId= '".$_SERVER['PHP_AUTH_USER']."'";
 		$result = $conn->query($qry);
 		$user=$result->fetch_assoc();
-        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd'])) {
+        if ($result->num_rows==0 || ($_SERVER['PHP_AUTH_PW'] != $user['LoginPwd']) || $user['Active'] != 1 )  {
            header("WWW-Authenticate: Basic realm=\"Private Area\"");
             header("HTTP/1.0 401 Unauthorized");
             print "You Are not authorized to view the page!";
@@ -343,7 +343,7 @@ $_SESSION['ReqstId']=$user['id'];
 						<select id="jcdd" class="form-control" name="shipMethod" id="shipMethod">
 							<option value="">Select</option>
 							<?php
-							$query="SELECT * from users";
+							$query="SELECT * from users where Active=1";
 							$result = $conn->query($query);
 							while ($row = $result->fetch_assoc()) {
 								echo "<option value='" . $row['id'] . "'>" . $row['First Name'] ." ". $row['Last Name']. "</option>";

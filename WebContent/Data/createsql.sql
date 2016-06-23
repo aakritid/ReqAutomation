@@ -16,7 +16,7 @@ LINES TERMINATED BY ',,,,,\r\n'
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2016 at 09:10 PM
+-- Generation Time: Jun 20, 2016 at 09:22 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.5.33
 
@@ -152,7 +152,8 @@ INSERT INTO `itemdescr` (`itemid`, `ItemNo`, `Descr`, `Quantity`, `UnitDesc`, `U
 (70, 'PAZ29B016105', 'Resting Pad - PAZ29B016105', 8, 'each', '75.00', '$600.00'),
 (71, 'PAZ29B105018', 'Nylon Block 2 - PAZ29B105018', 4, 'each', '135.00', '$540.00'),
 (72, 'WK4.4T-*RS4.4T/S1587', 'Cables type: sensor required cable length: 10', 3, 'ea', '12.74', '$38.22'),
-(73, 'WK4.4T-*RS4.4T/S1587', 'Cables type: sensor required cable length: 10', 2, 'ea', '12.74', '$25.48');
+(73, 'WK4.4T-*RS4.4T/S1587', 'Cables type: sensor required cable length: 10', 2, 'ea', '12.74', '$25.48'),
+(74, '6547-ZZ1', 'Spares', 4, 'ea', '65.00', '$260.00');
 
 -- --------------------------------------------------------
 
@@ -225,7 +226,8 @@ INSERT INTO `itemmap` (`ReqId`, `ItemId`) VALUES
 (40, 70),
 (40, 71),
 (41, 72),
-(41, 73);
+(41, 73),
+(42, 74);
 
 -- --------------------------------------------------------
 
@@ -257,11 +259,11 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `Tot
 (1, 'US13003 - Tigershark Rework', 'INDIA Rework related to manufacturing issues (100/0)', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (2, 'US13004 - Tigershark MECR''s', 'INC  all new changes should have own job code', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (3, 'US14005 - Tigershark Warranty - India', 'INDIA Warranty (Material or design defects  software bugs)', '131.00', '369.00', 0, '10500.00', '500.00', '0.00', '0.00', '0.00', 6, 0),
-(4, 'US14006 - Tigershark Spares', 'INC', '1334.00', '1196.00', 4, '2400.00', '2400.00', '0.00', '0.00', '0.00', 6, 0),
+(4, 'US14006 - Tigershark Spares', 'INC', '1334.00', '1196.00', 4, '2400.00', '2400.00', '0.00', '0.00', '0.00', 6, 1),
 (5, 'US14044AA - TS OP97 India Procurement', 'INDIA  Additional Material or Personnel Support Required', '5000.00', '0.00', 7, '51000.00', '5000.00', '6500.00', '6000.00', '5000.00', 10, 0),
 (6, 'US14044AB - TS OP97 India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '10689.00', '1812.00', 7, '12501.00', '12501.00', '0.00', '0.00', '0.00', 6, 0),
 (7, 'US14044AC - TS OP97 India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '26052.25', '23947.75', 0, '50000.00', '50000.00', '0.00', '0.00', '0.00', 6, 0),
-(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '4200.00', '5080.00', 7, '9500.00', '5000.00', '0.00', '0.00', '0.00', 6, 0),
+(8, 'US14044BA - TS OP97 Sales Commission', 'INC  Code for Commissions', '4200.00', '5080.00', 7, '9500.00', '5000.00', '0.00', '0.00', '0.00', 6, 1),
 (9, 'US14044BB - TS OP97 Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '7000.00', '0.00', 0, '7000.00', '7000.00', '0.00', '0.00', '0.00', 6, 0),
 (10, 'US14044BC - TS OP97 Inc Warranty', 'INC  Warranty (support labor  application software help)', '2633.00', '6014.00', 0, '14000.00', '8000.00', '0.00', '0.00', '0.00', 6, 0),
 (11, 'US14044BD - TS OP97 Inc Install', 'INC  Portion of LABOR at customer site (see budget)', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
@@ -337,7 +339,7 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `Tot
 (81, 'SP14001 - Fanuc Spares 2014-15', 'INC Spare Parts (thru India)', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (82, 'SP15002 - Fanuc Spares 2015-16', 'INC Spare Parts (thru India)', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (83, 'US15007AA - Ferrari Block India Procurem', 'INDIA  Additional Material or Personnel Support Required', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
-(84, 'US15007AB - Ferrari India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '2718.63', '2281.37', 0, '5000.00', '5000.00', '0.00', '0.00', '0.00', 6, 0),
+(84, 'US15007AB - Ferrari India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '2718.63', '2281.37', 7, '5000.00', '5000.00', '0.00', '0.00', '0.00', 6, 1),
 (85, 'US15007AC - Ferrari India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (86, 'US15007BA - Ferrari Sales Commission', 'INC  Code for Commissions', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (87, 'US15007BB - Ferrari Inc Project Mgmt', 'INC  Code for Project Mgmt Hours', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
@@ -369,7 +371,7 @@ INSERT INTO `jobcode` (`JCId`, `JobCode`, `Descr`, `Budget`, `Spent`, `PM`, `Tot
 (113, 'US15009BF - GMET Block Telesis RMC Trans', 'INC  Cost of Telesis Order ONLY MATERIAL', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (114, 'US15009BG - GMET Block ASI RMC Transfer', 'INC  Cost of ASI Order ONLY MATERIAL', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (115, 'US15009BH - GMET Block Inc Integration', 'INC  Portion of costs to Integrate prior to Customer Site', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
-(116, 'US15010AA - GMET Crank India Procurement', 'INDIA  Additional Material or Personnel Support Required', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
+(116, 'US15010AA - GMET Crank India Procurement', 'INDIA  Additional Material or Personnel Support Required', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 1),
 (117, 'US15010AB - GMET Crank India Rework', 'INDIA  Rework related to manufacturing (Material & Labor)', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (118, 'US15010AC - GMET Crank India Warranty', 'INDIA  Warranty (material or design defects  software bugs)', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
 (119, 'US15010BA - GMET Crank Sales Commission', 'INC  Code for Commissions', '1000.00', '0.00', 0, '1000.00', '1000.00', '0.00', '0.00', '0.00', 6, 0),
@@ -640,7 +642,8 @@ INSERT INTO `purdets` (`id`, `ReqsId`, `JobCode`, `VendorId`, `ShipId`, `Budgete
 (38, 42, 84, 172, 41, 0, '654', '', 0, ''),
 (39, 43, 84, 363, 42, 0, '987', '', 0, ''),
 (40, 44, 84, 172, 43, 0, '6554', '', 0, ''),
-(41, 45, 116, 472, 44, 0, '553', '', 0, '');
+(41, 45, 116, 472, 44, 0, '553', '', 0, ''),
+(42, 46, 4, 8, 45, 0, '6522', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -697,7 +700,8 @@ INSERT INTO `requester` (`id`, `ReqsId`, `Name`, `Phno`, `Fno`, `Email`, `UserId
 (42, '', 'General User', '', '', 'fa@fab.com', 2),
 (43, '', 'General User', '', '', 'abc@pt.com', 2),
 (44, '', 'General User', '', '', 'fc@fc.com', 2),
-(45, '', 'General User', '', '', 'turck@tc.com', 2);
+(45, '', 'General User', '', '', 'turck@tc.com', 2),
+(46, '', 'Project Manager', '', '', 'abcd@1234.com', 4);
 
 -- --------------------------------------------------------
 
@@ -710,49 +714,51 @@ CREATE TABLE `requistion` (
   `ReqNo` varchar(8) NOT NULL,
   `RefQuote` varchar(20) NOT NULL,
   `TotalCost` decimal(10,2) NOT NULL,
-  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `SelfApp` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `requistion`
 --
 
-INSERT INTO `requistion` (`Id`, `ReqNo`, `RefQuote`, `TotalCost`, `Date`) VALUES
-(2, 'P0000002', '3432432', '120.00', '2016-05-16 15:32:32'),
-(4, 'P0000004', '4234', '1812.00', '2016-05-16 16:11:11'),
-(5, 'P0000005', '5432', '684.00', '2016-05-16 16:31:22'),
-(6, 'P0000006', '452342', '1056.00', '2016-05-16 16:32:11'),
-(7, 'P0000007', '4234', '408.00', '2016-05-16 16:47:00'),
-(8, 'P0000008', '5654332', '130.00', '2016-05-16 17:03:03'),
-(9, 'P0000009', '432432', '989.00', '2016-05-16 17:06:11'),
-(10, 'P0000010', '452342', '369.00', '2016-05-16 17:11:11'),
-(11, 'P0000011', '45432231', '384.00', '2016-05-16 17:17:17'),
-(12, 'P0000012', '4434521', '3621.00', '2016-05-16 17:42:36'),
-(13, 'P0000013', '54364232', '540.00', '2016-05-17 13:45:15'),
-(14, 'P0000014', '42345521', '960.00', '2016-05-17 17:00:01'),
-(15, 'P0000015', '765768', '427.00', '2016-05-23 13:42:30'),
-(16, 'P0000016', '54366343', '126.00', '2016-05-23 13:47:18'),
-(18, 'P0000018', '776554', '531.50', '2016-05-23 16:02:02'),
-(19, 'P0000019', '35324121', '8750.00', '2016-05-24 15:17:03'),
-(20, 'P0000020', '6534343', '960.00', '2016-05-24 15:21:05'),
-(21, 'P0000021', '65332345', '480.00', '2016-05-24 15:32:00'),
-(22, 'P0000022', '764543211', '1095.00', '2016-05-31 18:57:37'),
-(23, 'P0000023', '76434235', '752.00', '2016-06-02 13:18:43'),
-(24, 'P0000024', '87754343', '720.00', '2016-06-02 18:24:19'),
-(25, 'P0000025', '6353', '220.00', '2016-06-06 18:30:20'),
-(27, 'P0000027', '54353245', '2250.00', '2016-06-07 18:28:21'),
-(28, 'P0000028', '5435', '15423.75', '2016-06-07 18:55:52'),
-(29, 'P0000029', '5635543', '1500.00', '2016-06-07 19:02:11'),
-(30, 'P0000030', '54364232', '400.00', '2016-06-08 16:17:16'),
-(31, 'P0000031', '42345521', '1560.00', '2016-06-08 17:19:33'),
-(32, 'P0000032', '6654332', '1100.00', '2016-06-10 17:44:05'),
-(33, 'P0000033', '654322', '2250.00', '2016-06-10 18:36:10'),
-(36, 'P0000036', '5432', '953.00', '2016-06-13 15:16:42'),
-(37, 'P0000037', '4325', '751.45', '2016-06-13 17:26:38'),
-(38, 'P0000038', '247', '650.00', '2016-06-14 19:42:26'),
-(39, 'P0000039', '554', '188.37', '2016-06-14 19:51:34'),
-(40, 'P0000040', '629', '1140.00', '2016-06-14 19:55:15'),
-(41, 'P0000041', '437', '63.70', '2016-06-14 20:10:58');
+INSERT INTO `requistion` (`Id`, `ReqNo`, `RefQuote`, `TotalCost`, `Date`, `SelfApp`) VALUES
+(2, 'P0000002', '3432432', '120.00', '2016-05-16 15:32:32', 0),
+(4, 'P0000004', '4234', '1812.00', '2016-05-16 16:11:11', 0),
+(5, 'P0000005', '5432', '684.00', '2016-05-16 16:31:22', 0),
+(6, 'P0000006', '452342', '1056.00', '2016-05-16 16:32:11', 0),
+(7, 'P0000007', '4234', '408.00', '2016-05-16 16:47:00', 0),
+(8, 'P0000008', '5654332', '130.00', '2016-05-16 17:03:03', 0),
+(9, 'P0000009', '432432', '989.00', '2016-05-16 17:06:11', 0),
+(10, 'P0000010', '452342', '369.00', '2016-05-16 17:11:11', 0),
+(11, 'P0000011', '45432231', '384.00', '2016-05-16 17:17:17', 0),
+(12, 'P0000012', '4434521', '3621.00', '2016-05-16 17:42:36', 0),
+(13, 'P0000013', '54364232', '540.00', '2016-06-20 18:30:59', 1),
+(14, 'P0000014', '42345521', '960.00', '2016-05-17 17:00:01', 0),
+(15, 'P0000015', '765768', '427.00', '2016-05-23 13:42:30', 0),
+(16, 'P0000016', '54366343', '126.00', '2016-05-23 13:47:18', 0),
+(18, 'P0000018', '776554', '531.50', '2016-05-23 16:02:02', 0),
+(19, 'P0000019', '35324121', '8750.00', '2016-05-24 15:17:03', 0),
+(20, 'P0000020', '6534343', '960.00', '2016-05-24 15:21:05', 0),
+(21, 'P0000021', '65332345', '480.00', '2016-05-24 15:32:00', 0),
+(22, 'P0000022', '764543211', '1095.00', '2016-05-31 18:57:37', 0),
+(23, 'P0000023', '76434235', '752.00', '2016-06-02 13:18:43', 0),
+(24, 'P0000024', '87754343', '720.00', '2016-06-20 18:30:59', 1),
+(25, 'P0000025', '6353', '220.00', '2016-06-06 18:30:20', 0),
+(27, 'P0000027', '54353245', '2250.00', '2016-06-07 18:28:21', 0),
+(28, 'P0000028', '5435', '15423.75', '2016-06-07 18:55:52', 0),
+(29, 'P0000029', '5635543', '1500.00', '2016-06-20 18:30:59', 1),
+(30, 'P0000030', '54364232', '400.00', '2016-06-20 18:30:59', 1),
+(31, 'P0000031', '42345521', '1560.00', '2016-06-08 17:19:33', 0),
+(32, 'P0000032', '6654332', '1100.00', '2016-06-10 17:44:05', 0),
+(33, 'P0000033', '654322', '2250.00', '2016-06-20 18:30:59', 1),
+(36, 'P0000036', '5432', '953.00', '2016-06-20 18:30:59', 1),
+(37, 'P0000037', '4325', '751.45', '2016-06-13 17:26:38', 0),
+(38, 'P0000038', '247', '650.00', '2016-06-20 18:30:59', 1),
+(39, 'P0000039', '554', '188.37', '2016-06-20 18:30:59', 1),
+(40, 'P0000040', '629', '1140.00', '2016-06-20 18:30:59', 1),
+(41, 'P0000041', '437', '63.70', '2016-06-20 18:30:59', 1),
+(42, 'P0000042', '6643', '260.00', '2016-06-20 19:19:19', 1);
 
 -- --------------------------------------------------------
 
@@ -807,7 +813,8 @@ INSERT INTO `shipdets` (`shipid`, `Attn`, `Date`, `Method`, `AddrId`) VALUES
 (41, 'PARI', '06/23/2016', 'Your Truck', 7),
 (42, 'PARI', '06/21/2016', 'Your Truck', 1),
 (43, 'PARI', '06/16/2016', 'Your Truck', 1),
-(44, 'PARI', '06/17/2016', 'Your Truck', 1);
+(44, 'PARI', '06/17/2016', 'Your Truck', 1),
+(45, 'Attention', '06/28/2016', 'UPS', 5);
 
 -- --------------------------------------------------------
 
@@ -865,7 +872,7 @@ INSERT INTO `users` (`id`, `First Name`, `Last Name`, `LoginId`, `LoginPwd`, `Em
 (5, 'Buyer', '', 'buyer', 'abcd123', 'aakritid@pariusa.com', 4, 1),
 (6, 'Management', 'User', 'manage', 'abcd123', 'aakritid@pariusa.com', 5, 1),
 (7, 'ABC', 'PQR', 'abcdid', 'abcd123', 'aakritid@pariusa.com', 3, 1),
-(8, 'Gen', 'user', 'general1', 'genpwd', 'abcd@pariusa.com', 1, 1),
+(8, 'Gen', 'user', 'general1', 'genpwd', 'abcd@pariusa.com', 1, 0),
 (11, 'Aakriti', 'Dubey', 'aakritid', 'ad9833#', 'aakritid@pariusa.com', 1, 1),
 (14, 'ABC', 'LMN', 'abcdlmn', 'abcd123', 'abcdlmn@pariusa.com', 1, 1),
 (15, 'fgfd', 'kjjkh', 'bhjbj', 'abc4', 'jhewjkrhw@jfr.com', 1, 1),
@@ -1524,7 +1531,7 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `itemdescr`
 --
 ALTER TABLE `itemdescr`
-  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `jobcode`
 --
@@ -1534,17 +1541,17 @@ ALTER TABLE `jobcode`
 -- AUTO_INCREMENT for table `purdets`
 --
 ALTER TABLE `purdets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `requester`
 --
 ALTER TABLE `requester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `shipdets`
 --
 ALTER TABLE `shipdets`
-  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `shipid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `shippingaddr`
 --
