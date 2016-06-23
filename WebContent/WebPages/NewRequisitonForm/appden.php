@@ -42,7 +42,7 @@ if($_POST['request']=='process'){
 	}	
 	else if($request=='denyConfirm'){
 		$reason=$_POST['reason'];
-		$qry="insert into approval (ReqId, AppDen, Reason) values (".$reqid.",1,'".$reason."')";
+		$qry="insert into approval (ReqId, AppDen, Reason, Approver) values (".$reqid.",1,'".$reason."',".$_SESSION['ReqstId'].")";
 		$conn->query($qry);
 		echo (1);
 	}
