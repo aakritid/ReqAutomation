@@ -19,10 +19,10 @@ while($users=$result->fetch_assoc()){
 		$reqs=$result1->fetch_assoc();
 		$unapproved=$reqs['count(*)'];
 	}
-	$msg = $users['First Name']. " You have ".$unapproved." requisitions pending for approval.";
+	$msg = sprintf("You have %d requisitions pending for approval. Please approve at the earliest.\n\n\n\n THIS IS A SYSTEM GENERATED E-MAIL. PLEASE DO NOT REPLY.",$unapproved);
 
-	$msg = wordwrap($msg,70);
-	mail($users['Email'],"Approval Update",$msg);
+	$msg = wordwrap($msg,100);
+	mail($users['Email'],"Requisition Update",$msg);
 	
 	}
 ?>
